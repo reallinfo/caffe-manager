@@ -19,3 +19,38 @@ body {
 }
 
 /* Side menu */
+.mainMenu{
+  background-color: #d3d3d3;
+  min-width: 180px;
+  border: 3px solid black;
+  border-radius: 2px;
+  margin-top: 20px;
+  margin-left: 10px;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.links{
+  color: black;
+  position: relative;
+  top: 6px;
+  margin-left: 20px;
+  font-weight: bold;
+  display: block;
+}
+
+.activeLink{
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.mainMenuLink{
+  height: 36px;
+  display: block;
+  text-decoration: none;
+  font-size: 17px;
+  text-align: left;
+  border-radius: 5px;
+}
