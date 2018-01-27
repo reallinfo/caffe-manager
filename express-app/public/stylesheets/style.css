@@ -1,0 +1,14 @@
+body {
+  background-color: #4c4c4c;
+  padding: 50px;
+}
+
+.form-control {
+  max-width: 300px;
+}
+
+.registerForm,
+.loginForm {
+  width: 50%;
+  margin: 0 auto;
+}

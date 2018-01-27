@@ -1,0 +1,12 @@
+<h1>Welcome to Index Page</h1>
+
+<ul>
+  {{#if user}}
+    <p> You are currently logged in as: {{user.username}}</p>
+    <a href="/logout">LOGOUT</a>
+  {{else}}
+    <a href="/login">LOGIN</a>
+    <br>
+    <a href="/register">REGISTER</a>
+  {{/if}}
+<ul>
