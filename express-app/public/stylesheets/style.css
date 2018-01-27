@@ -1,5 +1,5 @@
 body {
-  background-color: #4c4c4c;
+  background-color: #f4f4f4;
   padding: 50px;
 }
 
@@ -12,3 +12,10 @@ body {
   width: 50%;
   margin: 0 auto;
 }
+
+.loggedUser {
+  color: black;
+  font-weight: bold;
+}
+
+/* Side menu */

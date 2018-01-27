@@ -1,12 +1,13 @@
-<h1>Welcome to Index Page</h1>
 
-<ul>
+  <!-- User can see -->
   {{#if user}}
-    <p> You are currently logged in as: {{user.username}}</p>
-    <a href="/logout">LOGOUT</a>
+    <h1>Welcome to Index Page</h1>
+    <ul>
+      <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
+      <a href="/logout" class="logoutButton">Logout</a>
+    </ul>
+  <!-- ./ User can see -->
   {{else}}
-    <a href="/login">LOGIN</a>
-    <br>
-    <a href="/register">REGISTER</a>
+      <h2>You are not logged in and should not be here :(</h2>
   {{/if}}
 <ul>

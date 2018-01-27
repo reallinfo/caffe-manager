@@ -21,7 +21,7 @@ userController.doRegister = function(req, res) {
         return res.render('register');
       }
       passport.authenticate('local')(req, res, function () {
-        res.redirect('/');
+        res.redirect('/login');
       });
     });
 };
@@ -41,7 +41,7 @@ userController.doLogin = function(req, res) {
 // logout
 userController.logout = function(req, res) {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 };
 
 module.exports = userController;
