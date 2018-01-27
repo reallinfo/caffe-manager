@@ -8,6 +8,8 @@ Press 'F1' to show the server log:
 
 ![Server-Log](screenshots/server-log.png)
 
+## Dependencies
+
 #### Before start: Please note that this approach is intended for use in Windows platform, any other OS approach would need some changes, contributions are very welcome :)
 
 ## First
