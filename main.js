@@ -5,8 +5,10 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 // process.env.NODE_ENV = 'production';
 
 let mainWindow;
+let addUserWindow;
+let addStorageWindow;
 
-function createMainWindow() {
+app.on("ready", function(){
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
@@ -20,19 +22,12 @@ function createMainWindow() {
   //mainWindow.webContents.openDevTools();
   mainWindow.on("closed", function() {
     mainWindow = null;
+    app.quit();
   });
   // Build menu from mainMenuTemplate
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   // Insert menu
   Menu.setApplicationMenu(mainMenu);
-};
-
-app.on("ready", createMainWindow);
-
-app.on("window-all-closed", function() {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
 });
 
 app.on("activate", function() {
@@ -44,18 +39,12 @@ app.on("activate", function() {
 // Create menu template
 const mainMenuTemplate = [
   {
-    label: 'Items',
+    label: 'Admin',
     submenu: [
       {
-        label: 'Add Item',
+        label: 'Add new user',
         click(){
-          createAddWindow();
-        }
-      },
-      {
-        label: 'Clear Items',
-        click(){
-          mainWindow.webContents.send('item:clear');
+          createAddUserWindow();
         }
       },
       {
@@ -76,16 +65,62 @@ const mainMenuTemplate = [
         click(){
           createStorageWindow();
         }
-      },
-      {
-        label: 'Delete all storages',
-        click(){
-          mainWindow.webContents.send('storage:delete');
-        }
       }
     ]
   }
 ];
+
+// Handle Add Window
+function createAddUserWindow() {
+  // Create new window
+  addUserWindow = new BrowserWindow({
+    title: 'Add new user',
+    width: 400,
+    height: 300,
+    // frame: false,
+    show: false,
+    alwaysOnTop: true
+  });
+  // Show window after it is fully loaded
+  addUserWindow.once('ready-to-show', () => {
+    addUserWindow.show();
+  });
+  // Load html into addUserWindow
+  addUserWindow.loadURL(`file://${__dirname}/windows/addUserWindow.html`);
+  // Garbage collection handle
+  addUserWindow.on('close', function(){
+    addUserWindow = null;
+  });
+  addUserWindow.setMenu(null);
+  addUserWindow.webContents.openDevTools();
+}
+
+// Handle Storage Window
+function createStorageWindow(){
+  // Create new window
+  addStorageWindow = new BrowserWindow({
+    title: 'Create storage',
+    width: 400,
+    height: 300,
+    maximizable: false,
+    alwaysOnTop: true,
+    // frame: false,
+    show: false,
+    alwaysOnTop: true
+  });
+  // Show window after it is fully loaded
+  addStorageWindow.once('ready-to-show', () => {
+    addStorageWindow.show();
+  });
+  // Load html into addStorageWindow
+  addStorageWindow.loadURL(`file://${__dirname}/windows/addStorageWindow.html`);
+  // Garbage collection handle
+  addStorageWindow.on('close', function(){
+    addWindow = null;
+  });
+  addStorageWindow.setMenu(null);
+  addStorageWindow.webContents.openDevTools();
+}
 
 // If Mac, add empty object to menu to remove the empty space
 if(process.platform == 'darwin'){

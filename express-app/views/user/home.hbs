@@ -1,0 +1,25 @@
+
+{{#if user}}
+
+  <div class="row"> <!-- Row -->
+  <div class="col s3">
+    <div class="mainMenu"> <!-- Main menu -->
+      <ul id="userMenu">
+        <li class="mainMenuLink activeLink"><a class="links" href="/user/home">Home</a></li>
+      </ul>
+    </div> <!-- /.Main Menu -->
+  </div>
+  <div class="col s9"> <!-- Page Content -->
+      <h2>User Homepage</h2>
+      <ul>
+        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
+        <a href="/logout" class="logoutButton">Logout</a>
+      </ul>
+  </div> <!-- /.Page Content -->
+</div> <!-- /.Row -->
+{{else}}
+    <h2>You are not logged in and should not be here :(</h2>
+{{/if}}
+<ul>
+
+<!-- Create basic menu  -->

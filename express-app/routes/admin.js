@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../controllers/AuthController.js");
-/* GET users listing. */
+/* GET admin */
 
 /*
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/admin/warehouse', function(req, res) {
+  res.render('admin/warehouse.hbs', {});
 });
 
-*/
+
 module.exports = router;
+*/

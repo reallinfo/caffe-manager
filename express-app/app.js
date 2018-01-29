@@ -8,7 +8,7 @@ const express = require('express'),
       passport = require('passport'),
       LocalStrategy = require('passport-local').Strategy,
       routes = require('./routes/index'),
-      users = require('./routes/users');
+      admin = require('./routes/admin');
       app = express();
 
 mongoose.Promise = global.Promise;
@@ -35,7 +35,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-// app.use('/users', users);
+// app.use('/admin', admin);
 
 // Passport config
 const User = require('./models/user');
@@ -56,7 +56,15 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// Error handlers
+
+
+
+
+
+
+/*
+Error handlers
+*/
 
 // Development error handler
 // Will print stacktrace

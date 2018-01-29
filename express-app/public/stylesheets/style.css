@@ -7,10 +7,17 @@ body {
   max-width: 300px;
 }
 
-.registerForm,
 .loginForm {
-  width: 50%;
+  max-width: 300px;
   margin: 0 auto;
+}
+
+.registerForm{
+  max-width: 300px;
+}
+
+.formAddUser {
+  max-width: 250px;
 }
 
 .loggedUser {
@@ -19,3 +26,40 @@ body {
 }
 
 /* Side menu */
+.mainMenu{
+  background-color: #d3d3d3;
+  min-width: 180px;
+  border: 3px solid black;
+  border-radius: 2px;
+  margin-top: 20px;
+  margin-left: 10px;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.mainMenuLink{
+  height: 35px;
+  display: block;
+  text-decoration: none;
+  font-size: 17px;
+  text-align: left;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.links{
+  color: black;
+  position: relative;
+  top: 5px;
+  margin-left: 20px;
+  font-weight: bold;
+  display: block;
+}
+
+.activeLink{
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid black;
+}

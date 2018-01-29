@@ -1,0 +1,42 @@
+
+  {{#if user}}
+
+    <div class="row"> <!-- Row -->
+      <div class="col s3">
+        <div class="mainMenu"> <!-- Main menu -->
+          <ul>
+            <li class="mainMenuLink"><a class="links" href="/admin/home">Home</a></li>
+            <li class="mainMenuLink"><a class="links" href="/admin/warehouse">Warehouse</a></li>
+            <li class="mainMenuLink activeLink"><a class="links" href="/admin/manage_users">Manage users</a></li>
+          </ul>
+        </div> <!-- /.Main Menu -->
+      </div>
+
+      <div class="col s9"> <!-- Page Content -->
+
+          <h2>Manage users</h2>
+          <ul>
+            <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
+            <a href="/logout" class="logoutButton">Logout</a>
+          </ul>
+          <button id="btnOpenAddUserWindow" type="submit" class="btn waves-effect waves-light">Add new user</button>
+
+
+      </div> <!-- /.Page Content -->
+
+    </div> <!-- /.Row -->
+    <script>
+
+      var btnCreateUser = document.getElementById('btnCreateUser');
+      btnCreateUser.addEventListener('click', function(){
+        createAddUserWindow();
+      });
+
+    </script>
+
+  {{else}}
+      <h2>You are not logged in and should not be here :(</h2>
+  {{/if}}
+<ul>
+
+  <!-- Create basic menu  -->
