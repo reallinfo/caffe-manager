@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../controllers/AuthController.js");
-/* GET admin listing. */
+/* GET admin */
 
 /*
 router.get('/admin/warehouse', function(req, res) {

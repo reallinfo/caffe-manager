@@ -1,6 +1,6 @@
 
   {{#if user}}
-  
+
     <div class="row"> <!-- Row -->
     <div class="col s3">
       <div class="mainMenu"> <!-- Main menu -->
@@ -17,8 +17,10 @@
           <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
           <a href="/logout" class="logoutButton">Logout</a>
         </ul>
+        <button id="btnOpenStorageWindow" type="button" class="btn waves-effect waves-light">Create storage</button>
     </div> <!-- /.Page Content -->
 </div> <!-- /.Row -->
+
   {{else}}
       <h2>You are not logged in and should not be here :(</h2>
   {{/if}}

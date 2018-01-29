@@ -7,10 +7,17 @@ body {
   max-width: 300px;
 }
 
-.registerForm,
 .loginForm {
-  width: 50%;
+  max-width: 300px;
   margin: 0 auto;
+}
+
+.registerForm{
+  max-width: 300px;
+}
+
+.addUserForm {
+  max-width: 250px;
 }
 
 .loggedUser {

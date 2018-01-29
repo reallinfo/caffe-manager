@@ -18,10 +18,11 @@ userController.register = function(req, res) {
 userController.doRegister = function(req, res) {
   User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
       if (err) {
-        return res.render('register');
+      res.render('register');
+      return console.log('Error in Registration: '+err);
       }
       passport.authenticate('local')(req, res, function () {
-        res.redirect('/login');
+        res.redirect('/admin/manage_users');
       });
     });
 };
