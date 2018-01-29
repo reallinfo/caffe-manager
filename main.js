@@ -92,6 +92,7 @@ function createAddUserWindow() {
     addUserWindow = null;
   });
   addUserWindow.setMenu(null);
+  addUserWindow.webContents.openDevTools();
 }
 
 // Handle Storage Window
@@ -118,6 +119,7 @@ function createStorageWindow(){
     addWindow = null;
   });
   addStorageWindow.setMenu(null);
+  addStorageWindow.webContents.openDevTools();
 }
 
 // If Mac, add empty object to menu to remove the empty space

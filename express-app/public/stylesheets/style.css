@@ -16,7 +16,7 @@ body {
   max-width: 300px;
 }
 
-.addUserForm {
+.formAddUser {
   max-width: 250px;
 }
 
@@ -38,10 +38,21 @@ body {
   overflow-x: hidden; /* Disable horizontal scroll */
 }
 
+.mainMenuLink{
+  height: 35px;
+  display: block;
+  text-decoration: none;
+  font-size: 17px;
+  text-align: left;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .links{
   color: black;
   position: relative;
-  top: 6px;
+  top: 5px;
   margin-left: 20px;
   font-weight: bold;
   display: block;
@@ -51,13 +62,4 @@ body {
   text-decoration: none;
   background-color: white;
   border: 1px solid black;
-}
-
-.mainMenuLink{
-  height: 36px;
-  display: block;
-  text-decoration: none;
-  font-size: 17px;
-  text-align: left;
-  border-radius: 5px;
 }

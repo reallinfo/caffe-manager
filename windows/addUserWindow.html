@@ -5,23 +5,34 @@
     <title></title>
 
     <link rel="stylesheet" href="../express-app/public/stylesheets/materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="/css/windows-main.css">
+    <link rel="stylesheet" href="./css/windows-main.css">
   </head>
   <body>
     <div class="container">
-      <form id="addUserForm">
+      <form id="formAddUser">
         <div class="input-field col s12">
-          <input type="text" name="username" placeholder="Username">
+          <input type="text" name="username" id="newUserName" placeholder="Username">
         </div>
         <div class="input-field col s12">
-          <input type="password" name="password" placeholder="Password">
+          <input type="password" id="newUserPassword" name="password" placeholder="Password">
         </div>
-        <input id="btnAddImage" type="button" value="Add Image">
-        <br>
-        <button type="button" id="btnAddUser" class="btn waves-effect waves-light">Add</button>
+        <button type="submit" id="btnAddUser" class="btn waves-effect waves-light">Add</button>
       </form>
     </div>
 
-    <script src="js/main.js"></script>
+    <script>
+      // Add User Window
+      var formAddUser = document.querySelector('#formAddUser');
+      formAddUser.addEventListener('submit', submitFormAddUser);
+
+      function submitFormAddUser(e){
+        e.preventDefault();
+        var newUserName = document.querySelector('#newUserName').value;
+        var newUserPassword = document.querySelector('#newUserPassword').value;
+        alert('Username: '+newUserName+' Password: '+newUserPassword);
+        // works
+      };
+
+    </script>
   </body>
 </html>
