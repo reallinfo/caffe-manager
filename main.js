@@ -39,14 +39,8 @@ app.on("activate", function() {
 // Create menu template
 const mainMenuTemplate = [
   {
-    label: 'Admin',
+    label: 'File',
     submenu: [
-      {
-        label: 'Add new user',
-        click(){
-          createAddUserWindow();
-        }
-      },
       {
         label: 'Quit',
         accelerator: process.platform == 'darwin' ? 'Command+Q' :
@@ -56,71 +50,8 @@ const mainMenuTemplate = [
         }
       }
     ]
-  },
-  {
-    label: 'Storages',
-    submenu: [
-      {
-        label: 'Create new storage',
-        click(){
-          createStorageWindow();
-        }
-      }
-    ]
   }
 ];
-
-// Handle Add Window
-function createAddUserWindow() {
-  // Create new window
-  addUserWindow = new BrowserWindow({
-    title: 'Add new user',
-    width: 400,
-    height: 300,
-    // frame: false,
-    show: false,
-    alwaysOnTop: true
-  });
-  // Show window after it is fully loaded
-  addUserWindow.once('ready-to-show', () => {
-    addUserWindow.show();
-  });
-  // Load html into addUserWindow
-  addUserWindow.loadURL(`file://${__dirname}/windows/addUserWindow.html`);
-  // Garbage collection handle
-  addUserWindow.on('close', function(){
-    addUserWindow = null;
-  });
-  addUserWindow.setMenu(null);
-  addUserWindow.webContents.openDevTools();
-}
-
-// Handle Storage Window
-function createStorageWindow(){
-  // Create new window
-  addStorageWindow = new BrowserWindow({
-    title: 'Create storage',
-    width: 400,
-    height: 300,
-    maximizable: false,
-    alwaysOnTop: true,
-    // frame: false,
-    show: false,
-    alwaysOnTop: true
-  });
-  // Show window after it is fully loaded
-  addStorageWindow.once('ready-to-show', () => {
-    addStorageWindow.show();
-  });
-  // Load html into addStorageWindow
-  addStorageWindow.loadURL(`file://${__dirname}/windows/addStorageWindow.html`);
-  // Garbage collection handle
-  addStorageWindow.on('close', function(){
-    addWindow = null;
-  });
-  addStorageWindow.setMenu(null);
-  addStorageWindow.webContents.openDevTools();
-}
 
 // If Mac, add empty object to menu to remove the empty space
 if(process.platform == 'darwin'){

@@ -13,26 +13,35 @@
       </div>
 
       <div class="col s9"> <!-- Page Content -->
-
           <h2>Manage users</h2>
-          <ul>
-            <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
-            <a href="/logout" class="logoutButton">Logout</a>
-          </ul>
-          <button id="btnOpenAddUserWindow" type="submit" class="btn waves-effect waves-light">Add new user</button>
+          <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
+          <a href="/logout" class="adminLogoutButton">Logout</a>
+
+          <!-- div for displaying users -->
+          <div class="">
+            <ul id="listOfUsers">
+              <!-- Display all registered users -->
+            </ul>
+          </div>
+
+          <div class="registerForm">
+            <h5>Register new user</h5>
+            <form action="/register" method="post">
+              <div class="input-field col s12">
+                <input type="text" name="username" placeholder="Username">
+              </div>
+              <div class="input-field col s12">
+                <input type="password" name="password" placeholder="Password">
+              </div>
+              <div>
+              <button type="submit" class="waves-effect waves-light btn">Register</button>
+              </div>
+            </form>
+          </div>
 
 
       </div> <!-- /.Page Content -->
-
     </div> <!-- /.Row -->
-    <script>
-
-      var btnCreateUser = document.getElementById('btnCreateUser');
-      btnCreateUser.addEventListener('click', function(){
-        createAddUserWindow();
-      });
-
-    </script>
 
   {{else}}
       <h2>You are not logged in and should not be here :(</h2>

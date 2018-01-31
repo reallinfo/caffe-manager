@@ -9,17 +9,17 @@ userController.home = function(req, res) {
   res.render('index', { user : req.user });
 };
 
-// Go to registration page
+// Go to registration page - add user page
 userController.register = function(req, res) {
-  res.render('register', {});
+  res.render('admin/manage_users', { user: req.user });
 };
 
 // Post registration
 userController.doRegister = function(req, res) {
   User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
       if (err) {
-      res.render('register');
-      return console.log('Error in Registration: '+err);
+        res.render('register');
+        return console.log('Error in Registration: '+err);
       }
       passport.authenticate('local')(req, res, function () {
         res.redirect('/admin/manage_users');

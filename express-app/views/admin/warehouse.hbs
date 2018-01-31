@@ -13,11 +13,25 @@
     </div>
     <div class="col s9"> <!-- Page Content -->
         <h2>Warehouse</h2>
-        <ul>
-          <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
-          <a href="/logout" class="logoutButton">Logout</a>
-        </ul>
-        <button id="btnOpenStorageWindow" type="button" class="btn waves-effect waves-light">Create storage</button>
+        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
+
+        <form class="formCreateStorage" action="" method="post">
+          <h5>Create storage</h5>
+          <div class="input-field col s12">
+            <input type="text" id="storageName" placeholder="Storage Name">
+          </div>
+          <div>
+            <button type="button">Create</button>
+          </div>
+        </form>
+
+        <!-- div for displaying storages -->
+        <div>
+          <ul id="listOfStorages">
+            <!-- Display all registered users -->
+          </ul>
+        </div>
+
     </div> <!-- /.Page Content -->
 </div> <!-- /.Row -->
 

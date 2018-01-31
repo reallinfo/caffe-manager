@@ -8,7 +8,7 @@ const express = require('express'),
       passport = require('passport'),
       LocalStrategy = require('passport-local').Strategy,
       routes = require('./routes/index'),
-      admin = require('./routes/admin');
+      admin = require('./routes/admin'),
       app = express();
 
 mongoose.Promise = global.Promise;
@@ -55,8 +55,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
 
 
 
