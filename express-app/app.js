@@ -13,7 +13,6 @@ const express = require('express'),
 
 mongoose.Promise = global.Promise;
 
-
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

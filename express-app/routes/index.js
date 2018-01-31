@@ -26,14 +26,21 @@ router.get('/admin/home', function(req, res) {
   res.render('admin/home', { user: req.user });
 });
 
-// Get Admin Warehouse
-router.get('/admin/warehouse', function(req, res) {
-  res.render('admin/warehouse', { user: req.user });
-});
-
 // Get Admin Manage_users
 router.get('/admin/manage_users', function(req, res) {
   res.render('admin/manage_users', { user: req.user });
+});
+
+// Get Admin Warehouse
+router.get('/admin/warehouse', function(req, res) {
+  // Get storages by id
+  res.render('admin/warehouse', { user: req.user });
+});
+
+// Post Admin Warehouse
+router.post('/admin/warehouse', function(req, res) {
+  // Insert storage to mongodb
+  res.render('admin/warehouse', { user: req.user });
 });
 
 
