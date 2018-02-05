@@ -45,4 +45,6 @@ userController.logout = function(req, res) {
   res.redirect('/login');
 };
 
+
+
 module.exports = userController;

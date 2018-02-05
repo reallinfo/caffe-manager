@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require("../controllers/AuthController.js");
 
+const Storage = require('../models/storage');
+
 // Restrict index for logged in user only
 router.get('/', auth.home);
 
@@ -39,8 +41,18 @@ router.get('/admin/warehouse', function(req, res) {
 
 // Post Admin Warehouse
 router.post('/admin/warehouse', function(req, res) {
+  // Get storage name
+  let storage = new Storage();
+  storage.name = req.body.storageName;
   // Insert storage to mongodb
-  res.render('admin/warehouse', { user: req.user });
+  storage.save(function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      res.render('admin/warehouse', { user: req.user });
+    }
+  });
 });
 
 

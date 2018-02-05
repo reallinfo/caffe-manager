@@ -11,6 +11,8 @@ const express = require('express'),
       admin = require('./routes/admin'),
       app = express();
 
+const Storage = require('./models/storage');
+
 mongoose.Promise = global.Promise;
 
 // View engine setup
@@ -20,8 +22,8 @@ app.set('view engine', 'hbs');
 // Uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 // Initialize passport and express-session
 app.use(require('express-session')({
