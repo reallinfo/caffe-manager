@@ -46,7 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // Connect to a local Mongo Database
 mongoose.connect('mongodb://localhost/caffe-manager')
-.then(() =>  console.log('connection successful'))
+.then(() =>  console.log('Connection successful!'))
 .catch((err) => console.error(err));
 
 // Catch 404 and forward to error handler
@@ -56,8 +56,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
 
 
 

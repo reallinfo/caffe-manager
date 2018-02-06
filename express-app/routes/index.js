@@ -42,9 +42,9 @@ router.get('/admin/warehouse', function(req, res) {
 // Post Admin Warehouse
 router.post('/admin/warehouse', function(req, res) {
   // Get storage name
-  let storage = new Storage();
+  var storage = new Storage();
   storage.name = req.body.storageName;
-  // Insert storage to mongodb
+  // Insert storage in the db
   storage.save(function(err){
     if(err){
       console.log(err);
