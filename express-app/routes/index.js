@@ -44,15 +44,20 @@ router.post('/admin/warehouse', function(req, res) {
   // Get storage name
   var storage = new Storage();
   storage.name = req.body.storageName;
-  // Insert storage in the db
-  storage.save(function(err){
-    if(err){
-      console.log(err);
-      return;
-    }else{
-      res.render('admin/warehouse', { user: req.user });
-    }
-  });
+  // Check if the name exists and create storage in the db
+  if(storage.name != ''){
+    storage.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      }else{
+        res.render('admin/warehouse', { user: req.user });
+        console.log('Storage has been successfuly saved!');
+      }
+    });
+  }else{
+    return console.log('Error: Storage must have a name!');
+  }
 });
 
 

@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 let StorageSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   date:{
         type: Date,
         default: Date.now
