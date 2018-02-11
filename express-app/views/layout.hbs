@@ -5,10 +5,22 @@
 
     <link rel='stylesheet' href='/stylesheets/materialize/css/materialize.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
   </head>
   <body>
-    {{{body}}}
+    <!-- For sanity, don't require user when in development -->
+
+    <!-- Uncomment if/else before publishing -->
+    <!-- {#if user} -->
+      {{{body}}}
+
+      <!-- {else} -->
+          <!--
+            <h2>You are not logged in and should not be here :(</h2>
+          -->
+    <!-- {/if} -->
+
+    <script src='/js/jquery/jquery-3.2.1.min.js'></script>
+    <script src='/js/main.js'></script>
   </body>
 
 </html>

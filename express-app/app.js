@@ -8,11 +8,12 @@ const express = require('express'),
       passport = require('passport'),
       LocalStrategy = require('passport-local').Strategy,
       routes = require('./routes/index'),
-      admin = require('./routes/admin');
+      admin = require('./routes/admin'),
       app = express();
 
-mongoose.Promise = global.Promise;
+const Storage = require('./models/storage');
 
+mongoose.Promise = global.Promise;
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,8 +22,8 @@ app.set('view engine', 'hbs');
 // Uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 // Initialize passport and express-session
 app.use(require('express-session')({
@@ -45,7 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // Connect to a local Mongo Database
 mongoose.connect('mongodb://localhost/caffe-manager')
-.then(() =>  console.log('connection successful'))
+.then(() =>  console.log('Connection successful!'))
 .catch((err) => console.error(err));
 
 // Catch 404 and forward to error handler
@@ -55,10 +56,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 {
   "name": "electron-with-express",
-  "description": "Demonstrates spawning Express from Electron and using it to serve content",
+  "description": "Spawning Express from Electron and using it to serve content",
   "version": "0.0.1",
   "main": "main.js",
   "authors": [

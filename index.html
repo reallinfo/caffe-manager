@@ -59,19 +59,19 @@
   <script>
     window.$ = window.jQuery = require("./node_modules/jquery/dist/jquery.min.js");
 
-    const expressAppUrl = "http://localhost:3000/login",
-      spawn = require("child_process").spawn,
-      // For electron-packager
-      app = require('electron').remote.app,
-      node = spawn(".\\node.exe", ["./express-app/bin/www"], {
-        cwd: app.getAppPath()
-      }),
-      request = require("request"),
-      _ = require("lodash"),
-      key = require("keymaster"),
-      $serverLog = $("#serverLog"),
-      $expressApp = $("#expressApp"),
-      $loading = $("#loading");
+    const expressAppUrl = "http://localhost:3000/admin/home", /* Change to /login for production */
+          spawn = require("child_process").spawn,
+          // For electron-packager
+          app = require('electron').remote.app,
+          node = spawn(".\\node.exe", ["./express-app/bin/www"], {
+            cwd: app.getAppPath()
+          }),
+          request = require("request"),
+          _ = require("lodash"),
+          key = require("keymaster"),
+          $serverLog = $("#serverLog"),
+          $expressApp = $("#expressApp"),
+          $loading = $("#loading");
 
     key("f1", () => {
       if ($serverLog.css("display") === "none") {
