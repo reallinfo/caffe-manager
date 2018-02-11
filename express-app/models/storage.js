@@ -5,12 +5,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 let StorageSchema = new Schema({
   name: {
     type: String,
-    required: true
-  },
-  date:{
-        type: Date,
-        default: Date.now
-    }
+    unique: true
+  }
 });
 
 StorageSchema.plugin(passportLocalMongoose);

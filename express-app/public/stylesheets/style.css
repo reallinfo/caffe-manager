@@ -3,7 +3,20 @@ body {
   padding: 50px;
 }
 
+.divForStorageList {
+  max-width: 420px;
+}
+
+.storageEditButton {
+  position: relative;
+  left: 40%;
+}
+
 .form-control {
+  max-width: 300px;
+}
+
+.formEditStorage {
   max-width: 300px;
 }
 

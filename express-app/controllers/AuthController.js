@@ -6,12 +6,12 @@ var userController = {};
 
 // Restrict access to root page
 userController.home = function(req, res) {
-  res.render('index', { user : req.user });
+  res.render('index', { /*user : req.user*/ });
 };
 
 // Go to registration page - add user page
 userController.register = function(req, res) {
-  res.render('admin/manage_users', { user: req.user });
+  res.render('admin/manage_users', { /*user: req.user*/ });
 };
 
 // Post registration
@@ -29,7 +29,7 @@ userController.doRegister = function(req, res) {
 
 // Go to login page
 userController.login = function(req, res) {
-  res.render('login', { user : req.user });
+  res.render('login', { /*user : req.user*/ });
 };
 
 // Post login
