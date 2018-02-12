@@ -17,10 +17,11 @@
 
         <div class="divForStorageList">
           <ul id="storageList" class="collection">
-            {{#each storages}}
+            {{#each storages as |storage|}}
               <li class="collection-item">
                 <a href="/admin/warehouse/storage/{{_id}}">{{name}}</a>
                 <a class="storageEditButton waves-effect waves-light btn" href="/admin/warehouse/storage/edit/{{_id}}">Edit</a>
+                <a href="#" data-id="{{_id}}" class="delButton storageDeleteButton waves-effect waves-light btn">Delete</a>
               </li>
             {{/each}}
           </ul>

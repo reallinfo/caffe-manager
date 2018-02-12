@@ -7,11 +7,11 @@ const express = require('express'),
       mongoose = require('mongoose'),
       passport = require('passport'),
       LocalStrategy = require('passport-local').Strategy,
+      flash = require('connect-flash'),
       routes = require('./routes/index'),
       admin = require('./routes/admin'),
+      hbs = require('hbs'),
       app = express();
-
-const Storage = require('./models/storage');
 
 mongoose.Promise = global.Promise;
 
@@ -25,15 +25,18 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// Initialize passport and express-session
+// Express-session middleware
 app.use(require('express-session')({
     secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+    resave: true,
+    saveUninitialized: true
 }));
+// Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+// Connect Flash middleware
+app.use(flash());
 
 app.use('/', routes);
 // app.use('/admin', admin);
@@ -44,6 +47,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Mongoose models
+const Storage = require('./models/storage');
 // Connect to a local Mongo Database
 mongoose.connect('mongodb://localhost/caffe-manager')
 .then(() =>  console.log('Connection successful!'))
@@ -56,7 +61,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
 
 
 /*

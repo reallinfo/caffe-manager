@@ -67,6 +67,17 @@ router.post('/admin/warehouse', function(req, res) {
   }
 });
 
+router.delete('/storage/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  Storage.remove(query, function(err){
+    if(err){
+      console.log(err);
+    }
+    res.send('Success');
+  });
+});
+
 // Get single Storage by id
 router.get('/admin/warehouse/storage/:id', function(req, res){
   Storage.findById(req.params.id, function(err, storage){
@@ -90,7 +101,7 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
   // New storage object
   let storage = {};
   storage.name = req.body.newStorageName;
-  let query = {_id: req.params.id}
+  let query = {_id: req.params.id};
   // Check if the new name is typed and UPDATE storage in the db
   if(storage.name != ""){
     Storage.update(query, storage, function(err){

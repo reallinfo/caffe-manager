@@ -4,12 +4,17 @@ body {
 }
 
 .divForStorageList {
-  max-width: 420px;
+  max-width: 440px;
 }
 
 .storageEditButton {
   position: relative;
-  left: 40%;
+  left: 120px;
+}
+
+.storageDeleteButton {
+  position: relative;
+  left: 123px;
 }
 
 .form-control {
@@ -35,8 +40,8 @@ body {
 .formCreateStorage {
   max-width: 180px;
   position: relative;
-  left: 70%;
-  bottom: 80px;
+  left: 73%;
+  bottom: 160px;
 }
 
 .loggedUser {
