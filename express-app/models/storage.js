@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
-let StorageSchema = new Schema({
+const StorageSchema = new Schema({
   name: {
     type: String,
     unique: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
-});
+},{ autoIndex: false });
 
 StorageSchema.plugin(passportLocalMongoose);
 
