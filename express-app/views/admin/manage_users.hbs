@@ -17,9 +17,11 @@
         <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
         <a href="/logout" class="adminLogoutButton">Logout</a>
 
-        <div>
-          <ul id="listOfUsers">
-            <!-- Display all registered users -->
+        <div class="divForUserList">
+          <ul id="listOfUsers" class="collection">
+            {{#each users as |user|}}
+              <li class="collection-item">Username: {{username}}</li>
+            {{/each}}
           </ul>
         </div>
 
@@ -42,6 +44,6 @@
       </div> <!-- /.Page Content -->
     </div> <!-- /.Row -->
 
-  
+
 
   <!-- Create basic menu  -->

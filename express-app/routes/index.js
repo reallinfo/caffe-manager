@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../controllers/AuthController.js");
 
 const Storage = require('../models/storage');
+const User = require('../models/user');
 
 // Restrict index for logged in user only
 router.get('/', auth.home);
@@ -30,7 +31,16 @@ router.get('/admin/home', function(req, res) {
 
 // Get Admin Manage_users
 router.get('/admin/manage_users', function(req, res) {
-  res.render('admin/manage_users', { /*user: req.user*/ });
+  User.find({}, function(err, users){
+    if(err){
+      console.log(err);
+    }else{
+      res.render('admin/manage_users', {
+         /*user: req.user,*/
+         users: users
+       });
+    }
+  });
 });
 
 // Get Admin Warehouse
@@ -67,6 +77,7 @@ router.post('/admin/warehouse', function(req, res) {
   }
 });
 
+// Delete storage
 router.delete('/storage/delete/:id', function(req, res){
   let query = {_id: req.params.id};
 

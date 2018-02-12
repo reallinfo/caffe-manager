@@ -23,6 +23,7 @@ userController.doRegister = function(req, res) {
       }
       passport.authenticate('local')(req, res, function () {
         res.redirect('/admin/manage_users');
+        console.log('User successfuly created!');
       });
     });
 };
