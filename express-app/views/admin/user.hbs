@@ -6,18 +6,17 @@
       <div class="mainMenu"> <!-- Main menu -->
         <ul>
           <li class="mainMenuLink"><a class="links" href="/admin/home">Home</a></li>
-          <li class="mainMenuLink activeLink"><a class="links" href="/admin/warehouse">Warehouse</a></li>
-          <li class="mainMenuLink"><a class="links" href="/admin/manage_users">Manage users</a></li>
+          <li class="mainMenuLink"><a class="links" href="/admin/warehouse">Warehouse</a></li>
+          <li class="mainMenuLink activeLink"><a class="links" href="/admin/manage_users">Manage users</a></li>
         </ul>
       </div> <!-- /.Main Menu -->
     </div>
     
     <div class="col s9"> <!-- Page Content -->
-        <h2>Storage name: {{storage.name}}</h2>
-        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
-        <a href="/admin/warehouse">Back</a>
+        <h2>User: {{user.username}}</h2>
+        <a href="/admin/manage_users">Back</a>
 
-        <div class="singleStorageContent">
+        <div class="singleUserContent">
           <p>Content here...</p>
         </div>
 

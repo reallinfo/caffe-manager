@@ -111,6 +111,15 @@ router.get('/admin/warehouse/storage/:id', function(req, res){
   });
 });
 
+// Get single User by id
+router.get('/admin/manage_users/user/:id', function(req, res){
+  User.findById(req.params.id, function(err, user){
+    res.render('admin/user', {
+      user: user
+    });
+  });
+});
+
 // Get Edit storage form
 router.get('/admin/warehouse/storage/edit/:id', function(req, res){
   Storage.findById(req.params.id, function(err, storage){
