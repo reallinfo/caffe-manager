@@ -29,21 +29,24 @@ router.get('/admin/home', function(req, res) {
   res.render('admin/home', { /*user: req.user*/ });
 });
 
-// Get Admin Manage_users
-router.get('/admin/manage_users', function(req, res) {
-  User.find({}, function(err, users){
-    if(err){
-      console.log(err);
-    }else{
-      res.render('admin/manage_users', {
-         /*user: req.user,*/
-         users: users
-       });
-    }
+// Get Admin Manage_users - All Users
+router.get('/admin/manage_users', function(req, res, next) {
+  User.find()
+  .select('username date _id')
+  .exec()
+  .then(users => {
+    const response = {
+      count: users.length,
+      users: users
+    };
+    res.render('admin/manage_users', {
+       /*user: req.user,*/
+       users
+     });
   });
 });
 
-// Get Admin Warehouse
+// Get Admin Warehouse - All storages
 router.get('/admin/warehouse', function(req, res) {
   Storage.find({}, function(err, storages){
     if(err){
@@ -78,11 +81,23 @@ router.post('/admin/warehouse', function(req, res) {
   }
 });
 
-// Delete storage
+// Delete Storage
 router.delete('/storage/delete/:id', function(req, res){
   let query = {_id: req.params.id};
 
   Storage.remove(query, function(err){
+    if(err){
+      console.log(err);
+    }
+    res.send('Success');
+  });
+});
+
+// Delete User
+router.delete('/user/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  User.remove(query, function(err){
     if(err){
       console.log(err);
     }
@@ -99,7 +114,16 @@ router.get('/admin/warehouse/storage/:id', function(req, res){
   });
 });
 
-// Get Edit storage form
+// Get single User by id
+router.get('/admin/manage_users/user/:id', function(req, res){
+  User.findById(req.params.id, function(err, user){
+    res.render('admin/user', {
+      user: user
+    });
+  });
+});
+
+// Get Edit Storage page
 router.get('/admin/warehouse/storage/edit/:id', function(req, res){
   Storage.findById(req.params.id, function(err, storage){
     res.render('admin/edit_storage', {
@@ -108,7 +132,7 @@ router.get('/admin/warehouse/storage/edit/:id', function(req, res){
   });
 });
 
-// Edit storage by id - Update storage
+// Update single Storage by id
 router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
   // New storage object
   let storage = {};

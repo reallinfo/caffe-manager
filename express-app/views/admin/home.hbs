@@ -1,5 +1,8 @@
 
-
+<p class="loggedInAs">
+  Logged in as: <span class="loggedUser">{{user.username}}</span>
+  <a href="/logout" class="adminLogoutButton">Logout</a>
+</p>
 
   <div class="row"> <!-- Row -->
   <div class="col s3">
@@ -13,8 +16,6 @@
   </div>
   <div class="col s9"> <!-- Page Content -->
       <h2>Admin Homepage</h2>
-        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
-        <a href="/logout" class="adminLogoutButton">Logout</a>
 
   </div> <!-- /.Page Content -->
 </div> <!-- /.Row -->

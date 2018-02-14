@@ -3,61 +3,6 @@ body {
   padding: 50px;
 }
 
-.divForStorageList {
-  max-width: 440px;
-}
-
-.divForUserList{
-  max-width: 415px;
-}
-
-.storageEditButton {
-  position: relative;
-  left: 120px;
-}
-
-.storageDeleteButton {
-  position: relative;
-  left: 123px;
-}
-
-.form-control {
-  max-width: 300px;
-}
-
-.formEditStorage {
-  max-width: 300px;
-}
-
-.loginForm {
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.registerForm {
-  max-width: 200px;
-  position: absolute;
-  left: 75%;
-  bottom: 41%;
-}
-
-.formCreateStorage {
-  max-width: 180px;
-  position: absolute;
-  left: 75%;
-  bottom: 55%;
-}
-
-.loggedUser {
-  color: black;
-  font-weight: bold;
-}
-
-.adminLogoutButton {
-  position: relative;
-  bottom: 15px;
-}
-
 /* Side menu */
 .mainMenu{
   background-color: #d3d3d3;
@@ -95,4 +40,121 @@ body {
   text-decoration: none;
   background-color: white;
   border: 1px solid black;
+}
+
+.loggedInAs {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.adminBackBtn {
+  position: relative;
+  top: 0;
+  left: 90%;
+}
+
+.divForUserList{
+  width: 450px;
+  position: relative;
+  left: -12px;
+}
+
+.divForStorageList {
+  position: relative;
+  left: -12px;
+  max-width: 450px;
+}
+
+.storageLabel {
+  width: 450px;
+  height: 50px;
+}
+
+.userLabel {
+  width: 450px;
+  height: 50px;
+}
+
+.storageEditButton {
+  position: absolute;
+  right: 121px;
+  margin-top: -3px;
+  vertical-align: middle;
+  max-height: 34px;
+}
+
+.storageDeleteButton {
+  position: absolute;
+  right: 5px;
+  margin-top: -3px;
+  vertical-align: middle;
+  max-height: 34px;
+}
+
+.deleteUserBtn {
+  position: absolute;
+  right: 5px;
+  vertical-align: middle;
+  margin-top: -3px;
+  max-height: 34px;
+}
+
+.form-control {
+  max-width: 300px;
+}
+
+.formEditStorage {
+  max-width: 300px;
+}
+
+.loginForm {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.formCreateStorage {
+  max-width: 200px;
+  position: absolute;
+  left: 75%;
+  top: 25%;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.registerForm {
+  max-width: 200px;
+  position: absolute;
+  left: 75%;
+  top: 25%;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.registerUserHeading {
+  text-align: center;
+}
+
+.registerUserBtn{
+  width: 100%;
+}
+
+.createStorageHeading {
+  text-align: center;
+}
+
+.createStorageBtn {
+  width: 100%;
+}
+
+.loggedUser {
+  color: black;
+  font-weight: bold;
+}
+
+.adminLogoutButton {
+  position: relative;
+  left: 80%;
 }
