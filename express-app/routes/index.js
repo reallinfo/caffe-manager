@@ -29,21 +29,24 @@ router.get('/admin/home', function(req, res) {
   res.render('admin/home', { /*user: req.user*/ });
 });
 
-// Get Admin Manage_users
-router.get('/admin/manage_users', function(req, res) {
-  User.find({}, function(err, users){
-    if(err){
-      console.log(err);
-    }else{
-      res.render('admin/manage_users', {
-         /*user: req.user,*/
-         users: users
-       });
-    }
+// Get Admin Manage_users - All Users
+router.get('/admin/manage_users', function(req, res, next) {
+  User.find()
+  .select('username date _id')
+  .exec()
+  .then(users => {
+    const response = {
+      count: users.length,
+      users: users
+    };
+    res.render('admin/manage_users', {
+       /*user: req.user,*/
+       users
+     });
   });
 });
 
-// Get Admin Warehouse
+// Get Admin Warehouse - All storages
 router.get('/admin/warehouse', function(req, res) {
   Storage.find({}, function(err, storages){
     if(err){
@@ -120,7 +123,7 @@ router.get('/admin/manage_users/user/:id', function(req, res){
   });
 });
 
-// Get Edit storage form
+// Get Edit Storage page
 router.get('/admin/warehouse/storage/edit/:id', function(req, res){
   Storage.findById(req.params.id, function(err, storage){
     res.render('admin/edit_storage', {
@@ -129,7 +132,7 @@ router.get('/admin/warehouse/storage/edit/:id', function(req, res){
   });
 });
 
-// Edit storage by id - Update storage
+// Update single Storage by id
 router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
   // New storage object
   let storage = {};

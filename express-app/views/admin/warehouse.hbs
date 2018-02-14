@@ -1,5 +1,8 @@
 
-
+<p class="loggedInAs">
+  Logged in as: <span class="loggedUser">{{user.username}}</span>
+  <a href="/logout" class="adminLogoutButton">Logout</a>
+</p>
 
     <div class="row"> <!-- Row -->
     <div class="col s3">
@@ -13,13 +16,12 @@
     </div>
     <div class="col s9"> <!-- Page Content -->
         <h2>Warehouse</h2>
-        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
 
         <div class="divForStorageList">
           <ul id="storageList" class="collection storageList">
 
             {{#each storages as |storage|}}
-              <li class="collection-item">
+              <li class="collection-item storageLabel">
                 <a href="/admin/warehouse/storage/{{_id}}">{{name}}</a>
                 <a class="storageEditButton waves-effect waves-light btn" href="/admin/warehouse/storage/edit/{{_id}}">Edit</a>
                 <a href="#" data-id="{{_id}}" class="deleteStorageBtn storageDeleteButton waves-effect waves-light btn">Delete</a>
@@ -30,12 +32,12 @@
         </div>
 
         <form class="formCreateStorage" action="/admin/warehouse" method="post">
-          <h5>Create storage</h5>
+          <h5 class="createStorageHeading">Create storage</h5>
           <div class="input-field col s12">
-            <input type="text" name="storageName" id="inputStorageName" placeholder="Storage Name">
+            <input type="text" name="storageName" id="inputStorageName" placeholder="Storage name" maxlength="25">
           </div>
           <div>
-            <button type="submit" class="waves-effect waves-light btn">Create</button>
+            <button type="submit" class="createStorageButton waves-effect waves-light btn">Create</button>
           </div>
         </form>
 

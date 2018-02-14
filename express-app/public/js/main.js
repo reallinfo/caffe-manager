@@ -1,7 +1,7 @@
 
 // Delete Storage
 $(document).ready(function(){
-  $('.delButton').on('click', function(e){
+  $('.deleteStorageBtn').on('click', function(e){
     $target = $(e.target);
     let id = $target.attr('data-id');
     let confirmation = confirm('Storage will be deleted. Are you sure?');
@@ -36,6 +36,7 @@ $(document).ready(function(){
           window.location.href="/admin/manage_users";
         },
         error: function(err){
+          alert('An error has occurred!'+'Error: '+err);
           console.log(err);
         }
       });

@@ -12,10 +12,11 @@ app.on("ready", function(){
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
+    resizable: false,
     show: false
   });
   // Show window after it is fully loaded
-  mainWindow.once('ready-to-show', () => {
+  mainWindow.once('ready-to-show', function() {
     mainWindow.show();
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`);

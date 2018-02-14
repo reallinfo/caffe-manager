@@ -1,5 +1,8 @@
 
-
+<p class="loggedInAs">
+  <!-- Logged in as: <span class="loggedUser">{user.username}</span> -->
+  <a href="/admin/manage_users" class="adminBackBtn">Back</a>
+</p>
 
     <div class="row"> <!-- Row -->
     <div class="col s3">
@@ -11,10 +14,9 @@
         </ul>
       </div> <!-- /.Main Menu -->
     </div>
-    
+
     <div class="col s9"> <!-- Page Content -->
         <h2>User: {{user.username}}</h2>
-        <a href="/admin/manage_users">Back</a>
 
         <div class="singleUserContent">
           <p>Content here...</p>

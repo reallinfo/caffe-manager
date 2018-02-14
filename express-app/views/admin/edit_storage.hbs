@@ -1,5 +1,8 @@
 
-
+<p class="loggedInAs">
+  Logged in as: <span class="loggedUser">{{user.username}}</span>
+  <a href="/admin/warehouse" class="adminBackBtn">Back</a>
+</p>
 
 
     <div class="row"> <!-- Row -->
@@ -14,8 +17,6 @@
     </div>
     <div class="col s9"> <!-- Page Content -->
         <h2>Edit storage</h2>
-        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
-        <a href="/admin/warehouse">Back</a>
 
         <form class="formEditStorage" action="/admin/warehouse/storage/edit/{{storage._id}}" method="post">
           <div class="input-field col s12">

@@ -1,5 +1,8 @@
 
-
+<p class="loggedInAs">
+  Logged in as: <span class="loggedUser">{{user.username}}</span>
+  <a href="/admin/warehouse" class="adminBackBtn">Back</a>
+</p>
 
     <div class="row"> <!-- Row -->
     <div class="col s3">
@@ -11,11 +14,9 @@
         </ul>
       </div> <!-- /.Main Menu -->
     </div>
-    
+
     <div class="col s9"> <!-- Page Content -->
         <h2>Storage name: {{storage.name}}</h2>
-        <p> Logged in as: <span class="loggedUser">{{user.username}}</span></p>
-        <a href="/admin/warehouse">Back</a>
 
         <div class="singleStorageContent">
           <p>Content here...</p>
