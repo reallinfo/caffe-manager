@@ -73,7 +73,8 @@ router.post('/admin/warehouse', function(req, res) {
       }
     });
   }else{
-    return console.log('Error: Storage must have a name!');
+    console.log('Error: Storage must have a name!');
+    return;
   }
 });
 

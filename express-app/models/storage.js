@@ -5,13 +5,14 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const StorageSchema = new Schema({
   name: {
     type: String,
-    unique: true
+    unique: true,
+    required: true
   },
   date: {
     type: Date,
     default: Date.now
   }
-},{ autoIndex: false });
+}, { autoIndex: false });
 
 StorageSchema.plugin(passportLocalMongoose);
 
