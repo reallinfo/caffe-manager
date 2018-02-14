@@ -1,5 +1,6 @@
 
 
+// Delete Storage
 $(document).ready(function(){
   $('.delButton').on('click', function(e){
     $target = $(e.target);
@@ -10,7 +11,7 @@ $(document).ready(function(){
         type: 'DELETE',
         url: '/storage/delete/'+id,
         success: function(){
-          alert('Deleting Storage...');
+          alert('Storage has been successfuly deleted!');
           window.location.href="/admin/warehouse";
         },
         error: function(err){
@@ -20,3 +21,5 @@ $(document).ready(function(){
    }
   });
 });
+
+// Delete User
