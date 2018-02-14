@@ -11,14 +11,31 @@ body {
   max-width: 415px;
 }
 
+.storageList {
+  /* display: inline-block; */
+
+}
+
+.userList {
+  /* display: inline-block; */
+}
+
 .storageEditButton {
   position: relative;
   left: 120px;
+  vertical-align: middle;
 }
 
 .storageDeleteButton {
   position: relative;
   left: 123px;
+  vertical-align: middle;
+}
+
+.deleteUserBtn {
+  position: relative;
+  left: 40%;
+  vertical-align: middle;
 }
 
 .form-control {

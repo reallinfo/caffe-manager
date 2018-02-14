@@ -18,10 +18,15 @@
         <a href="/logout" class="adminLogoutButton">Logout</a>
 
         <div class="divForUserList">
-          <ul id="listOfUsers" class="collection">
+          <ul id="listOfUsers" class="collection userList">
+
             {{#each users as |user|}}
-              <li class="collection-item">Username: {{username}}</li>
+              <li class="collection-item">
+                Username: <a href="#">{{username}}</a>
+                <a href="#" data-id="{{_id}}" class="deleteUserBtn waves-effect waves-light btn">Delete</a>
+              </li>
             {{/each}}
+
           </ul>
         </div>
 

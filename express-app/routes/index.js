@@ -78,11 +78,23 @@ router.post('/admin/warehouse', function(req, res) {
   }
 });
 
-// Delete storage
+// Delete Storage
 router.delete('/storage/delete/:id', function(req, res){
   let query = {_id: req.params.id};
 
   Storage.remove(query, function(err){
+    if(err){
+      console.log(err);
+    }
+    res.send('Success');
+  });
+});
+
+// Delete User
+router.delete('/user/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  User.remove(query, function(err){
     if(err){
       console.log(err);
     }
