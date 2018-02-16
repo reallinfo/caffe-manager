@@ -66,7 +66,18 @@ body {
   max-width: 450px;
 }
 
+.divForArticleList {
+  position: relative;
+  left: -12px;
+  max-width: 450px;
+}
+
 .storageLabel {
+  width: 450px;
+  height: 50px;
+}
+
+.articleLabel {
   width: 450px;
   height: 50px;
 }
@@ -84,7 +95,23 @@ body {
   max-height: 34px;
 }
 
-.storageDeleteButton {
+.deleteStorageBtn {
+  position: absolute;
+  right: 5px;
+  margin-top: -3px;
+  vertical-align: middle;
+  max-height: 34px;
+}
+
+.articleEditBtn {
+  position: absolute;
+  right: 121px;
+  margin-top: -3px;
+  vertical-align: middle;
+  max-height: 34px;
+}
+
+.articleDeleteBtn {
   position: absolute;
   right: 5px;
   margin-top: -3px;
@@ -159,7 +186,11 @@ body {
   width: 100%;
 }
 
-.createStorageBtn {
+.createStorageButton {
+  width: 100%;
+}
+
+.createArticleButton {
   width: 100%;
 }
 

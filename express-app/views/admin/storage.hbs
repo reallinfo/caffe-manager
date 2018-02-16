@@ -16,7 +16,8 @@
     </div>
 
     <div class="col s9"> <!-- Page Content -->
-        <h4>Storage name: {{storage.name}}</h4>
+        <h3>Storage name: {{storage.name}}</h3>
+        <h4>Articles: {{articles.count}}</h4>
 
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post">
 
@@ -31,14 +32,20 @@
           </form>
 
         <div class="singleStorageContent">
-          <ul>
-            {{#each articles as |article|}}
-                <li class="articleLabel">
-                  Article name: {{article.name}} | Quantity: {{article.quantity}}
-                </li>
-            {{/each}}
-          </ul>
-        </div>
+          <div class="divForArticleList">
+            <ul class="collection">
+
+              {{#each articles as |article|}}
+                  <li class="articleLabel collection-item">
+                    {{article.name}} | Quantity: {{article.quantity}}
+                    <a class="articleEditBtn waves-effect waves-light btn" href="#">Edit</a>
+                    <a class="articleDeleteBtn waves-effect waves-light btn" href="#">Delete</a>
+                  </li>
+              {{/each}}
+
+            </ul>
+          </div>
+        </div> <!-- ./single Storage content -->
 
 
     </div> <!-- /.Page Content -->

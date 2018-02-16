@@ -107,17 +107,21 @@ router.delete('/user/delete/:id', function(req, res) {
 });
 
 // Get single Storage by id
-router.get('/admin/warehouse/storage/:id', function(req, res) {
+router.get('/admin/warehouse/storage/:id', function(req, res, next) {
   Storage.findById(req.params.id, function(err, storage) {
-    Article.find({}, function(err, articles) {
-      if(err){
-        console.log(err);
-      }else{
-        res.render('admin/storage', {
-          storage: storage,
-          articles: articles
-        });
-      }
+    Article.find()
+    .select('name _id date quantity')
+    .exec()
+    .then(articles => {
+      const response = {
+        count: articles.length,
+        articles: articles
+      };
+      res.render('admin/storage', {
+         /*user: req.user,*/
+         articles,
+         storage: storage
+       });
     });
   });
 });
@@ -158,7 +162,8 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
       }
     });
   }else{
-    return console.log('Error: Storage must have a name so it can be updated!');
+    console.log('Error: Storage must have a name so it can be updated!');
+    return;
   }
 });
 
@@ -168,7 +173,7 @@ router.post('/admin/warehouse/storage/:id/create_article', function(req, res) {
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
   // Check if the name and quantity are typed and CREATE article in the db
-  if(article.name && article.quantity != '' || null){
+  if(article.name && article.quantity != ''){
     article.save(function(err){
       if(err){
         console.log(err);
