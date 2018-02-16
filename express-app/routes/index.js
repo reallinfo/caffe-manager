@@ -4,6 +4,7 @@ const auth = require("../controllers/AuthController.js");
 
 const Storage = require('../models/storage');
 const User = require('../models/user');
+const Article = require('../models/article');
 
 // Restrict index for logged in user only
 router.get('/', auth.home);
@@ -94,10 +95,10 @@ router.delete('/storage/delete/:id', function(req, res){
 });
 
 // Delete User
-router.delete('/user/delete/:id', function(req, res){
+router.delete('/user/delete/:id', function(req, res) {
   let query = {_id: req.params.id};
 
-  User.remove(query, function(err){
+  User.remove(query, function(err) {
     if(err){
       console.log(err);
     }
@@ -106,17 +107,24 @@ router.delete('/user/delete/:id', function(req, res){
 });
 
 // Get single Storage by id
-router.get('/admin/warehouse/storage/:id', function(req, res){
-  Storage.findById(req.params.id, function(err, storage){
-    res.render('admin/storage', {
-      storage: storage
+router.get('/admin/warehouse/storage/:id', function(req, res) {
+  Storage.findById(req.params.id, function(err, storage) {
+    Article.find({}, function(err, articles) {
+      if(err){
+        console.log(err);
+      }else{
+        res.render('admin/storage', {
+          storage: storage,
+          articles: articles
+        });
+      }
     });
   });
 });
 
 // Get single User by id
-router.get('/admin/manage_users/user/:id', function(req, res){
-  User.findById(req.params.id, function(err, user){
+router.get('/admin/manage_users/user/:id', function(req, res) {
+  User.findById(req.params.id, function(err, user) {
     res.render('admin/user', {
       user: user
     });
@@ -124,8 +132,8 @@ router.get('/admin/manage_users/user/:id', function(req, res){
 });
 
 // Get Edit Storage page
-router.get('/admin/warehouse/storage/edit/:id', function(req, res){
-  Storage.findById(req.params.id, function(err, storage){
+router.get('/admin/warehouse/storage/edit/:id', function(req, res) {
+  Storage.findById(req.params.id, function(err, storage) {
     res.render('admin/edit_storage', {
       storage: storage
     });
@@ -151,6 +159,28 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
     });
   }else{
     return console.log('Error: Storage must have a name so it can be updated!');
+  }
+});
+
+// Create article
+router.post('/admin/warehouse/storage/:id/create_article', function(req, res) {
+  let article = new Article();
+  article.name = req.body.newArticleName;
+  article.quantity = req.body.newArticleQuantity;
+  // Check if the name and quantity are typed and CREATE article in the db
+  if(article.name && article.quantity != '' || null){
+    article.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      }else{
+        res.redirect('back');;
+        console.log('Article has been successfuly saved!');
+      }
+    });
+  }else{
+    console.log('Error: Article must have a name and quantity!');
+    return;
   }
 });
 

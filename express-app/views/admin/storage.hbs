@@ -16,10 +16,28 @@
     </div>
 
     <div class="col s9"> <!-- Page Content -->
-        <h2>Storage name: {{storage.name}}</h2>
+        <h4>Storage name: {{storage.name}}</h4>
+
+          <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post">
+
+            <h5 class="createArticleHeading">Create article</h5>
+            <div class="input-field col s12">
+              <input type="text" name="newArticleName" placeholder="Name">
+            </div>
+            <div class="input-field col s12">
+              <input type="number" name="newArticleQuantity"  placeholder="Quantity">
+            </div>
+            <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
+          </form>
 
         <div class="singleStorageContent">
-          <p>Content here...</p>
+          <ul>
+            {{#each articles as |article|}}
+                <li class="articleLabel">
+                  Article name: {{article.name}} | Quantity: {{article.quantity}}
+                </li>
+            {{/each}}
+          </ul>
         </div>
 
 

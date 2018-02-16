@@ -1,8 +1,4 @@
 
-<<<<<<< HEAD
-
-=======
->>>>>>> delete-user
 // Delete Storage
 $(document).ready(function(){
   $('.deleteStorageBtn').on('click', function(e){
@@ -26,8 +22,6 @@ $(document).ready(function(){
 });
 
 // Delete User
-<<<<<<< HEAD
-=======
 $(document).ready(function(){
   $('.deleteUserBtn').on('click', function(e){
     $target = $(e.target);
@@ -49,4 +43,3 @@ $(document).ready(function(){
    }
   });
 });
->>>>>>> delete-user
