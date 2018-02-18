@@ -17,7 +17,7 @@
 
     <div class="col s9"> <!-- Page Content -->
         <h3>Storage name: {{storage.name}}</h3>
-        <h4>Articles: {{articles.count}}</h4>
+        <h4>Articles: {{response.count}}</h4>
 
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post">
 
@@ -35,11 +35,11 @@
           <div class="divForArticleList">
             <ul class="collection">
 
-              {{#each articles as |article|}}
+              {{#each response.articles as |article|}}
                   <li class="articleLabel collection-item">
-                    {{article.name}} | Quantity: {{article.quantity}}
-                    <a class="articleEditBtn waves-effect waves-light btn" href="#">Edit</a>
-                    <a class="articleDeleteBtn waves-effect waves-light btn" href="#">Delete</a>
+                    {{name}} | Quantity: {{quantity}}
+                    <a href="#" class="editArticleBtn waves-effect waves-light btn">Edit</a>
+                    <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
                   </li>
               {{/each}}
 

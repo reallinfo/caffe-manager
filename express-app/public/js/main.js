@@ -1,6 +1,8 @@
 
-// Delete Storage
+// Document Ready
 $(document).ready(function(){
+
+  // Delete Storage
   $('.deleteStorageBtn').on('click', function(e){
     $target = $(e.target);
     let id = $target.attr('data-id');
@@ -19,10 +21,8 @@ $(document).ready(function(){
       });
    }
   });
-});
 
-// Delete User
-$(document).ready(function(){
+  // Delete User
   $('.deleteUserBtn').on('click', function(e){
     $target = $(e.target);
     let id = $target.attr('data-id');
@@ -34,6 +34,7 @@ $(document).ready(function(){
         success: function(){
           alert('User has been successfuly deleted!');
           window.location.href="/admin/manage_users";
+          return;
         },
         error: function(err){
           alert('An error has occurred!'+'Error: '+err);
@@ -42,4 +43,30 @@ $(document).ready(function(){
       });
    }
   });
-});
+
+  // Delete Article
+  $('.deleteArticleBtn').on('click', function(e){
+    $target = $(e.target);
+    let dataId = $target.attr('data-id');
+    let confirmation = confirm('Article will be deleted. Are you sure?');
+    if(confirmation){
+      $.ajax({
+        type: 'DELETE',
+        url: '/article/delete/'+dataId,
+        success: function(){
+          alert('Article has been successfuly deleted!');
+          location.reload();
+          return;
+        },
+        error: function(err){
+          alert('An error has occurred!'+'Error: '+err);
+          console.log(err);
+        }
+      });
+    }
+  });
+
+
+}); // Document Ready
+
+

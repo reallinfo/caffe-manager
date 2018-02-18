@@ -108,7 +108,8 @@ router.delete('/user/delete/:id', function(req, res) {
 
 // Get single Storage by id
 router.get('/admin/warehouse/storage/:id', function(req, res, next) {
-  Storage.findById(req.params.id, function(err, storage) {
+  let query = req.params.id;
+  Storage.findById(query, function(err, storage) {
     Article.find()
     .select('name _id date quantity')
     .exec()
@@ -119,7 +120,7 @@ router.get('/admin/warehouse/storage/:id', function(req, res, next) {
       };
       res.render('admin/storage', {
          /*user: req.user,*/
-         articles,
+         response,
          storage: storage
        });
     });
@@ -169,6 +170,7 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
 
 // Create article
 router.post('/admin/warehouse/storage/:id/create_article', function(req, res) {
+  let query = {_id: req.params.id};
   let article = new Article();
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
@@ -179,7 +181,7 @@ router.post('/admin/warehouse/storage/:id/create_article', function(req, res) {
         console.log(err);
         return;
       }else{
-        res.redirect('back');;
+        res.redirect('back');
         console.log('Article has been successfuly saved!');
       }
     });
@@ -189,5 +191,19 @@ router.post('/admin/warehouse/storage/:id/create_article', function(req, res) {
   }
 });
 
+// Delete Article
+router.delete('/article/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  Article.remove(query, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      console.log('Article Deleted successfuly!');
+      res.send('Success');
+    }
+  });
+});
 
 module.exports = router;

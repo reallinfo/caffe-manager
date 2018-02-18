@@ -103,7 +103,7 @@ body {
   max-height: 34px;
 }
 
-.articleEditBtn {
+.editArticleBtn {
   position: absolute;
   right: 121px;
   margin-top: -3px;
@@ -111,7 +111,7 @@ body {
   max-height: 34px;
 }
 
-.articleDeleteBtn {
+.deleteArticleBtn {
   position: absolute;
   right: 5px;
   margin-top: -3px;
