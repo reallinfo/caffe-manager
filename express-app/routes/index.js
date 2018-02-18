@@ -7,7 +7,7 @@ const multer = require('multer');
 const multerStorage = multer.diskStorage({
   // Image storage destination
   destination: function(req, file, cb) {
-    cb(null, './express-app/uploads/')
+    cb(null, './images');
   },
   // Define Image name
   filename: function(req, file, cb) {
@@ -141,18 +141,23 @@ router.get('/admin/warehouse/storage/:id', function(req, res, next) {
   let query = req.params.id;
   Storage.findById(query, function(err, storage) {
     Article.find()
-    .select('name _id date quantity inStorage')
+    .select('name _id date quantity inStorage image')
     .exec()
     .then(articles => {
       const response = {
         count: articles.length,
         articles: articles
       };
+
       res.render('admin/storage', {
-         /*user: req.user,*/
-         response,
-         storage: storage
-       });
+        response,
+        storage: storage
+      });
+
+    /*
+          res.status(201).json({response, storage: storage});
+      console.log('Articles are succesfully GET!');
+    */
     });
   });
 });
@@ -199,14 +204,14 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
 });
 
 // Create article
-router.post('/admin/warehouse/storage/:id/create_article', upload.single('articleImage'), function(req, res, next) {
-  console.log(req.file);
+router.post('/admin/warehouse/storage/:id/create_article', upload.single('image'), function(req, res, next) {
   let query = {_id: req.params.id};
   let article = new Article();
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
-  let inStorage = req.body.whichStorage;
-  article.inStorage = inStorage;
+  article.inStorage = req.body.whichStorage;
+  article.image = req.file.path;
+  console.log(article.image);
   // Check if the name and quantity are typed and CREATE article in the db
   if(article.name && article.quantity != ''){
     article.save(function(err){

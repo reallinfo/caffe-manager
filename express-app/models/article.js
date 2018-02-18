@@ -11,6 +11,9 @@ const ArticleSchema = new Schema({
     type: Number,
     required: true
   },
+  image: {
+    type: String
+  },
   inStorage: {
     type: String,
     required: true
@@ -19,7 +22,7 @@ const ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   }
-  
+
 }, { autoIndex: false });
 
 ArticleSchema.plugin(passportLocalMongoose);

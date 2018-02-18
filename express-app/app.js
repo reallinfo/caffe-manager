@@ -35,6 +35,8 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static('images'));
+
 // Connect Flash middleware
 app.use(flash());
 

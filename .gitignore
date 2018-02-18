@@ -6,8 +6,8 @@ package-lock.json
 ToDoList.txt
 /express-app/package-lock.json
 /express-app/node_modules
-/express-app/uploads/*.jpg
-/express-app/uploads/*.png
+/images/*jpg
+/images/*png
 
 
 #################
