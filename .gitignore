@@ -1,11 +1,13 @@
 node_modules/
-/express-app/node_modules
 node.exe
 node.lib
 yarn.lock
 package-lock.json
-/express-app/package-lock.json
 ToDoList.txt
+/express-app/package-lock.json
+/express-app/node_modules
+/express-app/uploads/*.jpg
+/express-app/uploads/*.png
 
 
 #################

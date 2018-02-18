@@ -19,6 +19,7 @@ const ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   }
+  
 }, { autoIndex: false });
 
 ArticleSchema.plugin(passportLocalMongoose);

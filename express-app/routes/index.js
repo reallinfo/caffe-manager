@@ -1,6 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const auth = require("../controllers/AuthController.js");
+const auth = require('../controllers/AuthController.js');
+const multer = require('multer');
+
+// Multer storage config
+const multerStorage = multer.diskStorage({
+  // Image storage destination
+  destination: function(req, file, cb) {
+    cb(null, './express-app/uploads/')
+  },
+  // Define Image name
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+// File filter for uploading images
+const fileFilter = (req, file, cb) => {
+  // Reject a file
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  }else{
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage, 
+  limits: {
+    fileSize: 1024 * 1024 * 3
+  },
+  fileFilter: fileFilter
+});
 
 const Storage = require('../models/storage');
 const User = require('../models/user');
@@ -169,7 +199,8 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
 });
 
 // Create article
-router.post('/admin/warehouse/storage/:id/create_article', function(req, res, storage) {
+router.post('/admin/warehouse/storage/:id/create_article', upload.single('articleImage'), function(req, res, next) {
+  console.log(req.file);
   let query = {_id: req.params.id};
   let article = new Article();
   article.name = req.body.newArticleName;
@@ -183,11 +214,12 @@ router.post('/admin/warehouse/storage/:id/create_article', function(req, res, st
         console.log(err);
         return;
       }else{
-        res.redirect('back');
+        res.status(201).json(article);  //res.redirect('back');
         console.log('Article has been successfuly saved!');
       }
     });
   }else{
+    console.log('Article name: '+article.name,'Article quantity: '+article.quantity)
     console.log('Error: Article must have a name and quantity!');
     return;
   }
