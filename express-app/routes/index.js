@@ -111,7 +111,7 @@ router.get('/admin/warehouse/storage/:id', function(req, res, next) {
   let query = req.params.id;
   Storage.findById(query, function(err, storage) {
     Article.find()
-    .select('name _id date quantity')
+    .select('name _id date quantity inStorage')
     .exec()
     .then(articles => {
       const response = {
@@ -169,11 +169,13 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
 });
 
 // Create article
-router.post('/admin/warehouse/storage/:id/create_article', function(req, res) {
+router.post('/admin/warehouse/storage/:id/create_article', function(req, res, storage) {
   let query = {_id: req.params.id};
   let article = new Article();
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
+  let inStorage = req.body.whichStorage;
+  article.inStorage = inStorage;
   // Check if the name and quantity are typed and CREATE article in the db
   if(article.name && article.quantity != ''){
     article.save(function(err){

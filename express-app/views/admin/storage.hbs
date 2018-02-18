@@ -22,6 +22,7 @@
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post">
 
             <h5 class="createArticleHeading">Create article</h5>
+            <input class="center-align" name="whichStorage" value="{{storage.name}}" readonly>
             <div class="input-field col s12">
               <input type="text" name="newArticleName" placeholder="Name">
             </div>
@@ -37,7 +38,7 @@
 
               {{#each response.articles as |article|}}
                   <li class="articleLabel collection-item">
-                    {{name}} | Quantity: {{quantity}}
+                    Name: {{name}} <br> Quantity: {{quantity}} <br> Storage: {{inStorage}}
                     <a href="#" class="editArticleBtn waves-effect waves-light btn">Edit</a>
                     <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
                   </li>

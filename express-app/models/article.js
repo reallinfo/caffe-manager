@@ -11,6 +11,10 @@ const ArticleSchema = new Schema({
     type: Number,
     required: true
   },
+  inStorage: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
