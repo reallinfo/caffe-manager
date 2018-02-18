@@ -10,7 +10,7 @@ body {
   border: 3px solid black;
   border-radius: 2px;
   margin-top: 20px;
-  margin-left: 10px;
+  margin-left: -15px;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   overflow-x: hidden; /* Disable horizontal scroll */
@@ -55,31 +55,61 @@ body {
 }
 
 .divForUserList{
-  width: 450px;
   position: relative;
-  left: -12px;
+  left: -45px;
+  max-width: 490px;
 }
 
 .divForStorageList {
   position: relative;
-  left: -12px;
-  max-width: 450px;
+  left: -45px;
+  max-width: 490px;
 }
 
 .divForArticleList {
   position: relative;
-  left: -12px;
-  max-width: 450px;
+  left: -45px;
+  max-width: 490px;
+}
+
+.articleLabelName {
+  color: black;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.storageLabelName {
+  font-weight: 600;
+  font-size: 17px;
+  position: relative;
+  top: 14%;
+  left: 0;
 }
 
 .storageLabel {
-  width: 450px;
+  width: 490px;
   height: 50px;
 }
 
 .articleLabel {
-  width: 450px;
+  width: 490px;
   height: 80px;
+  text-decoration: none;
+}
+
+.articleImage {
+  position: absolute;
+  left: 0%;
+  margin-top: -5px;
+  margin-left: 5px;
+  width: 80px;
+  height: 70px;
+  background-color: #f4f4f4;
+}
+
+.articleDetails {
+  position: relative;
+  left: 70px;
 }
 
 .userLabel {
@@ -91,7 +121,6 @@ body {
   position: absolute;
   right: 121px;
   margin-top: -3px;
-  vertical-align: middle;
   max-height: 34px;
 }
 
@@ -105,16 +134,16 @@ body {
 
 .editArticleBtn {
   position: absolute;
-  right: 121px;
-  margin-top: -3px;
+  right: -156px;
+  margin-top: -30px;
   vertical-align: middle;
   max-height: 34px;
 }
 
 .deleteArticleBtn {
   position: absolute;
-  right: 5px;
-  margin-top: -3px;
+  right: -273px;
+  margin-top: -30px;
   vertical-align: middle;
   max-height: 34px;
 }

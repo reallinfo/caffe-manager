@@ -33,19 +33,25 @@
           </form>
 
         <div class="singleStorageContent">
-          <div class="divForArticleList">
-            <ul class="collection">
 
+          <div class="divForArticleList">
+            <ul class="collection aL">
               {{#each response.articles as |article|}}
                   <li class="articleLabel collection-item">
-                    Name: {{name}} <br> Quantity: {{quantity}} <br> Storage: {{inStorage}}
-                    <a href="#" class="editArticleBtn waves-effect waves-light btn">Edit</a>
-                    <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
+                    <img class="articleImage" src="" alt="100x100">
+                    <span class="articleDetails">
+                      <span class="articleLabelName">{{name}}</span> 
+                      <br> Quantity: {{quantity}} 
+                      <br> Storage: {{inStorage}}
+                      <a href="#" class="editArticleBtn waves-effect waves-light btn">Edit</a>
+                      <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
+                    </span>
                   </li>
               {{/each}}
 
             </ul>
           </div>
+
         </div> <!-- ./single Storage content -->
 
 
