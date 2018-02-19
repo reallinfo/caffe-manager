@@ -10,7 +10,7 @@ $(document).ready(function(){
     if(confirmation){
       $.ajax({
         type: 'DELETE',
-        url: '/storage/delete/'+id,
+        url: '/admin/storage/delete/'+id,
         success: function(){
           alert('Storage has been successfuly deleted!');
           window.location.href="/admin/warehouse";
@@ -30,7 +30,7 @@ $(document).ready(function(){
     if(confirmation){
       $.ajax({
         type: 'DELETE',
-        url: '/user/delete/'+id,
+        url: '/admin/user/delete/'+id,
         success: function(){
           alert('User has been successfuly deleted!');
           window.location.href="/admin/manage_users";
@@ -52,7 +52,7 @@ $(document).ready(function(){
     if(confirmation){
       $.ajax({
         type: 'DELETE',
-        url: '/article/delete/'+dataId,
+        url: '/admin/article/delete/'+dataId,
         success: function(){
           alert('Article has been successfuly deleted!');
           location.reload();
@@ -67,5 +67,3 @@ $(document).ready(function(){
   });
 
 }); // Document Ready
-
-

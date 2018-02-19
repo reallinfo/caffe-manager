@@ -9,25 +9,6 @@ userController.home = function(req, res) {
   res.render('index', { /*user : req.user*/ });
 };
 
-// Go to registration page - add user page
-userController.register = function(req, res) {
-  res.render('admin/manage_users', { /*user: req.user*/ });
-};
-
-// Post registration
-userController.doRegister = function(req, res) {
-  User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
-      if (err) {
-        res.render('register');
-        return console.log('Error in Registration: '+err);
-      }
-      passport.authenticate('local')(req, res, function () {
-        res.redirect('/admin/manage_users');
-        console.log('User successfuly created!');
-      });
-    });
-};
-
 // Go to login page
 userController.login = function(req, res) {
   res.render('login', { /*user : req.user*/ });

@@ -8,7 +8,7 @@ const express = require('express'),
       passport = require('passport'),
       LocalStrategy = require('passport-local').Strategy,
       flash = require('connect-flash'),
-      routes = require('./routes/index'),
+      index = require('./routes/index'),
       admin = require('./routes/admin'),
       hbs = require('hbs'),
       app = express();
@@ -40,8 +40,8 @@ app.use('/images', express.static('images'));
 // Connect Flash middleware
 app.use(flash());
 
-app.use('/', routes);
-// app.use('/admin', admin);
+app.use('/', index);
+app.use('/admin', admin);
 
 // Passport config
 const User = require('./models/user');

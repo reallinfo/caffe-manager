@@ -8,16 +8,22 @@
     <div class="col s3">
       <div class="mainMenu"> <!-- Main menu -->
         <ul>
-          <li class="mainMenuLink"><a class="links" href="/admin/home">Home</a></li>
-          <li class="mainMenuLink activeLink"><a class="links" href="/admin/warehouse">Warehouse</a></li>
-          <li class="mainMenuLink"><a class="links" href="/admin/manage_users">Manage users</a></li>
+          <li class="mainMenuLink">
+            <a class="links" href="/admin/home">Home</a>
+          </li>
+          <li class="mainMenuLink activeLink">
+            <a class="links" href="/admin/warehouse">Warehouse</a>
+          </li>
+          <li class="mainMenuLink">
+            <a class="links" href="/admin/manage_users">Manage users</a>
+          </li>
         </ul>
       </div> <!-- /.Main Menu -->
     </div>
 
     <div class="col s9"> <!-- Page Content -->
         <h3>Storage name: {{storage.name}}</h3>
-        <h4>Articles: {{response.count}}</h4>
+        <h5>Articles: {{articlesResponse.count}}</h5>
 
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
@@ -38,17 +44,14 @@
                 <div>
                   <img class="previewArticleImage" src="" alt="75x55">
                 </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-                </div>
-              </div>
+            </div>
           </form>
 
         <div class="singleStorageContent">
 
           <div class="divForArticleList">
             <ul class="collection aL">
-              {{#each response.articles as |article|}}
+              {{#each articlesResponse.articles as |article|}}
                   <li class="articleLabel collection-item">
                     <img class="articleImage" src="/../../{{image}}" alt="80x70">
                     <span class="articleDetails">

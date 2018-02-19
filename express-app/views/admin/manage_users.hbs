@@ -8,20 +8,26 @@
       <div class="col s3">
         <div class="mainMenu"> <!-- Main menu -->
           <ul>
-            <li class="mainMenuLink"><a class="links" href="/admin/home">Home</a></li>
-            <li class="mainMenuLink"><a class="links" href="/admin/warehouse">Warehouse</a></li>
-            <li class="mainMenuLink activeLink"><a class="links" href="/admin/manage_users">Manage users</a></li>
+            <li class="mainMenuLink">
+              <a class="links" href="/admin/home">Home</a>
+            </li>
+            <li class="mainMenuLink">
+              <a class="links" href="/admin/warehouse">Warehouse</a>
+            </li>
+            <li class="mainMenuLink activeLink">
+              <a class="links" href="/admin/manage_users">Manage users</a>
+            </li>
           </ul>
         </div> <!-- /.Main Menu -->
       </div>
 
       <div class="col s9"> <!-- Page Content -->
         <h2>Manage users</h2>
-
+        <h5>Current users: {{usersResponse.count}}</h5>
         <div class="divForUserList">
           <ul id="listOfUsers" class="collection userList">
 
-            {{#each users as |user|}}
+            {{#each usersResponse.users as |user|}}
               <li class="collection-item userLabel">
                 Username: <a href="/admin/manage_users/user/{{_id}}">{{username}}</a>
                 <a href="#" data-id="{{_id}}" class="deleteUserBtn waves-effect waves-light btn">Delete</a>
@@ -33,7 +39,7 @@
 
         <div class="registerForm">
           <h5 class="registerUserHeading">Register user</h5>
-          <form action="/register" method="post">
+          <form action="/admin/register" method="post">
             <div class="input-field col s12">
               <input type="text" name="username" placeholder="Username">
             </div>

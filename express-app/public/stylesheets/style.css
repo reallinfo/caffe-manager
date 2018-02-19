@@ -97,6 +97,11 @@ body {
   text-decoration: none;
 }
 
+.userLabel {
+  width: 490px;
+  height: 50px;
+}
+
 .articleImage {
   position: absolute;
   left: 0%;
@@ -110,11 +115,6 @@ body {
 .articleDetails {
   position: relative;
   left: 70px;
-}
-
-.userLabel {
-  width: 450px;
-  height: 50px;
 }
 
 .storageEditButton {
