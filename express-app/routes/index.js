@@ -24,8 +24,9 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+// Init upload
 const upload = multer({
-  storage: multerStorage, 
+  storage: multerStorage,
   limits: {
     fileSize: 1024 * 1024 * 3
   },
@@ -204,14 +205,13 @@ router.post('/admin/warehouse/storage/edit/:id', function(req, res) {
 });
 
 // Create article
-router.post('/admin/warehouse/storage/:id/create_article', upload.single('image'), function(req, res, next) {
+router.post('/admin/warehouse/storage/:id/create_article', upload.single('articleImage'), function(req, res, next) {
   let query = {_id: req.params.id};
   let article = new Article();
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
   article.inStorage = req.body.whichStorage;
   article.image = req.file.path;
-  console.log(article.image);
   // Check if the name and quantity are typed and CREATE article in the db
   if(article.name && article.quantity != ''){
     article.save(function(err){
@@ -219,7 +219,7 @@ router.post('/admin/warehouse/storage/:id/create_article', upload.single('image'
         console.log(err);
         return;
       }else{
-        res.status(201).json(article);  //res.redirect('back');
+        res.redirect('back'); //res.status(201).json(article);
         console.log('Article has been successfuly saved!');
       }
     });

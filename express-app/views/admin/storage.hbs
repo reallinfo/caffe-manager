@@ -19,7 +19,7 @@
         <h3>Storage name: {{storage.name}}</h3>
         <h4>Articles: {{response.count}}</h4>
 
-          <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post">
+          <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
             <h5 class="createArticleHeading">Create article</h5>
             <input class="center-align" name="whichStorage" value="{{storage.name}}" readonly>
@@ -30,6 +30,18 @@
               <input type="number" name="newArticleQuantity"  placeholder="Quantity">
             </div>
             <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
+            <div class="file-field input-field">
+                <div class="btn">
+                  <span>Img</span>
+                  <input name="articleImage" type="file">
+                </div>
+                <div>
+                  <img class="previewArticleImage" src="" alt="75x55">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
           </form>
 
         <div class="singleStorageContent">
@@ -38,10 +50,10 @@
             <ul class="collection aL">
               {{#each response.articles as |article|}}
                   <li class="articleLabel collection-item">
-                    <img class="articleImage" src="/../../{{image}}" alt="100x100">
+                    <img class="articleImage" src="/../../{{image}}" alt="80x70">
                     <span class="articleDetails">
-                      <span class="articleLabelName">{{name}}</span> 
-                      <br> Quantity: {{quantity}} 
+                      <span class="articleLabelName">{{name}}</span>
+                      <br> Quantity: {{quantity}}
                       <br> Storage: {{inStorage}}
                       <a href="#" class="editArticleBtn waves-effect waves-light btn">Edit</a>
                       <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>

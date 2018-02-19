@@ -148,6 +148,12 @@ body {
   max-height: 34px;
 }
 
+.previewArticleImage {
+  width: 75px;
+  height: 55px;
+  margin-left: 10px;
+}
+
 .deleteUserBtn {
   position: absolute;
   right: 5px;
