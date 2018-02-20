@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require("../controllers/AuthController.js");
+const passport = require("passport");
 const multer = require('multer');
 
 const Storage = require('../models/storage');
@@ -38,7 +39,7 @@ const upload = multer({
 });
 
 // GET - Route to register user page
-router.get('/register', function(req, res){
+router.get('/register', function(req, res) {
   res.render('admin/manage_users', { /*user: req.user*/ });
 });
 
@@ -46,8 +47,8 @@ router.get('/register', function(req, res){
 router.post('/register', function(req, res){
   User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
       if (err) {
-        res.render('register');
-        return console.log('Error in Registration: '+err);
+        res.redirect('/admin/manage_users');
+        return console.log('Registration Error: '+err);
       }
       passport.authenticate('local')(req, res, function () {
         res.redirect('/admin/manage_users');
