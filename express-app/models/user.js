@@ -8,10 +8,14 @@ const UserSchema = new Schema({
   },
   password: {
     type: String
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
-let User = module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
 
 
 module.exports.createUser = function(newUser, callback) {
@@ -20,5 +24,22 @@ module.exports.createUser = function(newUser, callback) {
       newUser.password = hash;
       newUser.save(callback);
     });
+  });
+}
+
+
+module.exports.getUserByUsername = function(username, callback) {
+  let query = {username: username};
+  User.findOne(query, callback);
+}
+
+module.exports.getUserById = function(id, callback) {
+  User.findById(id, callback);
+}
+
+module.exports.comparePassword = function(candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    if(err) throw err;
+    callback(null, isMatch);
   });
 }

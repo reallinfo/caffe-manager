@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const auth = require("../controllers/AuthController.js");
 const passport = require("passport");
 const multer = require('multer');
+const auth = require('../controllers/ensureAuthenticated');
 
 const Storage = require('../models/storage');
 const User = require('../models/user');
@@ -38,8 +38,13 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
+// GET - Admin Home
+router.get('/home', /*auth.ensureAuthenticated,*/ function(req, res) {
+  res.render('admin/home', { user: req.user });
+});
+
 // GET - Route to register user page
-router.get('/register', function(req, res) {
+router.get('/register', /*auth.ensureAuthenticated,*/ function(req, res) {
   res.render('admin/manage_users', { /*user: req.user*/ });
 });
 
@@ -73,27 +78,10 @@ router.post('/register', function(req, res){
       req.flash('success_msg', 'New user has been registered!');
       res.redirect('/admin/manage_users');
   }
-  /*
-  User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
-      if (err) {
-        res.redirect('/admin/manage_users');
-        return console.log('Registration Error: '+err);
-      }
-      passport.authenticate('local')(req, res, function () {
-        res.redirect('/admin/manage_users');
-        console.log('User successfuly created!');
-      });
-    });
-    */
-});
-
-// GET - Admin Home
-router.get('/home', function(req, res) {
-  res.render('admin/home', { /*user: req.user*/ });
 });
 
 // GET - Admin Manage users page - All Users
-router.get('/manage_users', function(req, res, next) {
+router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   User.find()
   .select('username date _id')
   .exec()
@@ -110,7 +98,7 @@ router.get('/manage_users', function(req, res, next) {
 });
 
 // GET - Admin warehouse - All Storages
-router.get('/warehouse', function(req, res) {
+router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res) {
   Storage.find({}, function(err, storages){
     if(err){
       console.log(err);
@@ -169,7 +157,7 @@ router.delete('/user/delete/:id', function(req, res) {
 });
 
 // GET - single Storage by id
-router.get('/warehouse/storage/:id', function(req, res, next) {
+router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   let query = req.params.id;
   Storage.findById(query, function(err, storage) {
     Article.find()
@@ -194,7 +182,7 @@ router.get('/warehouse/storage/:id', function(req, res, next) {
 });
 
 // GET - single User by id
-router.get('/manage_users/user/:id', function(req, res) {
+router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
   User.findById(req.params.id, function(err, user) {
     res.render('admin/user', {
       user: user
@@ -203,7 +191,7 @@ router.get('/manage_users/user/:id', function(req, res) {
 });
 
 // GET - Edit Storage page
-router.get('/warehouse/storage/edit/:id', function(req, res) {
+router.get('/warehouse/storage/edit/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
   Storage.findById(req.params.id, function(err, storage) {
     res.render('admin/edit_storage', {
       storage: storage

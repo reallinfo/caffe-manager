@@ -13,6 +13,5 @@ const StorageSchema = new Schema({
   }
 }, { autoIndex: false });
 
-StorageSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Storage', StorageSchema);
