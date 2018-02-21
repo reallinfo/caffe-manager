@@ -24,18 +24,55 @@
       <div class="col s9"> <!-- Page Content -->
         <h2>Manage users</h2>
         <h5>Current users: {{usersResponse.count}}</h5>
-        <div class="divForUserList">
-          <ul id="listOfUsers" class="collection userList">
 
+        <div class="divForUserList">
+
+          {{#if success_msg}}
+            <ul class="collection">
+              <li class="collection-item avatar">
+                <i class="material-icons circle">Succes</i>
+                <span class="title">{{success_msg}}</span>
+              </li>
+            </ul>
+          {{/if}}
+          {{#if error_msg}}
+            <ul class="collection">
+              <li class="collection-item avatar">
+                <i class="material-icons circle">Error msg</i>
+                <span class="title">{{error_msg}}</span>
+              </li>
+            </ul>
+          {{/if}}
+          {{#if error}}
+            <ul class="collection">
+              <li class="collection-item avatar">
+                <i class="material-icons circle">Error</i>
+                <span class="title">{{error}}</span>
+              </li>
+            </ul>
+          {{/if}}
+
+          <ul id="listOfUsers" class="collection userList">
             {{#each usersResponse.users as |user|}}
               <li class="collection-item userLabel">
                 Username: <a href="/admin/manage_users/user/{{_id}}">{{username}}</a>
                 <a href="#" data-id="{{_id}}" class="deleteUserBtn waves-effect waves-light btn">Delete</a>
               </li>
             {{/each}}
-
           </ul>
-        </div>
+
+        </div> <!-- ./ Div for user list -->
+
+        {{#if errors}}
+          {{#each errors}}
+            <div>
+              <h5>{{msg}}</h5>
+            </div>
+          {{/each}}
+        {{/if}}
+
+
+
 
         <div class="registerForm">
           <h5 class="registerUserHeading">Register user</h5>
@@ -45,6 +82,9 @@
             </div>
             <div class="input-field col s12">
               <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="input-field col s12">
+              <input type="password" name="password2" placeholder="Confirm password">
             </div>
             <div>
             <button type="submit" class="registerUserBtn waves-effect waves-light btn">Register</button>

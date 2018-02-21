@@ -45,6 +45,35 @@ router.get('/register', function(req, res) {
 
 // POST - Route for register user action
 router.post('/register', function(req, res){
+  let username = req.body.username;
+  let password = req.body.password;
+  let password2 = req.body.password2;
+
+  // Validation
+  req.checkBody('username', 'Username is required!').notEmpty();
+  req.checkBody('password', 'Password is required!').notEmpty();
+  req.checkBody('password2', 'Passwords do not match!').equals(req.body.password);
+
+  let errors = req.validationErrors();
+  if(errors) {
+    res.render('admin/manage_users', {
+      errors: errors
+    });
+  } else {
+      let newUser = new User({
+        username: username,
+        password: password
+      });
+
+      User.createUser(newUser, function(err, user) {
+        if(err) throw err;
+        console.log(user);
+      });
+
+      req.flash('success_msg', 'New user has been registered!');
+      res.redirect('/admin/manage_users');
+  }
+  /*
   User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
       if (err) {
         res.redirect('/admin/manage_users');
@@ -55,6 +84,7 @@ router.post('/register', function(req, res){
         console.log('User successfuly created!');
       });
     });
+    */
 });
 
 // GET - Admin Home
