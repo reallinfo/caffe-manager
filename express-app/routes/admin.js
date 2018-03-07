@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const multer = require('multer');
 const auth = require('../controllers/ensureAuthenticated');
-const dateHandler = require('../controllers/dateHandler');
+const dateHandler = require('../controllers/getDate');
 
 const Storage = require('../models/storage');
 const User = require('../models/user');
@@ -81,7 +81,7 @@ router.post('/register', function(req, res){
   }
 });
 
-// GET - Admin Manage users page - All Users
+// GET - Admin Manage users page with all Users
 router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   User.find()
   .select('username date _id')
@@ -98,7 +98,7 @@ router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, nex
   });
 });
 
-// GET - Admin warehouse - All Storages
+// GET - Admin warehouse with all Storages
 router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res) {
   Storage.find({}, function(err, storages){
     if(err){
@@ -205,6 +205,7 @@ router.post('/warehouse/storage/:id/edit', function(req, res) {
   // New storage object
   let storage = {};
   storage.name = req.body.newStorageName;
+  storage.updated_date = dateHandler.getCurrentTime();
   let query = {_id: req.params.id};
   // Check if the new name is typed and UPDATE storage in the db
   if(storage.name != ""){
@@ -283,6 +284,43 @@ router.post('/warehouse/storage/:id/create_article', upload.single('articleImage
   }else{
     console.log('Article name: '+article.name,' Article quantity: '+article.quantity)
     console.log('Error: Article must have a name and quantity!');
+    return;
+  }
+});
+
+// GET - Edit Article page
+router.get('/warehouse/article/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
+  Article.findById(req.params.id, function(err, article) {
+    res.render('admin/edit_article', {
+      article: article
+    });
+  });
+});
+
+// UPDATE - Edit Article by id
+router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), function(req, res) {
+  // New article object
+  let article = {};
+  article.name = req.body.newArticleName;
+  article.quantity = req.body.newArticleQuantity;
+  if(req.file != undefined && req.file != ''){
+    article.image = req.file.path;
+  }
+  article.updated_date = dateHandler.getCurrentTime();
+  let query = {_id: req.params.id};
+  // Check if the fields are filled and UPDATE article in the db
+  if(article.name != "" && article.quantity != ""){
+    Article.update(query, article, function(err){
+      if(err){
+        console.log(err);
+        return;
+      }else{
+        res.redirect('/admin/warehouse');
+        console.log('Article has been successfuly updated!');
+      }
+    });
+  }else{
+    console.log('Error: All fields are required!');
     return;
   }
 });

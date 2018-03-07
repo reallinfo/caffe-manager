@@ -18,6 +18,10 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  updated_date: {
+    type: String,
+    default: ''
+  },
   date: {
     type: Date,
     default: Date.now

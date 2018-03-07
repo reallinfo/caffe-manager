@@ -22,12 +22,16 @@
       </div> <!-- /.Main Menu -->
     </div>
     <div class="col s9"> <!-- Page Content -->
-        <h2>Edit storage</h2>
+        <h2>Edit storage: {{storage.name}}</h2>
 
         <form class="formEditStorage" action="/admin/warehouse/storage/{{storage._id}}/edit" method="post">
           <div class="input-field col s12">
             <h5>Storage name:</h5>
             <input type="text" name="newStorageName" id="inputNewStorageName" value="{{storage.name}}">
+          </div>
+          <div class="input-field col s12">
+            <h5>Last updated:</h5>
+            <input type="text" name="updatedDate" value="{{storage.updated_date}}" readonly>
           </div>
           <div>
             <button type="submit" class="waves-effect waves-light btn">Save</button>

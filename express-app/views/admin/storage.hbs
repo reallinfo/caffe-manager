@@ -23,7 +23,7 @@
 
     <div class="col s9"> <!-- Page Content -->
         <h3>Storage name: {{storage.name}}</h3>
-        <h5>Articles: {{articlesRsponse.count}}</h5>
+        <h5>Articles: {{articlesResponse.count}}</h5>
 
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
@@ -36,6 +36,7 @@
               <input type="number" name="newArticleQuantity"  placeholder="Quantity">
             </div>
             <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
+            
             <div class="file-field input-field">
                 <div class="btn">
                   <span>Img</span>
@@ -59,11 +60,11 @@
                       <span class="articleLabelName">{{name}}</span>
                       <br> Quantity: {{quantity}}
                       <br> Storage: {{inStorage}}
-                      <a href="#" class="editArticleBtn waves-effect waves-light btn">Edit</a>
+                      <a href="/admin/warehouse/article/{{_id}}/edit" class="editArticleBtn waves-effect waves-light btn">Edit</a>
                       <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
                     </span>
                   </li>
-                  
+
               {{/each}}
             </ul>
           </div>

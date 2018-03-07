@@ -22,11 +22,36 @@
     </div>
 
     <div class="col s9"> <!-- Page Content -->
-        <h2>Article name: {{article.name}}</h2>
+          <h2>Edit article: {{article.name}}</h2>
 
-        <div class="singleArticleContent">
-          <p>Quantity: {{article.quantity}}</p>
-        </div>
+          <form class="formEditArticle" action="/admin/warehouse/article/{{article._id}}/edit" method="post" enctype="multipart/form-data">
+            <div class="input-field col s12">
+              <h6 class="editArticleHeadings">Article name:</h6>
+              <input type="text" name="newArticleName" id="inputNewArticleName" value="{{article.name}}">
+            </div>
+            <div class="input-field col s12">
+              <h6 class="editArticleHeadings">Article quantity:</h6>
+              <input type="text" name="newArticleQuantity" id="inputNewArticleQuantity" value="{{article.quantity}}">
+            </div>
+            <div class="input-field col s12">
+              <h6 class="editArticleHeadings">Last updated:</h6>
+              <input type="text" name="updatedDate" value="{{article.updated_date}}" readonly>
+            </div>
+            <div>
+              <button type="submit" class="waves-effect waves-light btn">Save</button>
+            </div>
+
+              <div class="file-field input-field">
+                <h6 class="editArticleHeadings">Image</h6>
+                  <div class="btn">
+                    <span>Img</span>
+                    <input name="newArticleImage" type="file">
+                  </div>
+                  <div>
+                    <img class="previewArticleImage" src="/../../{{article.image}}" alt="preview-image-75x55">
+                  </div>
+              </div>
+          </form>
 
 
     </div> <!-- /.Page Content -->

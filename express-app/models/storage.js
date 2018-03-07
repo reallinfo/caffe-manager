@@ -10,6 +10,10 @@ const StorageSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  updated_date: {
+    type: String,
+    default: ''
   }
 }, { autoIndex: false });
 
