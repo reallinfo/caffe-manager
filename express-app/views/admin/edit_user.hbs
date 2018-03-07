@@ -1,9 +1,8 @@
 
 <p class="loggedInAs">
-  Logged in as: <span class="loggedUser">{{user.username}}</span>
-  <a href="/admin/warehouse" class="adminBackBtn">Back</a>
+  Logged in as: <!-- <span class="loggedUser">{user.username}</span> -->
+  <a href="/admin/manage_users" class="adminBackBtn">Back</a>
 </p>
-
 
     <div class="row"> <!-- Row -->
     <div class="col s3">
@@ -12,22 +11,26 @@
           <li class="mainMenuLink">
             <a class="links" href="/admin/home">Home</a>
           </li>
-          <li class="mainMenuLink activeLink">
+          <li class="mainMenuLink">
             <a class="links" href="/admin/warehouse">Warehouse</a>
           </li>
-          <li class="mainMenuLink">
+          <li class="mainMenuLink activeLink">
             <a class="links" href="/admin/manage_users">Manage users</a>
           </li>
         </ul>
       </div> <!-- /.Main Menu -->
     </div>
     <div class="col s9"> <!-- Page Content -->
-        <h2>Edit storage</h2>
+        <h2>Edit user</h2>
 
-        <form class="formEditStorage" action="/admin/warehouse/storage/{{storage._id}}/edit" method="post">
+        <form class="formEditUser" action="/admin/manage_users/user/{{user._id}}/edit" method="post">
           <div class="input-field col s12">
-            <h5>Storage name:</h5>
-            <input type="text" name="newStorageName" id="inputNewStorageName" value="{{storage.name}}">
+            <h6>Username:</h6>
+            <input type="text" name="newUsername" id="inputNewUsername" value="{{user.username}}">
+          </div>
+          <div class="input-field col s12">
+            <h6>Last updated:</h6>
+            <input type="text" name="updatedDate" value="{{user.updated_date}}" readonly>
           </div>
           <div>
             <button type="submit" class="waves-effect waves-light btn">Save</button>

@@ -23,7 +23,7 @@
 
     <div class="col s9"> <!-- Page Content -->
         <h3>Storage name: {{storage.name}}</h3>
-        <h5>Articles: {{articlesResponse.count}}</h5>
+        <h5>Articles: {{articlesRsponse.count}}</h5>
 
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
@@ -42,7 +42,7 @@
                   <input name="articleImage" type="file">
                 </div>
                 <div>
-                  <img class="previewArticleImage" src="" alt="75x55">
+                  <img class="previewArticleImage" src="" alt="preview-image-75x55">
                 </div>
             </div>
           </form>
@@ -52,6 +52,7 @@
           <div class="divForArticleList">
             <ul class="collection aL">
               {{#each articlesResponse.articles as |article|}}
+
                   <li class="articleLabel collection-item">
                     <img class="articleImage" src="/../../{{image}}" alt="80x70">
                     <span class="articleDetails">
@@ -62,8 +63,8 @@
                       <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
                     </span>
                   </li>
+                  
               {{/each}}
-
             </ul>
           </div>
 

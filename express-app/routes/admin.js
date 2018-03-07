@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const multer = require('multer');
 const auth = require('../controllers/ensureAuthenticated');
+const dateHandler = require('../controllers/dateHandler');
 
 const Storage = require('../models/storage');
 const User = require('../models/user');
@@ -191,7 +192,7 @@ router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req,
 });
 
 // GET - Edit Storage page
-router.get('/warehouse/storage/edit/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
+router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
   Storage.findById(req.params.id, function(err, storage) {
     res.render('admin/edit_storage', {
       storage: storage
@@ -199,8 +200,8 @@ router.get('/warehouse/storage/edit/:id', /*auth.ensureAuthenticated,*/ function
   });
 });
 
-// UPDATE - single Storage by id
-router.post('/warehouse/storage/edit/:id', function(req, res) {
+// UPDATE - Storage by id
+router.post('/warehouse/storage/:id/edit', function(req, res) {
   // New storage object
   let storage = {};
   storage.name = req.body.newStorageName;
@@ -217,7 +218,40 @@ router.post('/warehouse/storage/edit/:id', function(req, res) {
       }
     });
   }else{
-    console.log('Error: Storage must have a name so it can be updated!');
+    console.log('Error: Storage must have a name!');
+    return;
+  }
+});
+
+// GET - Edit User page
+router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    res.render('admin/edit_user', {
+      user: user
+    });
+  });
+});
+
+// UPDATE - User by id
+router.post('/manage_users/user/:id/edit', function(req, res) {
+  // New user object
+  let user = {};
+  user.username = req.body.newUsername;
+  user.updated_date = dateHandler.getCurrentTime();
+  let query = {_id: req.params.id};
+  // Check if the new username is typed and UPDATE user in the db
+  if(user.username != ""){
+    User.update(query, user, function(err){
+      if(err){
+        console.log(err);
+        return;
+      }else{
+        res.redirect('/admin/manage_users');
+        console.log('User has been successfuly updated!');
+      }
+    });
+  }else{
+    console.log('Error: User must have a name!');
     return;
   }
 });

@@ -10,7 +10,7 @@ const User = require('../models/user');
 const Article = require('../models/article');
 
 // Restrict index for logged in user only
-router.get('/', auth.ensureAuthenticated, function(req, res) {
+router.get('/', /*auth.ensureAuthenticated,*/ function(req, res) {
   res.render('index', { /*user : req.user*/ });
 });
 

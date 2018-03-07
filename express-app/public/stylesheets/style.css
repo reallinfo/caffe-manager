@@ -51,7 +51,7 @@ body {
 .adminBackBtn {
   position: relative;
   top: 0;
-  left: 90%;
+  left: 0%;
 }
 
 .divForUserList{
@@ -154,6 +154,13 @@ body {
   margin-left: 10px;
 }
 
+.userEditButton {
+  position: absolute;
+  right: 121px;
+  margin-top: -3px;
+  max-height: 34px;
+}
+
 .deleteUserBtn {
   position: absolute;
   right: 5px;
@@ -168,6 +175,10 @@ body {
 
 .formEditStorage {
   max-width: 300px;
+}
+
+.formEditUser {
+  max-width: 400px;
 }
 
 .loginForm {

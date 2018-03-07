@@ -26,37 +26,25 @@
         <h5>Current users: {{usersResponse.count}}</h5>
 
         <div class="divForUserList">
+          <div class="errors">
+            {{#if success_msg}}
+              <h5>{{success_msg}}</h5>
+            {{/if}}
+            {{#if error_msg}}
+              <h5>{{error_msg}}</h5>
+            {{/if}}
+            {{#if error}}
+              <h5>{{error}}</h5>
+            {{/if}}
+          </div>
 
-          {{#if success_msg}}
-            <ul class="collection">
-              <li class="collection-item avatar">
-                <i class="material-icons circle">Succes</i>
-                <span class="title">{{success_msg}}</span>
-              </li>
-            </ul>
-          {{/if}}
-          {{#if error_msg}}
-            <ul class="collection">
-              <li class="collection-item avatar">
-                <i class="material-icons circle">Error msg</i>
-                <span class="title">{{error_msg}}</span>
-              </li>
-            </ul>
-          {{/if}}
-          {{#if error}}
-            <ul class="collection">
-              <li class="collection-item avatar">
-                <i class="material-icons circle">Error</i>
-                <span class="title">{{error}}</span>
-              </li>
-            </ul>
-          {{/if}}
 
           <ul id="listOfUsers" class="collection userList">
             {{#each usersResponse.users as |user|}}
               <li class="collection-item userLabel">
                 Username: <a href="/admin/manage_users/user/{{_id}}">{{username}}</a>
                 <a href="#" data-id="{{_id}}" class="deleteUserBtn waves-effect waves-light btn">Delete</a>
+                <a href="/admin/manage_users/user/{{_id}}/edit" class="userEditButton waves-effect waves-light btn">Edit</a>
               </li>
             {{/each}}
           </ul>
