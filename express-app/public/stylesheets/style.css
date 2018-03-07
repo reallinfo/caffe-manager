@@ -102,6 +102,11 @@ body {
   height: 50px;
 }
 
+.usernameHighlighted {
+  font-size: 16px;
+  font-weight: 600;
+}
+
 .articleImage {
   position: absolute;
   left: 0%;
