@@ -78,7 +78,7 @@ router.post('/register', function(req, res){
         console.log(user);
       });
 
-      req.flash('success_msg', 'New user has been registered!');
+      // req.flash('success_msg', 'New user has been registered!');
       res.redirect('/admin/manage_users');
   }
 });
