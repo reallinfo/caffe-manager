@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const passport = require("passport");
+const passport = require('passport');
 const multer = require('multer');
 const auth = require('../controllers/ensureAuthenticated');
 const dateHandler = require('../controllers/getDate');
@@ -17,15 +17,15 @@ const multerStorage = multer.diskStorage({
   },
   // Define Image name
   filename: function(req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
 // File filter for uploading images
 const fileFilter = (req, file, cb) => {
-  // Reject a file
   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
   }else{
+    // Reject a file
     cb(null, false);
   }
 };
@@ -65,14 +65,16 @@ router.post('/register', function(req, res){
     res.render('admin/manage_users', {
       errors: errors
     });
-  } else {
+  }else{
       let newUser = new User({
         username: username,
         password: password
       });
 
       User.createUser(newUser, function(err, user) {
-        if(err) throw err;
+        if(err) {
+          throw err;
+        }
         console.log(user);
       });
 
@@ -208,7 +210,7 @@ router.post('/warehouse/storage/:id/edit', function(req, res) {
   storage.updated_date = dateHandler.getCurrentTime();
   let query = {_id: req.params.id};
   // Check if the new name is typed and UPDATE storage in the db
-  if(storage.name != ""){
+  if(storage.name != ''){
     Storage.update(query, storage, function(err){
       if(err){
         console.log(err);
@@ -241,7 +243,7 @@ router.post('/manage_users/user/:id/edit', function(req, res) {
   user.updated_date = dateHandler.getCurrentTime();
   let query = {_id: req.params.id};
   // Check if the new username is typed and UPDATE user in the db
-  if(user.username != ""){
+  if(user.username != ''){
     User.update(query, user, function(err){
       if(err){
         console.log(err);
@@ -282,7 +284,7 @@ router.post('/warehouse/storage/:id/create_article', upload.single('articleImage
       }
     });
   }else{
-    console.log('Article name: '+article.name,' Article quantity: '+article.quantity)
+    console.log('Article name: '+article.name,' Article quantity: '+article.quantity);
     console.log('Error: Article must have a name and quantity!');
     return;
   }
@@ -309,7 +311,7 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
   article.updated_date = dateHandler.getCurrentTime();
   let query = {_id: req.params.id};
   // Check if the fields are filled and UPDATE article in the db
-  if(article.name != "" && article.quantity != ""){
+  if(article.name != '' && article.quantity != ''){
     Article.update(query, article, function(err){
       if(err){
         console.log(err);

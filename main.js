@@ -1,14 +1,12 @@
-const electron = require("electron");
-const {app, BrowserWindow, Menu, ipcMain} = electron;
+const electron = require('electron');
+const {app, BrowserWindow, Menu} = electron;
 
 // SET ENV
 // process.env.NODE_ENV = 'production';
 
 let mainWindow;
-let addUserWindow;
-let addStorageWindow;
 
-app.on("ready", function(){
+app.on('ready', function(){
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
@@ -21,7 +19,7 @@ app.on("ready", function(){
   });
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   //mainWindow.webContents.openDevTools();
-  mainWindow.on("closed", function() {
+  mainWindow.on('closed', function() {
     mainWindow = null;
     app.quit();
   });
@@ -31,17 +29,14 @@ app.on("ready", function(){
   Menu.setApplicationMenu(mainMenu);
 });
 
-app.on("activate", function() {
-  if (mainWindow === null) {
-    createMainWindow();
-  }
-});
-
 // Create menu template
 const mainMenuTemplate = [
   {
     label: 'File',
     submenu: [
+      {
+        role: 'reload'
+      },
       {
         label: 'Quit',
         accelerator: process.platform == 'darwin' ? 'Command+Q' :
@@ -71,9 +66,6 @@ if(process.env.NODE_ENV !== 'production'){
         click(item, focusedWindow){
           focusedWindow.toggleDevTools();
         }
-      },
-      {
-        role: 'reload'
       }
     ]
   });

@@ -9,6 +9,7 @@ ToDoList.txt
 /images/*jpg
 /images/*png
 /images/*gif
+.eslintrc.json
 
 
 #################

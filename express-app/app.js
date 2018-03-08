@@ -63,7 +63,7 @@ app.use(expressValidator({
 // Connect Flash
 app.use(flash());
 
-// Global Vars
+// Global Variables
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
@@ -97,7 +97,7 @@ passport.use(new LocalStrategy(
   }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id)
+  done(null, user.id);
 });
 passport.deserializeUser(function(id, done) {
   User.getUserById(id, function(err, user) {
@@ -105,8 +105,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// Mongoose model
-const Storage = require('./models/storage');
 // Connect to a local Mongo Database
 mongoose.connect('mongodb://localhost/caffe-manager')
 .then(() =>  console.log('Database connection successful!'))
