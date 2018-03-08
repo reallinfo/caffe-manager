@@ -186,6 +186,14 @@ body {
   max-width: 400px;
 }
 
+.searchArticlesForm {
+  max-width: 250px;
+  max-height: 20px;
+  position: relative;
+  left: 170px;
+  bottom: 50px;
+}
+
 .editArticleHeadings {
   font-size: 17px;
   font-weight: 600;

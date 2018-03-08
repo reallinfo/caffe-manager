@@ -25,6 +25,11 @@
         <h3>Storage name: {{storage.name}}</h3>
         <h5>Articles: {{articlesResponse.count}}</h5>
 
+        <form id="searchArticles" class="searchArticlesForm">
+          <!-- <i class="material-icons">search</i> -->
+          <input type="text" id="searchArticleInput" placeholder="Search articles...">
+        </form>
+
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
             <h5 class="createArticleHeading">Create article</h5>
@@ -36,7 +41,7 @@
               <input type="number" name="newArticleQuantity"  placeholder="Quantity">
             </div>
             <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
-            
+
             <div class="file-field input-field">
                 <div class="btn">
                   <span>Img</span>
@@ -51,13 +56,13 @@
         <div class="singleStorageContent">
 
           <div class="divForArticleList">
-            <ul class="collection aL">
+            <ul id="articleList" class="collection aL">
               {{#each articlesResponse.articles as |article|}}
 
                   <li class="articleLabel collection-item">
                     <img class="articleImage" src="/../../{{image}}" alt="80x70">
                     <span class="articleDetails">
-                      <span class="articleLabelName">{{name}}</span>
+                      <span id="articleName" class="articleLabelName">{{name}}</span>
                       <br> Quantity: {{quantity}}
                       <br> Storage: {{inStorage}}
                       <a href="/admin/warehouse/article/{{_id}}/edit" class="editArticleBtn waves-effect waves-light btn">Edit</a>

@@ -65,5 +65,23 @@ $(document).ready(function(){
       });
     }
   });
-  
+
+  // Articles search bar
+  const list = document.querySelector('#articleList');
+  const searchBar = document.getElementById('searchArticleInput');
+  searchBar.addEventListener('keyup', function(e) {
+    const term = e.target.value.toLowerCase();
+    const articles = list.getElementsByTagName('li');
+
+    Array.from(articles).forEach(function(article) {
+      const articleName = article.querySelector('#articleName').textContent;
+      if(articleName.toLowerCase().indexOf(term) != -1){
+        article.style.display = 'block';
+      }else{
+        article.style.display = 'none';
+      }
+    });
+  });
+
+
 }); // Document Ready
