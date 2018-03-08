@@ -1,5 +1,5 @@
 
-// Document Ready
+
 $(document).ready(function(){
 
   // Delete Storage

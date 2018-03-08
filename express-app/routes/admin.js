@@ -101,15 +101,21 @@ router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, nex
 });
 
 // GET - Admin warehouse with all Storages
-router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res) {
+router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   Storage.find({}, function(err, storages){
     if(err){
       console.log(err);
     }else{
-      res.render('admin/warehouse', {
-         /*user: req.user,*/
-         storages: storages
-       });
+      Article.find()
+      .select('inStorage')
+      .exec()
+      .then(articles => {
+        res.render('admin/warehouse', {
+           /*user: req.user,*/
+           articles: articles,
+           storages: storages
+         });
+      });
     }
   });
 });
@@ -138,6 +144,8 @@ router.post('/warehouse', function(req, res) {
 // DELETE - Delete Storage
 router.delete('/storage/delete/:id', function(req, res){
   let query = {_id: req.params.id};
+  //let articleQuery = {inStorage: req.params.inStorage};
+  console.log(req.params.inStorage);
 
   Storage.remove(query, function(err){
     if(err){
@@ -163,24 +171,27 @@ router.delete('/user/delete/:id', function(req, res) {
 router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   let query = req.params.id;
   Storage.findById(query, function(err, storage) {
-    Article.find()
-    .select('name _id image date quantity inStorage')
-    .exec()
-    .then(articles => {
-      const articlesResponse = {
-        count: articles.length,
-        articles: articles
-      };
-
-      res.render('admin/storage', {
-        articlesResponse,
-        storage: storage,
+    if(err){
+      console.log(err)
+    }else{
+      Article.find()
+      .select('name _id image date quantity inStorage')
+      .exec()
+      .then(articles => {
+        const articlesResponse = {
+          count: articles.length,
+          articles: articles
+        };
+        res.render('admin/storage', {
+          articlesResponse,
+          storage: storage
+        });
+      /*
+            res.status(201).json({response, storage: storage});
+        console.log('Articles are succesfully GET!');
+      */
       });
-    /*
-          res.status(201).json({response, storage: storage});
-      console.log('Articles are succesfully GET!');
-    */
-    });
+    }
   });
 });
 

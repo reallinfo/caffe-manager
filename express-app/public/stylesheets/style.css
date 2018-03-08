@@ -218,6 +218,10 @@ body {
   padding: 10px;
 }
 
+.inWhichStorage {
+  font-weight: 600;
+}
+
 .registerForm {
   max-width: 200px;
   position: absolute;

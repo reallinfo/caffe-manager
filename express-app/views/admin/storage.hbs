@@ -33,7 +33,8 @@
           <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
             <h5 class="createArticleHeading">Create article</h5>
-            <input class="center-align" name="whichStorage" value="{{storage.name}}" readonly>
+            <h6 class="center-align">In Storage:</h6>
+            <input class="center-align inWhichStorage" name="whichStorage" value="{{storage.name}}" readonly>
             <div class="input-field col s12">
               <input type="text" name="newArticleName" placeholder="Name">
             </div>
