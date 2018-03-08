@@ -60,12 +60,12 @@
   <script>
     window.$ = window.jQuery = require("./node_modules/jquery/dist/jquery.min.js");
 
-    const expressAppUrl = "http://localhost:3000/admin/home", /* Change to /login for production */
+    const expressAppUrl = "http://127.0.0.1:3000/admin/home", /* Change to /login for production */
           spawn = require("child_process").spawn,
-          // For electron-packager
-          app = require('electron').remote.app,
+          // For electron-packager change cwd in spawn to app.getAppPath() and uncomment the app require below
+          // app = require('electron').remote.app,
           node = spawn(".\\node.exe", ["./express-app/bin/www"], {
-            cwd: app.getAppPath()
+            cwd: process.cwd() //app.getAppPath()
           }),
           request = require("request"),
           _ = require("lodash"),
