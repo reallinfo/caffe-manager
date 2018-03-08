@@ -75,10 +75,16 @@ $(document).ready(function(){
 
     Array.from(articles).forEach(function(article) {
       const articleName = article.querySelector('#articleName').textContent;
+      // Display matching articles with colored background
       if(articleName.toLowerCase().indexOf(term) != -1){
         article.style.display = 'block';
+        article.style.backgroundColor = 'LightGrey';
+        // Hide unmatching articles
       }else{
         article.style.display = 'none';
+      }
+      if(term == 0 || ''){
+        article.style.backgroundColor = '';
       }
     });
   });
