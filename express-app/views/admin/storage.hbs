@@ -41,6 +41,9 @@
             <div class="input-field col s12">
               <input type="number" name="newArticleQuantity"  placeholder="Quantity">
             </div>
+            <div class="input-field col s12">
+              <input type="number" name="newArticlePrice"  placeholder="Price">
+            </div>
             <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
 
             <div class="file-field input-field">
@@ -65,6 +68,7 @@
                     <span class="articleDetails">
                       <span id="articleName" class="articleLabelName">{{name}}</span>
                       <br> Quantity: {{quantity}}
+                      <br> Price x1: {{price}}
                       <br> Storage: {{inStorage}}
                       <a href="/admin/warehouse/article/{{_id}}/edit" class="editArticleBtn waves-effect waves-light btn">Edit</a>
                       <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>

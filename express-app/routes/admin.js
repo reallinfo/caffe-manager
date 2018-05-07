@@ -175,7 +175,7 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
       console.log(err)
     }else{
       Article.find()
-      .select('name _id image date quantity inStorage')
+      .select('name _id image date quantity price inStorage')
       .exec()
       .then(articles => {
         const articlesResponse = {
@@ -276,6 +276,7 @@ router.post('/warehouse/storage/:id/create_article', upload.single('articleImage
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
   article.inStorage = req.body.whichStorage;
+  article.price = req.body.newArticlePrice;
 
   if(req.file != undefined && req.file != ''){
     article.image = req.file.path;
@@ -316,6 +317,7 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
   let article = {};
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
+  article.price = req.body.newArticlePrice;
   if(req.file != undefined && req.file != ''){
     article.image = req.file.path;
   }
