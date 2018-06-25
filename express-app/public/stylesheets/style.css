@@ -113,7 +113,7 @@ body {
   margin-top: -5px;
   margin-left: 5px;
   width: 80px;
-  height: 70px;
+  height: 90px;
   background-color: #f4f4f4;
 }
 
@@ -138,17 +138,18 @@ body {
 }
 
 .editArticleBtn {
+  min-width: 112px;
   position: absolute;
-  right: -156px;
-  margin-top: -30px;
+  right: -253px;
+  margin-top: -63px;
   vertical-align: middle;
   max-height: 34px;
 }
 
 .deleteArticleBtn {
   position: absolute;
-  right: -273px;
-  margin-top: -30px;
+  right: -253px;
+  margin-top: -19px;
   vertical-align: middle;
   max-height: 34px;
 }
