@@ -188,7 +188,7 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
         });
       /*
             res.status(201).json({response, storage: storage});
-        console.log('Articles are succesfully GET!');
+        console.log('Articles are succesfully GOT!');
       */
       });
     }
@@ -244,6 +244,11 @@ router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function
       user: user
     });
   });
+});
+
+// GET - all Tables
+router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
+  res.render('admin/tables', {});
 });
 
 // UPDATE - User by id

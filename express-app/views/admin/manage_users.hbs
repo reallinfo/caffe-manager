@@ -1,89 +1,64 @@
+<a href="/admin/manage_users"><i class="material-icons">autorenew</i></a>
 
-<p class="loggedInAs">
-  Logged in as: <span class="loggedUser">{{user.username}}</span>
-  <a href="/logout" class="adminLogoutButton">Logout</a>
-</p>
 
-    <div class="row"> <!-- Row -->
-      <div class="col s3">
-        <div class="mainMenu"> <!-- Main menu -->
-          <ul>
-            <li class="mainMenuLink">
-              <a class="links" href="/admin/home">Home</a>
-            </li>
-            <li class="mainMenuLink">
-              <a class="links" href="/admin/warehouse">Warehouse</a>
-            </li>
-            <li class="mainMenuLink activeLink">
-              <a class="links" href="/admin/manage_users">Manage users</a>
-            </li>
-          </ul>
-        </div> <!-- /.Main Menu -->
+<div> <!-- Page Content -->
+  <h3>Manage users</h3>
+  <h5>Current users: {{usersResponse.count}}</h5>
+
+  <div class="divForUserList">
+    <div class="errors">
+      {{#if success_msg}}
+        <h5>{{success_msg}}</h5>
+      {{/if}}
+      {{#if error_msg}}
+        <h5>{{error_msg}}</h5>
+      {{/if}}
+      {{#if error}}
+        <h5>{{error}}</h5>
+      {{/if}}
+    </div>
+
+
+    <ul id="listOfUsers" class="collection userList">
+      {{#each usersResponse.users as |user|}}
+        <li class="collection-item userLabel">
+          Username: <a href="/admin/manage_users/user/{{_id}}"><span class="usernameHighlighted">{{username}}</span></a>
+          <a href="#" data-id="{{_id}}" class="deleteUserBtn waves-effect waves-light btn">Delete</a>
+          <a href="/admin/manage_users/user/{{_id}}/edit" class="userEditButton waves-effect waves-light btn">Edit</a>
+        </li>
+      {{/each}}
+    </ul>
+
+  </div> <!-- ./ Div for user list -->
+
+  {{#if errors}}
+    {{#each errors}}
+      <div>
+        <h5>{{msg}}</h5>
       </div>
-
-      <div class="col s9"> <!-- Page Content -->
-        <h2>Manage users</h2>
-        <h5>Current users: {{usersResponse.count}}</h5>
-
-        <div class="divForUserList">
-          <div class="errors">
-            {{#if success_msg}}
-              <h5>{{success_msg}}</h5>
-            {{/if}}
-            {{#if error_msg}}
-              <h5>{{error_msg}}</h5>
-            {{/if}}
-            {{#if error}}
-              <h5>{{error}}</h5>
-            {{/if}}
-          </div>
-
-
-          <ul id="listOfUsers" class="collection userList">
-            {{#each usersResponse.users as |user|}}
-              <li class="collection-item userLabel">
-                Username: <a href="/admin/manage_users/user/{{_id}}"><span class="usernameHighlighted">{{username}}</span></a>
-                <a href="#" data-id="{{_id}}" class="deleteUserBtn waves-effect waves-light btn">Delete</a>
-                <a href="/admin/manage_users/user/{{_id}}/edit" class="userEditButton waves-effect waves-light btn">Edit</a>
-              </li>
-            {{/each}}
-          </ul>
-
-        </div> <!-- ./ Div for user list -->
-
-        {{#if errors}}
-          {{#each errors}}
-            <div>
-              <h5>{{msg}}</h5>
-            </div>
-          {{/each}}
-        {{/if}}
+    {{/each}}
+  {{/if}}
 
 
 
 
-        <div class="registerForm">
-          <h5 class="registerUserHeading">Register user</h5>
-          <form action="/admin/register" method="post">
-            <div class="input-field col s12">
-              <input type="text" name="username" placeholder="Username">
-            </div>
-            <div class="input-field col s12">
-              <input type="password" name="password" placeholder="Password">
-            </div>
-            <div class="input-field col s12">
-              <input type="password" name="password2" placeholder="Confirm password">
-            </div>
-            <div>
-            <button type="submit" class="registerUserBtn waves-effect waves-light btn">Register</button>
-            </div>
-          </form>
-        </div>
+  <div class="registerForm">
+    <h5 class="registerUserHeading">Register user</h5>
+    <form action="/admin/register" method="post">
+      <div class="input-field col s12">
+        <input type="text" name="username" placeholder="Username">
+      </div>
+      <div class="input-field col s12">
+        <input type="password" name="password" placeholder="Password">
+      </div>
+      <div class="input-field col s12">
+        <input type="password" name="password2" placeholder="Confirm password">
+      </div>
+      <div>
+      <button type="submit" class="registerUserBtn waves-effect waves-light btn">Register</button>
+      </div>
+    </form>
+  </div>
 
 
-      </div> <!-- /.Page Content -->
-    </div> <!-- /.Row -->
-
-
-
-  <!-- Create basic menu  -->
+</div> <!-- /.Page Content -->
