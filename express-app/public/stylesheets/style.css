@@ -279,3 +279,16 @@ body {
   position: relative;
   left: 80%;
 }
+
+.tablesForm {
+  width: 150px;
+}
+
+.addTable {
+}
+
+.inputTableName {
+  position: relative;
+  bottom: 60px;
+  left: 90px;
+}

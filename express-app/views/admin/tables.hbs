@@ -1,3 +1,18 @@
 <a href="/admin/tables"><i class="material-icons">autorenew</i></a>
 
 <h3>Tables</h3>
+
+<div>
+  <form class="tablesForm" action="/admin/table" method="post">
+    <input type="text" name="tableName" placeholder="Table.." maxlength="10">
+    <button type="submit" class="createStorageButton waves-effect waves-light btn">Add</button>
+  </form>
+</div>
+
+<div class="divForTables">
+  <ul class="listOfTables collection">
+    {{#each tablesResponse.tables as |table|}}
+      <li class="collection-item">Table: {{name}}</li>
+    {{/each}}
+  </ul>
+</div>

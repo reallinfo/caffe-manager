@@ -8,6 +8,7 @@ const dateHandler = require('../controllers/getDate');
 const Storage = require('../models/storage');
 const User = require('../models/user');
 const Article = require('../models/article');
+const Table = require('../models/table');
 
 // Multer storage config
 const multerStorage = multer.diskStorage({
@@ -119,10 +120,20 @@ router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function
 
 // Get all Tables
 router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
-  res.render('admin/tables', {
-    active: {
-      tables: 'activeLink'
-    }
+  Table.find()
+  .select('name _id date updated_date')
+  .exec()
+  .then(tables => {
+    const tablesResponse = {
+      count: tables.length,
+      tables: tables
+    };
+    res.render('admin/tables', {
+      tablesResponse,
+      active: {
+        tables: 'activeLink'
+      }
+    });
   });
 });
 
@@ -333,6 +344,27 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
     });
   }else{
     console.log('Error: All fields are required!');
+    return;
+  }
+});
+
+// Create Table
+router.post('/table', function(req, res) {
+  let table = new Table();
+  table.name = req.body.tableName;
+  // Check if the name is typed and CREATE table in the db
+  if(table.name != ''){
+    table.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      }else{
+        res.redirect('/admin/tables');
+        console.log('Table has been successfuly added!');
+      }
+    });
+  }else{
+    console.log('Error: Table must have a name!');
     return;
   }
 });
