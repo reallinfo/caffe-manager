@@ -110,10 +110,10 @@ body {
 .articleImage {
   position: absolute;
   left: 0%;
-  margin-top: -5px;
+  margin-top: 0;
   margin-left: 5px;
   width: 80px;
-  height: 90px;
+  height: 80px;
   background-color: #f4f4f4;
 }
 
