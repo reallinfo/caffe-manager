@@ -5,21 +5,41 @@
 
     <link rel='stylesheet' href='/stylesheets/materialize/css/materialize.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <!-- For sanity, don't require user when in development -->
-
     <!-- {#if user} -->
 
-      {{{body}}}
-      <!-- {else} -->
-          <!--
-            <h2>You are not logged in and should not be here :(</h2>
-          -->
+    <p class="loggedInAs">
+      Logged in as: <span class="loggedUser">{{user.username}}</span>
+      <a href="/logout" class="adminLogoutButton">Logout</a>
+    </p>
+
+    <div class="row"> <!-- Row -->
+      <div class="col s3">
+        <div class="mainMenu"> <!-- Main menu -->
+          <ul>
+            <li class="mainMenuLink"><a class="links" href="/admin/home">Home</a></li>
+            <li class="mainMenuLink"><a class="links" href="/admin/warehouse">Warehouse</a></li>
+            <li class="mainMenuLink"><a class="links" href="/admin/manage_users">Manage users</a></li>
+            <li class="mainMenuLink"><a class="links" href="/admin/tables">Tables</a></li>
+
+          </ul>
+        </div> <!-- /.Main Menu -->
+      </div>
+      <div class="col s9"> <!-- Page Content -->
+          {{{body}}}
+      </div> <!-- /.Page Content -->
+    </div> <!-- /.Row -->
+
+    <!-- {else} -->
+        <!--
+          <h2>You are not logged in and should not be here :(</h2>
+        -->
     <!-- {/if} -->
 
     <script src='/js/jquery/jquery-3.2.1.min.js'></script>
     <script src='/js/main.js'></script>
   </body>
-
 </html>

@@ -1,55 +1,29 @@
+<a href="/admin/warehouse"><i class="material-icons">autorenew</i></a>
 
-<p class="loggedInAs">
-  Logged in as: <span class="loggedUser">{{user.username}}</span>
-  <a href="/logout" class="adminLogoutButton">Logout</a>
-</p>
 
-    <div class="row"> <!-- Row -->
-    <div class="col s3">
-      <div class="mainMenu"> <!-- Main menu -->
-        <ul>
-          <li class="mainMenuLink">
-            <a class="links" href="/admin/home">Home</a>
-          </li>
-          <li class="mainMenuLink activeLink">
-            <a class="links" href="/admin/warehouse">Warehouse</a>
-          </li>
-          <li class="mainMenuLink">
-            <a class="links" href="/admin/manage_users">Manage users</a>
-          </li>
-        </ul>
-      </div> <!-- /.Main Menu -->
+<div> <!-- Page Content -->
+  <h3>Warehouse</h3>
+  <div class="divForStorageList">
+    <ul id="storageList" class="collection storageList">
+
+      {{#each storages as |storage|}}
+        <li class="collection-item storageLabel">
+          <a href="/admin/warehouse/storage/{{_id}}"><span class="storageLabelName">{{name}}</span></a>
+          <a class="storageEditButton waves-effect waves-light btn" href="/admin/warehouse/storage/{{_id}}/edit/">Edit</a>
+          <a href="#" data-id="{{_id}}" class="deleteStorageBtn waves-effect waves-light btn">Delete</a>
+        </li>
+      {{/each}}
+
+    </ul>
+  </div>
+
+  <form class="formCreateStorage" action="/admin/warehouse" method="post">
+    <h5 class="createStorageHeading">Create storage</h5>
+    <div class="input-field col s12">
+      <input type="text" name="storageName" id="inputStorageName" placeholder="Storage name" maxlength="25">
     </div>
-    <div class="col s9"> <!-- Page Content -->
-        <h2>Warehouse</h2>
-        <div class="divForStorageList">
-          <ul id="storageList" class="collection storageList">
-
-            {{#each storages as |storage|}}
-              <li class="collection-item storageLabel">
-                <a href="/admin/warehouse/storage/{{_id}}"><span class="storageLabelName">{{name}}</span></a>
-                <a class="storageEditButton waves-effect waves-light btn" href="/admin/warehouse/storage/{{_id}}/edit/">Edit</a>
-                <a href="#" data-id="{{_id}}" class="deleteStorageBtn waves-effect waves-light btn">Delete</a>
-              </li>
-            {{/each}}
-
-          </ul>
-        </div>
-
-        <form class="formCreateStorage" action="/admin/warehouse" method="post">
-          <h5 class="createStorageHeading">Create storage</h5>
-          <div class="input-field col s12">
-            <input type="text" name="storageName" id="inputStorageName" placeholder="Storage name" maxlength="25">
-          </div>
-          <div>
-            <button type="submit" class="createStorageButton waves-effect waves-light btn">Create</button>
-          </div>
-        </form>
-
-
-    </div> <!-- /.Page Content -->
-</div> <!-- /.Row -->
-
-
-
-  <!-- Create basic menu  -->
+    <div>
+      <button type="submit" class="createStorageButton waves-effect waves-light btn">Create</button>
+    </div>
+  </form>
+</div> <!-- /.Page Content -->

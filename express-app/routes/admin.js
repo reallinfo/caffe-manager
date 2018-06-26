@@ -175,7 +175,7 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
       console.log(err)
     }else{
       Article.find()
-      .select('name _id image date quantity inStorage')
+      .select('name _id image date quantity price inStorage')
       .exec()
       .then(articles => {
         const articlesResponse = {
@@ -188,7 +188,7 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
         });
       /*
             res.status(201).json({response, storage: storage});
-        console.log('Articles are succesfully GET!');
+        console.log('Articles are succesfully GOT!');
       */
       });
     }
@@ -246,6 +246,11 @@ router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function
   });
 });
 
+// GET - all Tables
+router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
+  res.render('admin/tables', {});
+});
+
 // UPDATE - User by id
 router.post('/manage_users/user/:id/edit', function(req, res) {
   // New user object
@@ -276,6 +281,7 @@ router.post('/warehouse/storage/:id/create_article', upload.single('articleImage
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
   article.inStorage = req.body.whichStorage;
+  article.price = req.body.newArticlePrice;
 
   if(req.file != undefined && req.file != ''){
     article.image = req.file.path;
@@ -316,6 +322,7 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
   let article = {};
   article.name = req.body.newArticleName;
   article.quantity = req.body.newArticleQuantity;
+  article.price = req.body.newArticlePrice;
   if(req.file != undefined && req.file != ''){
     article.image = req.file.path;
   }

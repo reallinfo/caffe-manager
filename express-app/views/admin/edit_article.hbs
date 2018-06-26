@@ -1,62 +1,41 @@
+<a href="/admin/warehouse/article/{{article._id}}/edit"><i class="material-icons">autorenew</i></a>
 
-<p class="loggedInAs">
-  Logged in as: <span class="loggedUser">{{user.username}}</span>
-  <a href="/admin/warehouse" class="adminBackBtn">Back</a>
-</p>
 
-    <div class="row"> <!-- Row -->
-    <div class="col s3">
-      <div class="mainMenu"> <!-- Main menu -->
-        <ul>
-          <li class="mainMenuLink">
-            <a class="links" href="/admin/home">Home</a>
-          </li>
-          <li class="mainMenuLink activeLink">
-            <a class="links" href="/admin/warehouse">Warehouse</a>
-          </li>
-          <li class="mainMenuLink">
-            <a class="links" href="/admin/manage_users">Manage users</a>
-          </li>
-        </ul>
-      </div> <!-- /.Main Menu -->
-    </div>
+<div> <!-- Page Content -->
+      <h3>Edit article: {{article.name}}</h3>
 
-    <div class="col s9"> <!-- Page Content -->
-          <h2>Edit article: {{article.name}}</h2>
+      <form class="formEditArticle" action="/admin/warehouse/article/{{article._id}}/edit" method="post" enctype="multipart/form-data">
+        <div class="input-field col s12">
+          <h6 class="editArticleHeadings">Article name:</h6>
+          <input type="text" name="newArticleName" id="inputNewArticleName" value="{{article.name}}">
+        </div>
+        <div class="input-field col s12">
+          <h6 class="editArticleHeadings">Quantity:</h6>
+          <input type="text" name="newArticleQuantity" id="inputNewArticleQuantity" value="{{article.quantity}}">
+        </div>
+        <div class="input-field col s12">
+          <h6 class="editArticleHeadings">Price x1:</h6>
+          <input type="text" name="newArticlePrice" id="inputNewArticlePrice" value="{{article.price}}">
+        </div>
+        <div class="input-field col s12">
+          <h6 class="editArticleHeadings">Last updated:</h6>
+          <input type="text" name="updatedDate" value="{{article.updated_date}}" readonly>
+        </div>
+        <div>
+          <button type="submit" class="waves-effect waves-light btn">Save</button>
+        </div>
 
-          <form class="formEditArticle" action="/admin/warehouse/article/{{article._id}}/edit" method="post" enctype="multipart/form-data">
-            <div class="input-field col s12">
-              <h6 class="editArticleHeadings">Article name:</h6>
-              <input type="text" name="newArticleName" id="inputNewArticleName" value="{{article.name}}">
-            </div>
-            <div class="input-field col s12">
-              <h6 class="editArticleHeadings">Article quantity:</h6>
-              <input type="text" name="newArticleQuantity" id="inputNewArticleQuantity" value="{{article.quantity}}">
-            </div>
-            <div class="input-field col s12">
-              <h6 class="editArticleHeadings">Last updated:</h6>
-              <input type="text" name="updatedDate" value="{{article.updated_date}}" readonly>
-            </div>
-            <div>
-              <button type="submit" class="waves-effect waves-light btn">Save</button>
-            </div>
-
-              <div class="file-field input-field">
-                <h6 class="editArticleHeadings">Image</h6>
-                  <div class="btn">
-                    <span>Img</span>
-                    <input name="newArticleImage" type="file">
-                  </div>
-                  <div>
-                    <img class="previewArticleImage" src="/../../{{article.image}}" alt="preview-image-75x55">
-                  </div>
+          <div class="file-field input-field">
+            <h6 class="editArticleHeadings">Image</h6>
+              <div class="btn">
+                <span>Img</span>
+                <input name="newArticleImage" type="file">
               </div>
-          </form>
+              <div>
+                <img class="previewArticleImage" src="/../../{{article.image}}" alt="preview-image-75x55">
+              </div>
+          </div>
+      </form>
 
 
-    </div> <!-- /.Page Content -->
-</div> <!-- /.Row -->
-
-
-
-  <!-- Create basic menu  -->
+</div> <!-- /.Page Content -->

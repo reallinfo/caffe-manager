@@ -93,7 +93,7 @@ body {
 
 .articleLabel {
   width: 490px;
-  height: 80px;
+  height: 100px;
   text-decoration: none;
 }
 
@@ -110,10 +110,10 @@ body {
 .articleImage {
   position: absolute;
   left: 0%;
-  margin-top: -5px;
+  margin-top: 0;
   margin-left: 5px;
   width: 80px;
-  height: 70px;
+  height: 80px;
   background-color: #f4f4f4;
 }
 
@@ -138,17 +138,18 @@ body {
 }
 
 .editArticleBtn {
+  min-width: 112px;
   position: absolute;
-  right: -156px;
-  margin-top: -30px;
+  right: -253px;
+  margin-top: -63px;
   vertical-align: middle;
   max-height: 34px;
 }
 
 .deleteArticleBtn {
   position: absolute;
-  right: -273px;
-  margin-top: -30px;
+  right: -253px;
+  margin-top: -19px;
   vertical-align: middle;
   max-height: 34px;
 }

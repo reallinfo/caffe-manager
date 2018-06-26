@@ -1,37 +1,10 @@
+<a href="/admin/manage_users/user/{{user._id}}"><i class="material-icons">autorenew</i></a>
 
-<p class="loggedInAs">
-  <!-- Logged in as: <span class="loggedUser">{user.username}</span> -->
-  <a href="/admin/manage_users" class="adminBackBtn">Back</a>
-</p>
+<div> <!-- Page Content -->
+    <h3>User: <strong>{{user.username}}</strong></h3>
 
-    <div class="row"> <!-- Row -->
-    <div class="col s3">
-      <div class="mainMenu"> <!-- Main menu -->
-        <ul>
-          <li class="mainMenuLink">
-            <a class="links" href="/admin/home">Home</a>
-          </li>
-          <li class="mainMenuLink">
-            <a class="links" href="/admin/warehouse">Warehouse</a>
-          </li>
-          <li class="mainMenuLink activeLink">
-            <a class="links" href="/admin/manage_users">Manage users</a>
-          </li>
-        </ul>
-      </div> <!-- /.Main Menu -->
+    <div class="singleUserContent">
+      <p>Content here...</p>
     </div>
 
-    <div class="col s9"> <!-- Page Content -->
-        <h2>User: {{user.username}}</h2>
-
-        <div class="singleUserContent">
-          <p>Content here...</p>
-        </div>
-
-
-    </div> <!-- /.Page Content -->
-</div> <!-- /.Row -->
-
-
-
-  <!-- Create basic menu  -->
+</div> <!-- /.Page Content -->
