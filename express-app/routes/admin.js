@@ -39,51 +39,33 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-// GET - Admin Home
-router.get('/home', /*auth.ensureAuthenticated,*/ function(req, res) {
-  res.render('admin/home', { user: req.user });
+// GET REQUESTS
+
+// Get Edit Article page
+router.get('/warehouse/article/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
+  Article.findById(req.params.id, function(err, article) {
+    res.render('admin/edit_article', {
+      article: article
+    });
+  });
 });
 
-// GET - Route to register user page
+// Get Admin Home
+router.get('/home', /*auth.ensureAuthenticated,*/ function(req, res) {
+  res.render('admin/home', {
+    user: req.user,
+    active: {
+      home: 'activeLink'
+    }
+  });
+});
+
+// Get Register User page
 router.get('/register', /*auth.ensureAuthenticated,*/ function(req, res) {
   res.render('admin/manage_users', { /*user: req.user*/ });
 });
 
-// POST - Route for register user action
-router.post('/register', function(req, res){
-  let username = req.body.username;
-  let password = req.body.password;
-  let password2 = req.body.password2;
-
-  // Validation
-  req.checkBody('username', 'Username is required!').notEmpty();
-  req.checkBody('password', 'Password is required!').notEmpty();
-  req.checkBody('password2', 'Passwords do not match!').equals(req.body.password);
-
-  let errors = req.validationErrors();
-  if(errors) {
-    res.render('admin/manage_users', {
-      errors: errors
-    });
-  }else{
-      let newUser = new User({
-        username: username,
-        password: password
-      });
-
-      User.createUser(newUser, function(err, user) {
-        if(err) {
-          throw err;
-        }
-        console.log(user);
-      });
-
-      // req.flash('success_msg', 'New user has been registered!');
-      res.redirect('/admin/manage_users');
-  }
-});
-
-// GET - Admin Manage users page with all Users
+// Get Admin Manage Users page with all Users
 router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   User.find()
   .select('username date _id')
@@ -95,12 +77,15 @@ router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, nex
     };
     res.render('admin/manage_users', {
        /*user: req.user,*/
-       usersResponse
+       usersResponse,
+       active: {
+         manageUsers: 'activeLink'
+       }
      });
   });
 });
 
-// GET - Admin warehouse with all Storages
+// Get Admin Warehouse with all Storages
 router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   Storage.find({}, function(err, storages){
     if(err){
@@ -113,61 +98,35 @@ router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res, next) 
         res.render('admin/warehouse', {
            /*user: req.user,*/
            articles: articles,
-           storages: storages
+           storages: storages,
+           active: {
+             warehouse: 'activeLink'
+           }
          });
       });
     }
   });
 });
 
-// POST - Create storage
-router.post('/warehouse', function(req, res) {
-  let storage = new Storage();
-  storage.name = req.body.storageName;
-  // Check if the name is typed and CREATE storage in the db
-  if(storage.name != ''){
-    storage.save(function(err){
-      if(err){
-        console.log(err);
-        return;
-      }else{
-        res.redirect('/admin/warehouse');
-        console.log('Storage has been successfuly saved!');
-      }
+// Get Edit User page
+router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    res.render('admin/edit_user', {
+      user: user
     });
-  }else{
-    console.log('Error: Storage must have a name!');
-    return;
-  }
-});
-
-// DELETE - Delete Storage
-router.delete('/storage/delete/:id', function(req, res){
-  let query = {_id: req.params.id};
-  //let articleQuery = {inStorage: req.params.inStorage};
-  console.log(req.params.inStorage);
-
-  Storage.remove(query, function(err){
-    if(err){
-      console.log(err);
-    }
-    res.send('Success');
   });
 });
 
-// DELETE - Delete User
-router.delete('/user/delete/:id', function(req, res) {
-  let query = {_id: req.params.id};
-
-  User.remove(query, function(err) {
-    if(err){
-      console.log(err);
+// Get all Tables
+router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
+  res.render('admin/tables', {
+    active: {
+      tables: 'activeLink'
     }
-    res.send('Success');
   });
 });
 
-// GET - single Storage by id
+// Get Single Storage by id
 router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   let query = req.params.id;
   Storage.findById(query, function(err, storage) {
@@ -187,7 +146,7 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
           storage: storage
         });
       /*
-            res.status(201).json({response, storage: storage});
+        res.status(201).json({response, storage: storage});
         console.log('Articles are succesfully GOT!');
       */
       });
@@ -213,7 +172,63 @@ router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function
   });
 });
 
-// UPDATE - Storage by id
+
+// POST REQUESTS
+
+// Register user
+router.post('/register', function(req, res){
+  let username = req.body.username;
+  let password = req.body.password;
+  let password2 = req.body.password2;
+
+  // Validation
+  req.checkBody('username', 'Username is required!').notEmpty();
+  req.checkBody('password', 'Password is required!').notEmpty();
+  req.checkBody('password2', 'Passwords do not match!').equals(req.body.password);
+
+  let errors = req.validationErrors();
+  if(errors) {
+    res.render('admin/manage_users', {
+      errors: errors
+    });
+  }else{
+    let newUser = new User({
+      username: username,
+      password: password
+    });
+    User.createUser(newUser, function(err, user) {
+      if(err) {
+        throw err;
+      }
+      console.log(user);
+    });
+    // req.flash('success_msg', 'New user has been registered!');
+    res.redirect('/admin/manage_users');
+  }
+});
+
+// Create storage
+router.post('/warehouse', function(req, res) {
+  let storage = new Storage();
+  storage.name = req.body.storageName;
+  // Check if the name is typed and CREATE storage in the db
+  if(storage.name != ''){
+    storage.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      }else{
+        res.redirect('/admin/warehouse');
+        console.log('Storage has been successfuly saved!');
+      }
+    });
+  }else{
+    console.log('Error: Storage must have a name!');
+    return;
+  }
+});
+
+// Update Storage by id
 router.post('/warehouse/storage/:id/edit', function(req, res) {
   // New storage object
   let storage = {};
@@ -237,21 +252,7 @@ router.post('/warehouse/storage/:id/edit', function(req, res) {
   }
 });
 
-// GET - Edit User page
-router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
-  User.findById(req.params.id, function(err, user) {
-    res.render('admin/edit_user', {
-      user: user
-    });
-  });
-});
-
-// GET - all Tables
-router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
-  res.render('admin/tables', {});
-});
-
-// UPDATE - User by id
+// Update User by id
 router.post('/manage_users/user/:id/edit', function(req, res) {
   // New user object
   let user = {};
@@ -275,7 +276,7 @@ router.post('/manage_users/user/:id/edit', function(req, res) {
   }
 });
 
-// POST - Create article
+// Create article
 router.post('/warehouse/storage/:id/create_article', upload.single('articleImage'), function(req, res, next) {
   let article = new Article();
   article.name = req.body.newArticleName;
@@ -307,16 +308,7 @@ router.post('/warehouse/storage/:id/create_article', upload.single('articleImage
   }
 });
 
-// GET - Edit Article page
-router.get('/warehouse/article/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
-  Article.findById(req.params.id, function(err, article) {
-    res.render('admin/edit_article', {
-      article: article
-    });
-  });
-});
-
-// UPDATE - Edit Article by id
+// Update - Edit Article by id
 router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), function(req, res) {
   // New article object
   let article = {};
@@ -345,7 +337,35 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
   }
 });
 
-// DELETE - Delete Article
+// DELETE REQUESTS
+
+// Delete Storage
+router.delete('/storage/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+  //let articleQuery = {inStorage: req.params.inStorage};
+  console.log(req.params.inStorage);
+
+  Storage.remove(query, function(err){
+    if(err){
+      console.log(err);
+    }
+    res.send('Success');
+  });
+});
+
+// Delete User
+router.delete('/user/delete/:id', function(req, res) {
+  let query = {_id: req.params.id};
+
+  User.remove(query, function(err) {
+    if(err){
+      console.log(err);
+    }
+    res.send('Success');
+  });
+});
+
+// Delete Article
 router.delete('/article/delete/:id', function(req, res){
   let query = {_id: req.params.id};
 

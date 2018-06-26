@@ -5,15 +5,15 @@ body {
 
 /* Side menu */
 .mainMenu{
-  background-color: #d3d3d3;
+  background-color: white;
   min-width: 180px;
   border: 3px solid black;
-  border-radius: 2px;
+  border-radius: 30px;
   margin-top: 20px;
   margin-left: -15px;
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  overflow-x: hidden; /* Disable horizontal scroll */
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
 }
 
 .mainMenuLink{
@@ -21,10 +21,8 @@ body {
   display: block;
   text-decoration: none;
   font-size: 17px;
-  text-align: left;
   border-radius: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  width: 85%;
 }
 
 .links{
@@ -34,12 +32,17 @@ body {
   margin-left: 20px;
   font-weight: bold;
   display: block;
+  text-align: center;
 }
 
 .activeLink{
   text-decoration: none;
   background-color: white;
   border: 1px solid black;
+  border-radius: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+
 }
 
 .loggedInAs {
