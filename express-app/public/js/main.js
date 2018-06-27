@@ -66,6 +66,28 @@ $(document).ready(function(){
     }
   });
 
+  // Delete Table
+  $('.deleteTableBtn').on('click', function(e){
+    $target = $(e.target);
+    let dataId = $target.attr('data-id');
+    let confirmation = confirm('Table will be deleted. Are you sure?');
+    if(confirmation){
+      $.ajax({
+        type: 'DELETE',
+        url: '/admin/table/delete/'+dataId,
+        success: function(){
+          alert('Table has been successfuly deleted!');
+          location.reload();
+          return;
+        },
+        error: function(err){
+          alert('An error has occurred!'+'Error: '+err);
+          console.log(err);
+        }
+      });
+    }
+  });
+
   // Articles search bar
   const list = document.querySelector('#articleList');
   const searchBar = document.getElementById('searchArticleInput');

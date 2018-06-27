@@ -12,7 +12,10 @@
 <div class="divForTables">
   <ul class="listOfTables collection">
     {{#each tablesResponse.tables as |table|}}
-      <li class="collection-item">Table: {{name}}</li>
+      <li class="collection-item">
+        Table: {{name}}
+        <a href="#" data-id="{{_id}}" class="deleteTableBtn waves-effect waves-light btn">Delete</a>
+      </li>
     {{/each}}
   </ul>
 </div>

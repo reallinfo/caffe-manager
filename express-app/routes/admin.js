@@ -412,5 +412,20 @@ router.delete('/article/delete/:id', function(req, res){
   });
 });
 
+// Delete Table
+router.delete('/table/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  Table.remove(query, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      console.log('Table Deleted successfuly!');
+      res.send('Success');
+    }
+  });
+});
+
 
 module.exports = router;
