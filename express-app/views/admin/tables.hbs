@@ -4,7 +4,7 @@
 
 <div>
   <form class="tablesForm" action="/admin/table" method="post">
-    <input type="number" name="tableNumber" placeholder="Table number.." maxlength="10">
+    <input type="number" name="tableNumber" placeholder="Table number.." maxlength="10" autofocus>
     <button type="submit" class="createStorageButton waves-effect waves-light btn">Add</button>
   </form>
 </div>
@@ -12,12 +12,11 @@
 <div class="divForTables">
   <ul class="listOfTables collection">
     {{#each tablesResponse.tables as |table|}}
-      <a href="/admin/tables/table/{{_id}}" class="collection-item">
-        <li class="tableLabel">
-          Table: {{number}}
-          <!-- <a href="#" data-id="{{_id}}" class="deleteTableBtn waves-effect waves-light btn">Delete</a> -->
-        </li>
-      </a>
+      <li class="tableLabel">
+        <a href="/admin/tables/table/{{_id}}" class="collection-item singleTableLabel">
+            Table: <span class="singleTableNumber">{{number}}</span>
+        </a>
+      </li>
     {{/each}}
   </ul>
 </div>

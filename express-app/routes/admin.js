@@ -190,8 +190,18 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
     if(err){
       console.log(err)
     }else{
-      res.render('admin/single_table', {
-        table: table
+      Article.find()
+      .select('name _id image date quantity price inStorage')
+      .exec()
+      .then(articles => {
+        const articlesResponse = {
+          count: articles.length,
+          articles: articles
+        };
+        res.render('admin/single_table', {
+          articlesResponse,
+          table: table
+        });
       });
     }
   });

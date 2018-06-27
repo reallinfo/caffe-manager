@@ -5,7 +5,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const TableSchema = new Schema({
   number: {
     type: Number,
-    required: true
+    required: true,
+    unique: true
   },
   date: {
     type: Date,

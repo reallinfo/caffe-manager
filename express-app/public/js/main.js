@@ -77,7 +77,7 @@ $(document).ready(function(){
         url: '/admin/table/delete/'+dataId,
         success: function(){
           alert('Table has been successfuly deleted!');
-          location.reload();
+          window.location.href="/admin/tables";
           return;
         },
         error: function(err){

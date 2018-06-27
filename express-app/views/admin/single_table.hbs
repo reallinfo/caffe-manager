@@ -1,5 +1,21 @@
-<h3>Table: {{table.number}}</h3>
+<p>
+  <a href="/admin/tables/table/{{table._id}}"><i class="material-icons">autorenew</i></a> |
+  <a href="/admin/tables">Back</a>
+</p>
 
-<ul>
-  <li>info..</li>
-</ul>
+<h3>Table: {{table.number}}</h3>
+<a href="#" data-id="{{table._id}}" class="deleteTableBtn waves-effect waves-light btn">Remove</a>
+
+<form class="singleTableOrderForm" method="post">
+  <div>
+    <p>Articles:
+      <select class="selectArticleDropdown">
+        {{#each articlesResponse.articles as |article|}}
+          <option value="{{name}}">{{name}}</option>
+        {{/each}}
+      </select>
+    </p>
+  </div>
+  <br>
+  <button type="submit" class="finishOrder waves-effect waves-light btn">Finish Order</button>
+</form>

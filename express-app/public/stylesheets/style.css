@@ -289,9 +289,20 @@ body {
 
 .listOfTables {
   display: inline-block;
+  min-width: 638px;
+  padding: 0;
 }
 
-.addTable {
+.singleTableLabel {
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  background: white;
+}
+
+.tableLabel {
+  float: left;
+  margin: 3px;
 }
 
 .inputTableName {
@@ -305,5 +316,14 @@ body {
   left: 50
 }
 
-.tableLabel {
+.singleTableOrderForm {
+  max-width: 220px;
+}
+
+.selectArticleDropdown {
+  display: block;
+}
+
+.singleTableNumber {
+  color: black;
 }
