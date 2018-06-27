@@ -4,18 +4,20 @@
 
 <div>
   <form class="tablesForm" action="/admin/table" method="post">
-    <input type="text" name="tableName" placeholder="Table.." maxlength="10">
+    <input type="number" name="tableNumber" placeholder="Table number.." maxlength="10">
     <button type="submit" class="createStorageButton waves-effect waves-light btn">Add</button>
   </form>
 </div>
-
+<hr>
 <div class="divForTables">
   <ul class="listOfTables collection">
     {{#each tablesResponse.tables as |table|}}
-      <li class="collection-item">
-        Table: {{name}}
-        <a href="#" data-id="{{_id}}" class="deleteTableBtn waves-effect waves-light btn">Delete</a>
-      </li>
+      <a href="/admin/tables/table/{{_id}}" class="collection-item">
+        <li class="tableLabel">
+          Table: {{number}}
+          <!-- <a href="#" data-id="{{_id}}" class="deleteTableBtn waves-effect waves-light btn">Delete</a> -->
+        </li>
+      </a>
     {{/each}}
   </ul>
 </div>

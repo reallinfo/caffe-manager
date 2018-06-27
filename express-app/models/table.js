@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const TableSchema = new Schema({
-  name: {
-    type: String,
+  number: {
+    type: Number,
     required: true
   },
   date: {

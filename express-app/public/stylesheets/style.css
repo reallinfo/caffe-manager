@@ -280,8 +280,15 @@ body {
   left: 80%;
 }
 
+/*
+  Tables
+*/
 .tablesForm {
   width: 150px;
+}
+
+.listOfTables {
+  display: inline-block;
 }
 
 .addTable {
@@ -291,4 +298,12 @@ body {
   position: relative;
   bottom: 60px;
   left: 90px;
+}
+
+.deleteTableBtn {
+  position: relative;
+  left: 50
+}
+
+.tableLabel {
 }

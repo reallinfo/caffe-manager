@@ -121,7 +121,7 @@ router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function
 // Get all Tables
 router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
   Table.find()
-  .select('name _id date updated_date')
+  .select('number _id date updated_date')
   .exec()
   .then(tables => {
     const tablesResponse = {
@@ -183,6 +183,20 @@ router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function
   });
 });
 
+// Get single Table by id
+router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
+  let query = req.params.id;
+  Table.findById(query, function(err, table) {
+    if(err){
+      console.log(err)
+    }else{
+      res.render('admin/single_table', {
+        table: table
+      });
+    }
+  });
+});
+
 
 // POST REQUESTS
 
@@ -210,8 +224,9 @@ router.post('/register', function(req, res){
     User.createUser(newUser, function(err, user) {
       if(err) {
         throw err;
+      } else {
+        console.log(user);
       }
-      console.log(user);
     });
     // req.flash('success_msg', 'New user has been registered!');
     res.redirect('/admin/manage_users');
@@ -351,9 +366,9 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
 // Create Table
 router.post('/table', function(req, res) {
   let table = new Table();
-  table.name = req.body.tableName;
+  table.number = req.body.tableNumber;
   // Check if the name is typed and CREATE table in the db
-  if(table.name != ''){
+  if(table.number != ''){
     table.save(function(err){
       if(err){
         console.log(err);
