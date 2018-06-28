@@ -137,53 +137,7 @@ router.get('/tables', /*auth.ensureAuthenticated,*/ function(req, res) {
   });
 });
 
-// Get Single Storage by id
-router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
-  let query = req.params.id;
-  Storage.findById(query, function(err, storage) {
-    if(err){
-      console.log(err)
-    }else{
-      Article.find()
-      .select('name _id image date quantity price inStorage')
-      .exec()
-      .then(articles => {
-        const articlesResponse = {
-          count: articles.length,
-          articles: articles
-        };
-        res.render('admin/storage', {
-          articlesResponse,
-          storage: storage
-        });
-      /*
-        res.status(201).json({response, storage: storage});
-        console.log('Articles are succesfully GOT!');
-      */
-      });
-    }
-  });
-});
-
-// GET - single User by id
-router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
-  User.findById(req.params.id, function(err, user) {
-    res.render('admin/user', {
-      user: user
-    });
-  });
-});
-
-// GET - Edit Storage page
-router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
-  Storage.findById(req.params.id, function(err, storage) {
-    res.render('admin/edit_storage', {
-      storage: storage
-    });
-  });
-});
-
-// Get single Table by id
+// Get Table by id
 router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   let query = req.params.id;
   Table.findById(query, function(err, table) {
@@ -200,10 +154,62 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
         };
         res.render('admin/single_table', {
           articlesResponse,
-          table: table
+          table: table,
+          active: {
+            tables: 'activeLink'
+          }
         });
       });
     }
+  });
+});
+
+// Get Storage by id
+router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
+  let query = req.params.id;
+  Storage.findById(query, function(err, storage) {
+    if(err){
+      console.log(err)
+    }else{
+      Article.find()
+      .select('name _id image date quantity price inStorage')
+      .exec()
+      .then(articles => {
+        const articlesResponse = {
+          count: articles.length,
+          articles: articles
+        };
+        res.render('admin/storage', {
+          articlesResponse,
+          storage: storage,
+          active: {
+            warehouse: 'activeLink'
+          }
+        });
+      /*
+        res.status(201).json({response, storage: storage});
+        console.log('Articles are succesfully GOT!');
+      */
+      });
+    }
+  });
+});
+
+// Get single User by id
+router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    res.render('admin/user', {
+      user: user
+    });
+  });
+});
+
+// Get Edit Storage page
+router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
+  Storage.findById(req.params.id, function(err, storage) {
+    res.render('admin/edit_storage', {
+      storage: storage
+    });
   });
 });
 

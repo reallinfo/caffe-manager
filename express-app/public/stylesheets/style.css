@@ -327,3 +327,22 @@ body {
 .singleTableNumber {
   color: black;
 }
+
+.inputOrderArticleNumber::-webkit-outer-spin-button,
+.inputOrderArticleNumber::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.inputOrderArticleNumber {
+  max-width: 40px;
+  position: relative;
+  left: 60px;
+  bottom: 45px;
+}
+
+.timesWhatOrder {
+  position: relative;
+  left: 260px;
+  bottom: 47px;
+}

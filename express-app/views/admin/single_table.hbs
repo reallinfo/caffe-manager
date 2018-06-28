@@ -8,13 +8,17 @@
 
 <form class="singleTableOrderForm" method="post">
   <div>
-    <p>Articles:
+    <p>Article:
       <select class="selectArticleDropdown">
         {{#each articlesResponse.articles as |article|}}
-          <option value="{{name}}">{{name}}</option>
+          <option value="{{name}}">{{name}} ({{quantity}})</option>
         {{/each}}
       </select>
     </p>
+  </div>
+  <div class="timesWhatOrder">
+    <p>X</p>
+    <input type="number" class="inputOrderArticleNumber" name="orderArticleQuantity">
   </div>
   <br>
   <button type="submit" class="finishOrder waves-effect waves-light btn">Finish Order</button>
