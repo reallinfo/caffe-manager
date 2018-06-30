@@ -4,7 +4,7 @@
 </p>
 
 <div> <!-- Page Content -->
-  <h3>Storage name: {{storage.name}}</h3>
+  <h4>Storage name: {{storage.name}}</h4>
   <h5>Articles: {{articlesResponse.count}}</h5>
 
   <form id="searchArticles" class="searchArticlesForm">
@@ -15,7 +15,7 @@
 
       <h5 class="createArticleHeading">Create article</h5>
       <h6 class="center-align">In Storage:</h6>
-      <input class="center-align inWhichStorage" name="whichStorage" value="{{storage.name}}" readonly>
+      <p class="center-align inWhichStorage" name="whichStorage">{{storage.name}}</p>
       <div class="input-field col s12">
         <input type="text" name="newArticleName" placeholder="Name">
       </div>

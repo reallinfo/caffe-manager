@@ -45,13 +45,19 @@ const upload = multer({
 
 // Get Edit Article page
 router.get('/warehouse/article/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
+  // let storageId = storage._id;
+  // console.log(storageId);
   Article.findById(req.params.id, function(err, article) {
-    res.render('admin/edit_article', {
-      article: article,
-      active: {
-        warehouse: 'activeLink'
-      }
-    });
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('admin/edit_article', {
+        article: article,
+        active: {
+          warehouse: 'activeLink'
+        }
+      });
+    }
   });
 });
 
@@ -221,12 +227,16 @@ router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req,
 router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
   const storageId = req.params.id;
   Storage.findById(storageId, function(err, storage) {
-    res.render('admin/edit_storage', {
-      storage: storage,
-      active: {
-        warehouse: 'activeLink'
-      }
-    });
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('admin/edit_storage', {
+        storage: storage,
+        active: {
+          warehouse: 'activeLink'
+        }
+      });
+    }
   });
 });
 

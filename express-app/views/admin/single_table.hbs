@@ -14,9 +14,9 @@
   <br>
   <div class="currentOrder">
     <h4 class="orderHeading">Order</h4>
-    <hr class="orderHeadingUnderline">
+    <hr id="hrLine" class="orderHeadingUnderline">
     <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
-
+      <input class="ssu" type="submit" name="" value="Submit Order">
     </form>
     {{#each orderedArticles as |orderedArticle|}}
     {{/each}}
@@ -74,18 +74,14 @@
     let input = document.createElement("input"); // Input element
     input.setAttribute('type',"text");
     input.setAttribute('name',"orderedArticle");
-    input.setAttribute('value',"some article name");
-    input.className = 'collection-item addedArticleInput'
+    input.setAttribute('value',"Article...");
+    input.className = 'addedArticleInput'
     // input.setAttribute('readonly', "readonly");
     input.id = 'addedArticleId';
 
-    if(form.className != 'currentOrderList collection') {
-      form.className += ' collection';
-    }
-
     // Create div
     let div = document.createElement("div");
-    div.className = 'addedArticleDiv';
+    div.className = 'addedArticleDiv collection-item';
     // Create article image
     let img = document.createElement("img");
     img.className = 'addedArticleImg';
@@ -103,11 +99,20 @@
     qtyInput.className = 'qtyInput';
     // qtyInput.setAttribute("maxLength", 2);
 
+    if(form.className == 'currentOrderList') {
+      form.className += ' collection';
+    }
+
     div.appendChild(img);
     div.appendChild(input);
     div.appendChild(p);
     div.appendChild(qtyInput);
     form.appendChild(div);
+
+    const line = document.getElementById('hrLine');
+    if(line){
+      line.style.display = 'none';
+    }
   };
 
   $(document).ready(function() {
