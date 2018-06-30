@@ -341,35 +341,94 @@ body {
   bottom: 45px;
 }
 
+.tableHeading {
+  padding: 0;
+  margin: 0;
+}
+
+.orderHeading {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.orderHeadingUnderline {
+  max-width: 300px;
+  margin-top: 0;
+}
+
 .currentOrder {
-  border: 1px solid grey;
+  border: 1px solid black;
   max-width: 420px;
   min-height: 200px;
   padding: 10px;
   text-align: center;
 }
 
-.currentOrderList {
-  max-width: 400px;
-}
-
 .singleTableArticleList {
   border: 1px solid grey;
-  max-width: 250px;
+  width: 230px;
   max-height: 400px;
-  position: absolute;
-  left: 720px;
-  bottom: 190px;
+  position: fixed;
+  left: 75%;
+  bottom: 7.5%;
+}
+
+.singleTableArticleLi:hover {
+  background-color: #ededed;
 }
 
 .singleTableArticleSearch {
   max-width: 200px;
-  position: absolute;
-  left: 720px;
-  bottom: 340px;
+  position: fixed;
+  left: 79%;
+  bottom: 41%;
 }
 
 .addInputField {
   border-radius: 10px;
   padding: 4px 5px 0 5px;
+}
+
+.addedArticleDiv {
+  text-align: left;
+  height: 100px;
+}
+
+.addedArticleImg {
+  height: 45px;
+  width: 45px;
+  margin: 0 10px 0 0;
+  position: relative;
+  top: 20px;
+  left: 10px;
+}
+
+.addedArticleInput {
+  position: relative;
+  left: 10px;
+  margin-left: 0;
+  max-width: 215px;
+}
+
+.timesSign {
+  position: relative;
+  left: 310px;
+  bottom: 45px;
+  margin: 0;
+  width: 10px;
+}
+
+.qtyInput {
+  max-width: 30px;
+  position: relative;
+  left: 350px;
+  bottom: 85px;
+  margin: 0;
+}
+
+.qtyInput::-webkit-outer-spin-button,
+.qtyInput::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
 }

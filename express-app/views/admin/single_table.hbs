@@ -3,7 +3,7 @@
   <a href="/admin/tables">Back</a>
 </p>
 
-<h4>Table: {{table.number}}</h4>
+<h4 class="tableHeading">Table: {{table.number}}</h4>
 <a href="#" data-id="{{table._id}}" class="deleteTableBtn waves-effect waves-light btn">Remove</a>
   <br>
   <br>
@@ -13,7 +13,8 @@
   <br>
   <br>
   <div class="currentOrder">
-    <h4>Order</h4>
+    <h4 class="orderHeading">Order</h4>
+    <hr class="orderHeadingUnderline">
     <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
 
     </form>
@@ -30,7 +31,7 @@
 <div>
   <ul id="singleTableArticleList" class="collection singleTableArticleList">
     {{#each articlesResponse.articles as |article|}}
-      <li class="collection-item">
+      <li class="collection-item singleTableArticleLi">
         <a href="/admin/table/addArticle/{{_id}}">
           <span id="articleNameSingleTable">{{name}}</span>
            - ({{quantity}})
@@ -73,13 +74,43 @@
     let input = document.createElement("input"); // Input element
     input.setAttribute('type',"text");
     input.setAttribute('name',"orderedArticle");
-    input.setAttribute('value',"Some article name");
+    input.setAttribute('value',"some article name");
     input.className = 'collection-item addedArticleInput'
     // input.setAttribute('readonly', "readonly");
+    input.id = 'addedArticleId';
 
     if(form.className != 'currentOrderList collection') {
-      form.className += 'collection';
+      form.className += ' collection';
     }
-    form.appendChild(input);
+
+    // Create div
+    let div = document.createElement("div");
+    div.className = 'addedArticleDiv';
+    // Create article image
+    let img = document.createElement("img");
+    img.className = 'addedArticleImg';
+    img.style.backgroundColor = 'grey';
+    // Create X
+    let p = document.createElement("p");
+    p.className = 'timesSign';
+    let txt = 'X';
+    let xSign = document.createTextNode(txt);
+    p.appendChild(xSign);
+    // Create quantity field
+    let qtyInput = document.createElement("input");
+    qtyInput.setAttribute("type", "number");
+    qtyInput.setAttribute("value", "0");
+    qtyInput.className = 'qtyInput';
+    // qtyInput.setAttribute("maxLength", 2);
+
+    div.appendChild(img);
+    div.appendChild(input);
+    div.appendChild(p);
+    div.appendChild(qtyInput);
+    form.appendChild(div);
   };
+
+  $(document).ready(function() {
+
+  });
 </script>
