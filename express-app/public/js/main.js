@@ -1,5 +1,4 @@
 
-
 $(document).ready(function(){
 
   // Delete Storage
@@ -88,15 +87,15 @@ $(document).ready(function(){
     }
   });
 
-  // Articles search bar
-  const list = document.querySelector('#articleList');
-  const searchBar = document.getElementById('searchArticleInput');
-  searchBar.addEventListener('keyup', function(e) {
-    const term = e.target.value.toLowerCase();
-    const articles = list.getElementsByTagName('li');
+  // Search Articles in storage
+  let list = document.querySelector('#articleList');
+  let searchBar = document.getElementById('searchArticleInput');
 
+  searchBar.addEventListener('keyup', function(e) {
+    let term = e.target.value.toLowerCase();
+    let articles = list.getElementsByTagName('li');
     Array.from(articles).forEach(function(article) {
-      const articleName = article.querySelector('#articleName').textContent;
+      let articleName = article.querySelector('#articleName').textContent;
       // Display matching articles with colored background
       if(articleName.toLowerCase().indexOf(term) != -1){
         article.style.display = 'block';
@@ -105,11 +104,12 @@ $(document).ready(function(){
       }else{
         article.style.display = 'none';
       }
-      if(term == 0 || ''){
+      if(term == ''){
         article.style.backgroundColor = '';
       }
     });
   });
+
 
 
 }); // Document Ready

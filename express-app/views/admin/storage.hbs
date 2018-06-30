@@ -4,61 +4,61 @@
 </p>
 
 <div> <!-- Page Content -->
-    <h3>Storage name: {{storage.name}}</h3>
-    <h5>Articles: {{articlesResponse.count}}</h5>
+  <h3>Storage name: {{storage.name}}</h3>
+  <h5>Articles: {{articlesResponse.count}}</h5>
 
-    <form id="searchArticles" class="searchArticlesForm">
-      <!-- <i class="material-icons">search</i> -->
-      <input type="text" id="searchArticleInput" placeholder="Search...">
-    </form>
-      <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
+  <form id="searchArticles" class="searchArticlesForm">
+    <!-- <i class="material-icons">search</i> -->
+    <input type="text" id="searchArticleInput" placeholder="Search...">
+  </form>
+    <form class="formCreateArticle" action="/admin/warehouse/storage/{{storage._id}}/create_article" method="post" enctype="multipart/form-data">
 
-        <h5 class="createArticleHeading">Create article</h5>
-        <h6 class="center-align">In Storage:</h6>
-        <input class="center-align inWhichStorage" name="whichStorage" value="{{storage.name}}" readonly>
-        <div class="input-field col s12">
-          <input type="text" name="newArticleName" placeholder="Name">
-        </div>
-        <div class="input-field col s12">
-          <input type="number" name="newArticleQuantity"  placeholder="Quantity">
-        </div>
-        <div class="input-field col s12">
-          <input type="number" name="newArticlePrice"  placeholder="Price">
-        </div>
-        <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
-
-        <div class="file-field input-field">
-            <div class="btn">
-              <span>Img</span>
-              <input name="articleImage" type="file">
-            </div>
-            <div>
-              <img class="previewArticleImage" src="" alt="preview-image-75x55">
-            </div>
-        </div>
-      </form>
-
-    <div class="singleStorageContent">
-      <div class="divForArticleList">
-        <ul id="articleList" class="collection aL">
-          {{#each articlesResponse.articles as |article|}}
-
-              <li class="articleLabel collection-item">
-                <img class="articleImage" src="/../../{{image}}" alt="80x70">
-                <span class="articleDetails">
-                  <span id="articleName" class="articleLabelName">{{name}}</span>
-                  <br> Quantity: <strong>{{quantity}}</strong>
-                  <br> Price: <strong>{{price}}</strong>
-                  <br> Storage: <strong>{{inStorage}}</strong>
-                  <a href="/admin/warehouse/article/{{_id}}/edit" class="editArticleBtn waves-effect waves-light btn">Edit</a>
-                  <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
-                </span>
-              </li>
-
-          {{/each}}
-        </ul>
+      <h5 class="createArticleHeading">Create article</h5>
+      <h6 class="center-align">In Storage:</h6>
+      <input class="center-align inWhichStorage" name="whichStorage" value="{{storage.name}}" readonly>
+      <div class="input-field col s12">
+        <input type="text" name="newArticleName" placeholder="Name">
       </div>
-    </div> <!-- ./single Storage content -->
+      <div class="input-field col s12">
+        <input type="number" name="newArticleQuantity"  placeholder="Quantity">
+      </div>
+      <div class="input-field col s12">
+        <input type="number" name="newArticlePrice"  placeholder="Price">
+      </div>
+      <button type="submit" class="createArticleButton waves-effect waves-light btn">Create</button>
+
+      <div class="file-field input-field">
+          <div class="btn">
+            <span>Img</span>
+            <input name="articleImage" type="file">
+          </div>
+          <div>
+            <img class="previewArticleImage" src="" alt="preview-image-75x55">
+          </div>
+      </div>
+    </form>
+
+  <div class="singleStorageContent">
+    <div class="divForArticleList">
+      <ul id="articleList" class="collection aL">
+        {{#each articlesResponse.articles as |article|}}
+
+            <li class="articleLabel collection-item">
+              <img class="articleImage" src="/../../{{image}}" alt="80x70">
+              <span class="articleDetails">
+                <span id="articleName" class="articleLabelName">{{name}}</span>
+                <br> Quantity: <strong>{{quantity}}</strong>
+                <br> Price: <strong>{{price}}</strong>
+                <br> Storage: <strong>{{inStorage}}</strong>
+                <a href="/admin/warehouse/article/{{_id}}/edit" class="editArticleBtn waves-effect waves-light btn">Edit</a>
+                <a href="#" data-id="{{_id}}" class="deleteArticleBtn waves-effect waves-light btn">Delete</a>
+              </span>
+            </li>
+
+        {{/each}}
+      </ul>
+    </div>
+  </div> <!-- ./single Storage content -->
 
 
 </div> <!-- /.Page Content -->

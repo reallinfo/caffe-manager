@@ -341,8 +341,35 @@ body {
   bottom: 45px;
 }
 
-.timesWhatOrder {
-  position: relative;
-  left: 260px;
-  bottom: 47px;
+.currentOrder {
+  border: 1px solid grey;
+  max-width: 420px;
+  min-height: 200px;
+  padding: 10px;
+  text-align: center;
+}
+
+.currentOrderList {
+  max-width: 400px;
+}
+
+.singleTableArticleList {
+  border: 1px solid grey;
+  max-width: 250px;
+  max-height: 400px;
+  position: absolute;
+  left: 720px;
+  bottom: 190px;
+}
+
+.singleTableArticleSearch {
+  max-width: 200px;
+  position: absolute;
+  left: 720px;
+  bottom: 340px;
+}
+
+.addInputField {
+  border-radius: 10px;
+  padding: 4px 5px 0 5px;
 }

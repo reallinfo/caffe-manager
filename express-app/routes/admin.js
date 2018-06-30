@@ -9,6 +9,7 @@ const Storage = require('../models/storage');
 const User = require('../models/user');
 const Article = require('../models/article');
 const Table = require('../models/table');
+const OrderedArticle = require('../models/orderedArticle');
 
 // Multer storage config
 const multerStorage = multer.diskStorage({
@@ -46,7 +47,10 @@ const upload = multer({
 router.get('/warehouse/article/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
   Article.findById(req.params.id, function(err, article) {
     res.render('admin/edit_article', {
-      article: article
+      article: article,
+      active: {
+        warehouse: 'activeLink'
+      }
     });
   });
 });
@@ -66,7 +70,7 @@ router.get('/register', /*auth.ensureAuthenticated,*/ function(req, res) {
   res.render('admin/manage_users', { /*user: req.user*/ });
 });
 
-// Get Admin Manage Users page with all Users
+// Get  all Users
 router.get('/manage_users', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   User.find()
   .select('username date _id')
@@ -113,7 +117,10 @@ router.get('/warehouse', /*auth.ensureAuthenticated,*/ function(req, res, next) 
 router.get('/manage_users/user/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
   User.findById(req.params.id, function(err, user) {
     res.render('admin/edit_user', {
-      user: user
+      user: user,
+      active: {
+        manageUsers: 'activeLink'
+      }
     });
   });
 });
@@ -144,21 +151,28 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
     if(err){
       console.log(err)
     }else{
-      Article.find()
-      .select('name _id image date quantity price inStorage')
-      .exec()
-      .then(articles => {
-        const articlesResponse = {
-          count: articles.length,
-          articles: articles
-        };
-        res.render('admin/single_table', {
-          articlesResponse,
-          table: table,
-          active: {
-            tables: 'activeLink'
-          }
-        });
+      OrderedArticle.find({}, function(err, orderedArticles){
+        if(err) {
+          console.log(err);
+        } else {
+          Article.find()
+          .select('_id name image date quantity price inStorage')
+          .exec()
+          .then(articles => {
+            const articlesResponse = {
+              count: articles.length,
+              articles: articles
+            };
+            res.render('admin/single_table', {
+              articlesResponse,
+              orderedArticles: orderedArticles,
+              table: table,
+              active: {
+                tables: 'activeLink'
+              }
+            });
+          });
+        }
       });
     }
   });
@@ -186,30 +200,46 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
             warehouse: 'activeLink'
           }
         });
-      /*
-        res.status(201).json({response, storage: storage});
-        console.log('Articles are succesfully GOT!');
-      */
       });
     }
   });
 });
 
-// Get single User by id
+// Get User by id
 router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
   User.findById(req.params.id, function(err, user) {
     res.render('admin/user', {
-      user: user
+      user: user,
+      active: {
+        manageUsers: 'activeLink'
+      }
     });
   });
 });
 
 // Get Edit Storage page
 router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function(req, res) {
-  Storage.findById(req.params.id, function(err, storage) {
+  const storageId = req.params.id;
+  Storage.findById(storageId, function(err, storage) {
     res.render('admin/edit_storage', {
-      storage: storage
+      storage: storage,
+      active: {
+        warehouse: 'activeLink'
+      }
     });
+  });
+});
+
+// Add Article in table order
+router.get('/table/addArticle/:id', function(req, res) {
+  let articleId = req.params.id;
+  console.log(articleId);
+  Article.findById(articleId, function(err, article) {
+    if(err) {
+      console.log(err);
+    } else {
+
+    }
   });
 });
 
@@ -405,7 +435,6 @@ router.post('/table', function(req, res) {
 // Delete Storage
 router.delete('/storage/delete/:id', function(req, res){
   let query = {_id: req.params.id};
-  //let articleQuery = {inStorage: req.params.inStorage};
   console.log(req.params.inStorage);
 
   Storage.remove(query, function(err){

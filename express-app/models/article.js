@@ -33,6 +33,10 @@ const ArticleSchema = new Schema({
 
 }, { autoIndex: false });
 
-ArticleSchema.plugin(passportLocalMongoose);
+// Get articles by storages
+module.exports.getArticlesByStorage = function(inStorage, callback) {
+  let query = {inStorage: inStorage};
+  Article.find(query, callback);
+};
 
 module.exports = mongoose.model('Article', ArticleSchema);

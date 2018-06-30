@@ -3,23 +3,83 @@
   <a href="/admin/tables">Back</a>
 </p>
 
-<h3>Table: {{table.number}}</h3>
+<h4>Table: {{table.number}}</h4>
 <a href="#" data-id="{{table._id}}" class="deleteTableBtn waves-effect waves-light btn">Remove</a>
-
-<form class="singleTableOrderForm" method="post">
-  <div>
-    <p>Article:
-      <select class="selectArticleDropdown">
-        {{#each articlesResponse.articles as |article|}}
-          <option value="{{name}}">{{name}} ({{quantity}})</option>
-        {{/each}}
-      </select>
-    </p>
-  </div>
-  <div class="timesWhatOrder">
-    <p>X</p>
-    <input type="number" class="inputOrderArticleNumber" name="orderArticleQuantity">
-  </div>
   <br>
-  <button type="submit" class="finishOrder waves-effect waves-light btn">Finish Order</button>
-</form>
+  <br>
+  <button class="addInputField" type="button" onclick="addArticleInput()">
+    <i class="material-icons">add</i>
+  </button>
+  <br>
+  <br>
+  <div class="currentOrder">
+    <h4>Order</h4>
+    <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
+
+    </form>
+    {{#each orderedArticles as |orderedArticle|}}
+    {{/each}}
+  </div>
+
+<div class="singleTableArticleSearch">
+  <form id="singleTableSearchArticlesForm">
+    <input type="text" id="searchArticleSingleTableInput" placeholder="Search.."/>
+  </form>
+</div>
+
+<div>
+  <ul id="singleTableArticleList" class="collection singleTableArticleList">
+    {{#each articlesResponse.articles as |article|}}
+      <li class="collection-item">
+        <a href="/admin/table/addArticle/{{_id}}">
+          <span id="articleNameSingleTable">{{name}}</span>
+           - ({{quantity}})
+        </a>
+      </li>
+      <!--
+        /admin/tables/table/{{table._id}}/addArticle/{{_id}}
+      -->
+    {{/each}}
+  </ul>
+</div>
+
+<script>
+  // Search Articles in single table
+  let articleListSingleTable = document.querySelector('#singleTableArticleList');
+  let searchSingleTable = document.getElementById('searchArticleSingleTableInput');
+
+  searchSingleTable.addEventListener('keyup', function(e) {
+    let term = e.target.value.toLowerCase();
+    let articles = articleListSingleTable.getElementsByTagName('li');
+    Array.from(articles).forEach(function(article) {
+      let articleName = article.querySelector('#articleNameSingleTable').textContent;
+      // Display matching articles with colored background
+      if(articleName.toLowerCase().indexOf(term) != -1){
+        article.style.display = 'block';
+        article.style.backgroundColor = 'LightGrey';
+        // Hide unmatching articles
+      }else{
+        article.style.display = 'none';
+      }
+      if(term == ''){
+        article.style.backgroundColor = '';
+      }
+    });
+  });
+
+  // Add article in order list
+  function addArticleInput() {
+    const form = document.getElementById('currentOrderForm');
+    let input = document.createElement("input"); // Input element
+    input.setAttribute('type',"text");
+    input.setAttribute('name',"orderedArticle");
+    input.setAttribute('value',"Some article name");
+    input.className = 'collection-item addedArticleInput'
+    // input.setAttribute('readonly', "readonly");
+
+    if(form.className != 'currentOrderList collection') {
+      form.className += 'collection';
+    }
+    form.appendChild(input);
+  };
+</script>
