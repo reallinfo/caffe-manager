@@ -4,13 +4,13 @@
 <div> <!-- Page Content -->
   <h3>Warehouse</h3>
   <div class="divForStorageList">
-    <ul id="storageList" class="collection storageList">
+    <ul id="storageList" class="collection">
 
       {{#each storages as |storage|}}
         <li class="collection-item storageLabel">
           <a href="/admin/warehouse/storage/{{_id}}"><span class="storageLabelName">{{name}}</span></a>
           <a class="storageEditButton waves-effect waves-light btn" href="/admin/warehouse/storage/{{_id}}/edit/">Edit</a>
-          <a href="#" data-id="{{_id}}" class="deleteStorageBtn waves-effect waves-light btn">Delete</a>
+          <a href="#" data-id="{{_id}}" data-name="{{name}}" class="deleteStorageBtn waves-effect waves-light btn">Delete</a>
         </li>
       {{/each}}
 

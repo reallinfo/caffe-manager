@@ -5,7 +5,8 @@ $(document).ready(function(){
   $('.deleteStorageBtn').on('click', function(e){
     $target = $(e.target);
     let id = $target.attr('data-id');
-    let confirmation = confirm('Storage will be deleted. Are you sure?');
+    let storageName = $target.attr('data-name');
+    let confirmation = confirm('Storage: '+storageName+' will be deleted. Are you sure?');
     if(confirmation){
       $.ajax({
         type: 'DELETE',
@@ -87,28 +88,30 @@ $(document).ready(function(){
     }
   });
 
-  // Search Articles in storage
-  let list = document.querySelector('#articleList');
-  let searchBar = document.getElementById('searchArticleInput');
-
-  searchBar.addEventListener('keyup', function(e) {
-    let term = e.target.value.toLowerCase();
-    let articles = list.getElementsByTagName('li');
-    Array.from(articles).forEach(function(article) {
-      let articleName = article.querySelector('#articleName').textContent;
-      // Display matching articles with colored background
-      if(articleName.toLowerCase().indexOf(term) != -1){
-        article.style.display = 'block';
-        article.style.backgroundColor = 'LightGrey';
-        // Hide unmatching articles
-      }else{
-        article.style.display = 'none';
-      }
-      if(term == ''){
-        article.style.backgroundColor = '';
-      }
-    });
+  // Delete Order
+  $('.deleteOrderBtn').on('click', function(e){
+    $target = $(e.target);
+    let dataId = $target.attr('data-id');
+    let orderName = $target.attr('data-name');
+    let confirmation = confirm('Order: '+ orderName +' will be deleted. Are you sure?');
+    if(confirmation){
+      $.ajax({
+        type: 'DELETE',
+        url: '/admin/order/delete/'+dataId,
+        success: function(){
+          alert('Order has been successfuly deleted!');
+          location.reload();
+          return;
+        },
+        error: function(err){
+          alert('An error has occurred!'+'Error: '+err);
+          console.log(err);
+        }
+      });
+    }
   });
+
+
 
 
 

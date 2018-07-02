@@ -1,6 +1,11 @@
 body {
   background-color: #f4f4f4;
   padding: 50px;
+  padding-top: 10px;
+}
+
+.divForMenu {
+  max-width: 200px;
 }
 
 /* Side menu */
@@ -65,7 +70,7 @@ body {
 
 .divForStorageList {
   position: relative;
-  left: -45px;
+  left: -15px;
   max-width: 490px;
 }
 
@@ -350,7 +355,9 @@ body {
 .orderHeading {
   padding: 0;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 10px;
+  background-color: white;
+  padding: 5px 0 5px 0;
 }
 
 .orderHeadingUnderline {
@@ -358,9 +365,15 @@ body {
   margin-top: 0;
 }
 
+.zips {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+}
+
 .currentOrder {
   border: 1px solid black;
-  max-width: 420px;
+  max-width: 450px;
   min-height: 200px;
   padding: 10px;
   text-align: center;
@@ -384,6 +397,17 @@ body {
   position: fixed;
   left: 79%;
   bottom: 50%;
+}
+
+.newOrderNameInput {
+  max-width: 130px;
+}
+
+.labelForOrderName {
+  font-size: 16px;
+  position: relative;
+  top: 0;
+  margin-right: 10px;
 }
 
 .ssu {
@@ -412,7 +436,13 @@ body {
 
 .addInputField {
   border-radius: 10px;
-  padding: 4px 5px 0 5px;
+  position: fixed;
+  left: 225px;
+  bottom: 162px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .addedArticleDiv {
@@ -420,7 +450,19 @@ body {
   height: 100px;
 }
 
+.articleInputForm {
+  background-color: transparent;
+  max-width: 250px;
+  height: 45px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  bottom: 30px;
+  left: 47px;
+}
+
 .addedArticleImg {
+  background-color: white;
   height: 45px;
   width: 45px;
   margin: 0 10px 0 0;
@@ -431,15 +473,15 @@ body {
 
 .addedArticleInput {
   position: relative;
-  left: -5px;
+  left: 0;
   bottom: 5px;
   margin-left: 0;
-  max-width: 215px;
+  max-width: 180px;
 }
 
 .timesSign {
   position: relative;
-  left: 298px;
+  left: 190px;
   bottom: 54px;
   margin: 0;
   width: 10px;
@@ -448,7 +490,7 @@ body {
 .qtyInput {
   max-width: 27px;
   position: relative;
-  left: 340px;
+  left: 220px;
   bottom: 90px;
   margin: 0;
 }
@@ -457,4 +499,28 @@ body {
 .qtyInput::-webkit-inner-spin-button{
   -webkit-appearance: none;
   margin: 0;
+}
+
+.cancelArticleBtn {
+  position: relative;
+  left: 305px;
+  bottom: 120px;
+  padding: 0px 6px 0px 6px;
+}
+
+.cancelArticleBtn:hover {
+  background-color: #f4f4f4;
+}
+
+.submitArticleBtn {
+  position: relative;
+  left: 215px;
+  bottom: 90px;
+  width: 50px;
+  height: 45px;
+  border-radius: 10px;
+}
+
+.submitArticleBtn:hover {
+  background-color: #b5f28c;
 }

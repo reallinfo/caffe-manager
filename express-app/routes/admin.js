@@ -9,7 +9,7 @@ const Storage = require('../models/storage');
 const User = require('../models/user');
 const Article = require('../models/article');
 const Table = require('../models/table');
-const OrderedArticle = require('../models/orderedArticle');
+const Order = require('../models/order');
 
 // Multer storage config
 const multerStorage = multer.diskStorage({
@@ -157,28 +157,30 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
     if(err){
       console.log(err)
     }else{
-      OrderedArticle.find({}, function(err, orderedArticles){
-        if(err) {
-          console.log(err);
-        } else {
-          Article.find()
-          .select('_id name image date quantity price inStorage')
-          .exec()
-          .then(articles => {
-            const articlesResponse = {
-              count: articles.length,
-              articles: articles
-            };
-            res.render('admin/single_table', {
-              articlesResponse,
-              orderedArticles: orderedArticles,
-              table: table,
-              active: {
-                tables: 'activeLink'
-              }
-            });
+      Order.find()
+      .select('_id name location updated_date date')
+      .exec()
+      .then(orders => {
+        const ordersResponse = {
+          orders: orders
+        };
+        Article.find()
+        .select('_id name image date quantity price inStorage')
+        .exec()
+        .then(articles => {
+          const articlesResponse = {
+            count: articles.length,
+            articles: articles
+          };
+          res.render('admin/single_table', {
+            articlesResponse,
+            ordersResponse,
+            table: table,
+            active: {
+              tables: 'activeLink'
+            }
           });
-        }
+        });
       });
     }
   });
@@ -240,19 +242,47 @@ router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function
   });
 });
 
-// Add Article in table order
-router.get('/table/addArticle/:id', function(req, res) {
-  let articleId = req.params.id;
-  console.log(articleId);
-  Article.findById(articleId, function(err, article) {
-    if(err) {
-      console.log(err);
-    } else {
 
+// Add Article in Table Order
+// router.get('/table/addArticle', function(req, res) {
+//   let articleId = req.params.id;
+//   console.log(articleId);
+//   Article.findById(articleId, function(err, article) {
+//     if(err) {
+//       console.log(err);
+//     } else {
+//
+//     }
+//   });
+// });
+
+
+// Get Storage by id
+router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
+  let query = req.params.id;
+  Storage.findById(query, function(err, storage) {
+    if(err){
+      console.log(err)
+    }else{
+      Article.find()
+      .select('name _id image date quantity price inStorage')
+      .exec()
+      .then(articles => {
+        const articlesResponse = {
+          count: articles.length,
+          articles: articles
+        };
+        res.render('admin/storage', {
+          articlesResponse,
+          storage: storage,
+          active: {
+            warehouse: 'activeLink'
+          }
+        });
+      });
     }
   });
 });
-
 
 // POST REQUESTS
 
@@ -390,7 +420,7 @@ router.post('/warehouse/storage/:id/create_article', upload.single('articleImage
   }
 });
 
-// Update - Edit Article by id
+// Update Edit Article by id
 router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), function(req, res) {
   // New article object
   let article = {};
@@ -436,6 +466,30 @@ router.post('/table', function(req, res) {
     });
   }else{
     console.log('Error: Table must have a name!');
+    return;
+  }
+});
+
+// Create Order
+router.post('/table/:id/createNewOrder', function(req, res) {
+  let order = new Order();
+  let orderedTableId = req.params.id;
+  order.name = req.body.newOrderName;
+  order.location = orderedTableId;
+  order.updated_date = dateHandler.getCurrentTime();
+  // Check if the name is typed and CREATE order in the db
+  if(order.name != ''){
+    order.save(function(err){
+      if(err){
+        console.log("Order failed! Error: "+err);
+        return;
+      }else{
+        res.redirect('/admin/tables/table/' + orderedTableId);
+        console.log('Order has been successfuly saved!');
+      }
+    });
+  }else{
+    console.log('Error: Order must have a NAME or a NUMBER!');
     return;
   }
 });
@@ -492,6 +546,21 @@ router.delete('/table/delete/:id', function(req, res){
       return;
     }else{
       console.log('Table Deleted successfuly!');
+      res.send('Success');
+    }
+  });
+});
+
+// Delete Table
+router.delete('/order/delete/:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  Order.remove(query, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      console.log('Order Deleted successfuly!');
       res.send('Success');
     }
   });

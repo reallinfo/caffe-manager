@@ -5,22 +5,59 @@
 
 <h4 class="tableHeading">Table: {{table.number}}</h4>
 <a href="#" data-id="{{table._id}}" class="deleteTableBtn waves-effect waves-light btn">Remove</a>
-  <br>
-  <br>
-  <button class="addInputField" type="button" onclick="addArticleInput()">
-    <i class="material-icons">add</i>
-  </button>
-  <br>
-  <br>
-  <div class="currentOrder">
-    <h4 class="orderHeading">Order</h4>
-    <hr id="hrLine" class="orderHeadingUnderline">
-    <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
-      <input class="ssu" type="submit" name="" value="Submit Order">
-    </form>
-    {{#each orderedArticles as |orderedArticle|}}
+<br>
+<br>
+<div class="createOrderDiv">
+  <form class="" action="/admin/table/{{table._id}}/createNewOrder" method="post">
+    <label class="labelForOrderName" for="orderName">Order name:</label>
+    <input type="text" name="newOrderName" id="orderName" class="newOrderNameInput">
+    <button type="submit" class="createOrderBtn">Create order</button>
+  </form>
+</div>
+<br>
+<br>
+<!-- Orders from db-->
+<div class="listOfOrders">
+    {{#each ordersResponse.orders as |order|}}
+    <div id="currentOrderForm" class="currentOrder collection">
+      <h5 class="orderHeading">Order: {{name}}</h5>
+      <a href="#" class="deleteOrderBtn" data-name="{{name}}" data-id="{{_id}}">Delete order</a>
+      <!-- <li>Location: {{location}}</li> -->
+      <!-- <div id="addedArticleDiv" class="addedArticleDiv collection-item">
+        <img class="addedArticleImg">
+        <form class="articleInputForm" action="index.html" method="post">
+          <input type="text" class="addedArticleInput" value="Article...">
+          <p class="timesSign">X</p>
+          <input type="number" class="qtyInput" value="0">
+          <button type="submit" id="submitArticleBtn" class="submitArticleBtn">&#x2713;</button>
+        </form>
+        <button type="button" id="cancelArticleBtn" class="cancelArticleBtn" onclick="cancelArticleInput()">X</button>
+      </div> -->
+      <button type="button" class="addInputField"  onclick="addArticleInput()">+</button>
+      <!-- <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
+        <input class="ssu" type="submit" value="Submit Order">
+      </form> -->
+    </div>
     {{/each}}
+</div>
+<!-- Current order -->
+<!-- <div class="currentOrder collection">
+  <h5 class="orderHeading">Order: 1</h5>
+  <div class="addedArticleDiv collection-item">
+    <img class="addedArticleImg">
+    <form class="articleInputForm" action="index.html" method="post">
+      <input type="text" class="addedArticleInput" value="Article...">
+      <p class="timesSign">X</p>
+      <input type="number" class="qtyInput" value="0">
+      <button type="submit" class="submitArticleBtn">&#x2713;</button>
+    </form>
+    <button type="button" class="cancelArticleBtn">X</button>
   </div>
+  <button type="button" class="addInputField"  onclick="addArticleInput()">+</button>
+  <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
+    <input class="ssu" type="submit" value="Submit Order">
+  </form>
+</div> -->
 
 <div class="singleTableArticleSearch">
   <form id="singleTableSearchArticlesForm">
@@ -29,6 +66,11 @@
 </div>
 
 <div>
+  <select id="subclassSelect">
+    <option value="art">Select Subclass..</option>
+    <option value="art1">Some article1</option>
+    <option value="art2">Some article2</option>
+  </select>
   <ul id="singleTableArticleList" class="collection singleTableArticleList">
     {{#each articlesResponse.articles as |article|}}
       <li class="collection-item singleTableArticleLi">
@@ -58,8 +100,8 @@
       if(articleName.toLowerCase().indexOf(term) != -1){
         article.style.display = 'block';
         article.style.backgroundColor = 'LightGrey';
-        // Hide unmatching articles
       }else{
+        // Hide unmatching articles
         article.style.display = 'none';
       }
       if(term == ''){
@@ -70,27 +112,33 @@
 
   // Add article in order list
   function addArticleInput() {
-    const form = document.getElementById('currentOrderForm');
-    let input = document.createElement("input"); // Input element
+    const selectedForm = document.getElementById('currentOrderForm');
+
+    // Form element
+    const form = document.createElement("form");
+    form.setAttribute("action", "/admin/tables/addArticleToOrder");
+    form.setAttribute("method", "post");
+    form.className = 'articleInputForm';
+
+    // Input element
+    const input = document.createElement("input");
     input.setAttribute('type',"text");
     input.setAttribute('name',"orderedArticle");
     input.setAttribute('value',"Article...");
     input.className = 'addedArticleInput'
-    // input.setAttribute('readonly', "readonly");
     input.id = 'addedArticleId';
 
     // Create div
-    let div = document.createElement("div");
+    const div = document.createElement("div");
     div.className = 'addedArticleDiv collection-item';
     // Create article image
-    let img = document.createElement("img");
+    const img = document.createElement("img");
     img.className = 'addedArticleImg';
-    img.style.backgroundColor = 'grey';
     // Create X
-    let p = document.createElement("p");
+    const p = document.createElement("p");
     p.className = 'timesSign';
-    let txt = 'X';
-    let xSign = document.createTextNode(txt);
+    const txt = 'X';
+    const xSign = document.createTextNode(txt);
     p.appendChild(xSign);
     // Create quantity field
     let qtyInput = document.createElement("input");
@@ -99,23 +147,49 @@
     qtyInput.className = 'qtyInput';
     // qtyInput.setAttribute("maxLength", 2);
 
-    if(form.className == 'currentOrderList') {
-      form.className += ' collection';
-    }
+    // Cancel Button
+    // <button type="button" id="cancelArticleBtn" class="cancelArticleBtn" onclick="cancelArticleInput()">X</button>
+    const cancelBtn = document.createElement('button');
+    cancelBtn.className = 'cancelArticleBtn';
+    cancelBtn.id = 'cancelArticleBtn';
+    const cancelBtnTxt = 'x';
+    const cancelBtnTxtNode = document.createTextNode(cancelBtnTxt);
+    cancelBtn.appendChild(cancelBtnTxtNode);
+    cancelBtn.setAttribute('type', 'button');
+    cancelBtn.setAttribute('onclick', 'cancelArticleInput()');
 
+    // Submit Button
+    let submitBtn = document.createElement('button');
+    submitBtn.className = 'submitArticleBtn';
+    submitBtn.id = 'submitArticleBtn';
+    let submitBtnTxt = 'Ok';
+    let submitBtnTxtNode = document.createTextNode(submitBtnTxt);
+    submitBtn.appendChild(submitBtnTxtNode);
+    submitBtn.setAttribute('type', 'submit');
+    submitBtn.setAttribute('onclick', 'submitArticleInput()');
+
+    form.appendChild(input);
+    form.appendChild(p);
+    form.appendChild(qtyInput);
+    form.appendChild(cancelBtn);
+    form.appendChild(submitBtn);
     div.appendChild(img);
-    div.appendChild(input);
-    div.appendChild(p);
-    div.appendChild(qtyInput);
-    form.appendChild(div);
+    div.appendChild(form);
+    selectedForm.appendChild(div);
 
-    const line = document.getElementById('hrLine');
-    if(line){
-      line.style.display = 'none';
-    }
   };
 
-  $(document).ready(function() {
+  function cancelArticleInput() {
+    let parent = document.getElementById('currentOrder');
+    let child = document.getElementById('addedArticleDiv');
+    parent.removeChild(child);
+  };
 
-  });
+  function submitArticleInput() {
+
+  };
+
+  // $(document).ready(function() {
+  //
+  // });
 </script>

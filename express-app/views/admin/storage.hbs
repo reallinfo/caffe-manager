@@ -62,3 +62,28 @@
 
 
 </div> <!-- /.Page Content -->
+
+<script>
+  // Search Articles in storage
+  let list = document.querySelector('#articleList');
+  let searchBar = document.getElementById('searchArticleInput');
+
+  searchBar.addEventListener('keyup', function(e) {
+    let term = e.target.value.toLowerCase();
+    let articles = list.getElementsByTagName('li');
+    Array.from(articles).forEach(function(article) {
+      let articleName = article.querySelector('#articleName').textContent;
+      // Display matching articles with colored background
+      if(articleName.toLowerCase().indexOf(term) != -1){
+        article.style.display = 'block';
+        article.style.backgroundColor = 'LightGrey';
+        // Hide unmatching articles
+      }else{
+        article.style.display = 'none';
+      }
+      if(term == ''){
+        article.style.backgroundColor = '';
+      }
+    });
+  });
+</script>
