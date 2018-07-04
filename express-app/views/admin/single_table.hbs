@@ -17,47 +17,25 @@
 <br>
 <br>
 <!-- Orders from db-->
+<button type="button" class="addInputField"  onclick="addArticleInput()">+</button>
 <div class="listOfOrders">
     {{#each ordersResponse.orders as |order|}}
-    <div id="currentOrderForm" class="currentOrder collection">
+      <ul class="collection reservedArticlesUl">
+        {{#each ../reservedArticlesResponse.addedArticles as |addedArticle|}}
+        <li class="collection-item reservedArticlesLi">
+          Reserved: {{name}} <br>
+          Quantity: {{quantity}}
+        </li>
+        {{/each}}
+      </ul>
+
+    <form id="currentOrderForm" class="currentOrder collection" action="">
       <h5 class="orderHeading">Order: {{name}}</h5>
       <a href="#" class="deleteOrderBtn" data-name="{{name}}" data-id="{{_id}}">Delete order</a>
-      <!-- <li>Location: {{location}}</li> -->
-      <!-- <div id="addedArticleDiv" class="addedArticleDiv collection-item">
-        <img class="addedArticleImg">
-        <form class="articleInputForm" action="index.html" method="post">
-          <input type="text" class="addedArticleInput" value="Article...">
-          <p class="timesSign">X</p>
-          <input type="number" class="qtyInput" value="0">
-          <button type="submit" id="submitArticleBtn" class="submitArticleBtn">&#x2713;</button>
-        </form>
-        <button type="button" id="cancelArticleBtn" class="cancelArticleBtn" onclick="cancelArticleInput()">X</button>
-      </div> -->
-      <button type="button" class="addInputField"  onclick="addArticleInput()">+</button>
-      <!-- <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
-        <input class="ssu" type="submit" value="Submit Order">
-      </form> -->
-    </div>
+      <!-- Forms for adding articles are here -->
+    </form>
     {{/each}}
 </div>
-<!-- Current order -->
-<!-- <div class="currentOrder collection">
-  <h5 class="orderHeading">Order: 1</h5>
-  <div class="addedArticleDiv collection-item">
-    <img class="addedArticleImg">
-    <form class="articleInputForm" action="index.html" method="post">
-      <input type="text" class="addedArticleInput" value="Article...">
-      <p class="timesSign">X</p>
-      <input type="number" class="qtyInput" value="0">
-      <button type="submit" class="submitArticleBtn">&#x2713;</button>
-    </form>
-    <button type="button" class="cancelArticleBtn">X</button>
-  </div>
-  <button type="button" class="addInputField"  onclick="addArticleInput()">+</button>
-  <form id="currentOrderForm" class="currentOrderList" method="post" action="/orderArticle">
-    <input class="ssu" type="submit" value="Submit Order">
-  </form>
-</div> -->
 
 <div class="singleTableArticleSearch">
   <form id="singleTableSearchArticlesForm">
@@ -66,11 +44,6 @@
 </div>
 
 <div>
-  <select id="subclassSelect">
-    <option value="art">Select Subclass..</option>
-    <option value="art1">Some article1</option>
-    <option value="art2">Some article2</option>
-  </select>
   <ul id="singleTableArticleList" class="collection singleTableArticleList">
     {{#each articlesResponse.articles as |article|}}
       <li class="collection-item singleTableArticleLi">
@@ -79,9 +52,6 @@
            - ({{quantity}})
         </a>
       </li>
-      <!--
-        /admin/tables/table/{{table._id}}/addArticle/{{_id}}
-      -->
     {{/each}}
   </ul>
 </div>
@@ -116,34 +86,36 @@
 
     // Form element
     const form = document.createElement("form");
-    form.setAttribute("action", "/admin/tables/addArticleToOrder");
-    form.setAttribute("method", "post");
+    form.setAttribute('action', '/admin/order/addArticleToOrder');
+    form.setAttribute('method', 'post');
     form.className = 'articleInputForm';
 
     // Input element
-    const input = document.createElement("input");
-    input.setAttribute('type',"text");
-    input.setAttribute('name',"orderedArticle");
-    input.setAttribute('value',"Article...");
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('name', 'addedArticleName');
+    input.setAttribute('value', '');
     input.className = 'addedArticleInput'
     input.id = 'addedArticleId';
 
     // Create div
-    const div = document.createElement("div");
+    const div = document.createElement('div');
     div.className = 'addedArticleDiv collection-item';
+    div.id = 'addedArticleDiv';
     // Create article image
-    const img = document.createElement("img");
+    const img = document.createElement('img');
     img.className = 'addedArticleImg';
     // Create X
-    const p = document.createElement("p");
+    const p = document.createElement('p');
     p.className = 'timesSign';
     const txt = 'X';
     const xSign = document.createTextNode(txt);
     p.appendChild(xSign);
     // Create quantity field
-    let qtyInput = document.createElement("input");
-    qtyInput.setAttribute("type", "number");
-    qtyInput.setAttribute("value", "0");
+    let qtyInput = document.createElement('input');
+    qtyInput.setAttribute('type', 'number');
+    qtyInput.setAttribute('value', '0');
+    qtyInput.setAttribute('name', 'addedArticleQuantity');
     qtyInput.className = 'qtyInput';
     // qtyInput.setAttribute("maxLength", 2);
 
@@ -166,7 +138,7 @@
     let submitBtnTxtNode = document.createTextNode(submitBtnTxt);
     submitBtn.appendChild(submitBtnTxtNode);
     submitBtn.setAttribute('type', 'submit');
-    submitBtn.setAttribute('onclick', 'submitArticleInput()');
+    // submitBtn.setAttribute('onclick', 'submitArticleInput()');
 
     form.appendChild(input);
     form.appendChild(p);
@@ -180,7 +152,7 @@
   };
 
   function cancelArticleInput() {
-    let parent = document.getElementById('currentOrder');
+    let parent = document.getElementById('currentOrderForm');
     let child = document.getElementById('addedArticleDiv');
     parent.removeChild(child);
   };
@@ -188,6 +160,7 @@
   function submitArticleInput() {
 
   };
+
 
   // $(document).ready(function() {
   //

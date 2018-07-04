@@ -76,8 +76,9 @@ body {
 
 .divForArticleList {
   position: relative;
-  left: -45px;
   max-width: 490px;
+  right: 27px;
+  top: 40px;
 }
 
 .articleLabelName {
@@ -127,6 +128,8 @@ body {
 
 .articleDetails {
   position: relative;
+  width: 210px;
+  margin: 0;
   left: 70px;
 }
 
@@ -146,20 +149,21 @@ body {
 }
 
 .editArticleBtn {
-  min-width: 112px;
-  position: absolute;
-  right: -253px;
-  margin-top: -63px;
-  vertical-align: middle;
-  max-height: 34px;
+  width: 112px;
+  position: relative;
+  left: 350px;
+  bottom: 67px;
+  margin: 0;
+  height: 34px;
 }
 
 .deleteArticleBtn {
-  position: absolute;
-  right: -253px;
-  margin-top: -19px;
-  vertical-align: middle;
-  max-height: 34px;
+  width: 112px;
+  position: relative;
+  left: 235px;
+  bottom: 15px;
+  margin: 0;
+  height: 34px;
 }
 
 .previewArticleImage {
@@ -200,7 +204,7 @@ body {
   max-height: 20px;
   position: relative;
   left: 170px;
-  bottom: 50px;
+  bottom: 0;
 }
 
 .editArticleHeadings {
@@ -228,6 +232,7 @@ body {
 }
 
 .inWhichStorage {
+  display: none;
   font-weight: 600;
   margin: 0;
 }
@@ -523,4 +528,18 @@ body {
 
 .submitArticleBtn:hover {
   background-color: #b5f28c;
+}
+
+.reservedArticlesUl {
+  position: relative;
+  top: 200px;
+  left: 10px;
+  max-width: 270px;
+  padding: 0;
+  margin: 0;
+}
+
+.reservedArticlesLi {
+  margin: 0;
+  max-height: 70px;
 }

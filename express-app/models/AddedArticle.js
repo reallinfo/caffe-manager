@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const OrderSchema = new Schema({
+const addedArticleSchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  inWhichTable: {
+  quantity: {
     type: String,
     required: true
+  },
+  inWhichOrder: {
+    type: String
+    // required: true
   },
   updated_date: {
     type: String,
@@ -21,10 +25,4 @@ const OrderSchema = new Schema({
 
 }, { autoIndex: false });
 
-// Get Orders by Table IDs
-module.exports.getOrdersByTableIds = function(location, callback) {
-  let query = {location: location};
-  Order.find(query, callback);
-};
-
-module.exports = mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model('addedArticle', addedArticleSchema);

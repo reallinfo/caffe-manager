@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
 
 const ArticleSchema = new Schema({
   name: {
@@ -33,10 +32,10 @@ const ArticleSchema = new Schema({
 
 }, { autoIndex: false });
 
-// Get articles by storages
-module.exports.getArticlesByStorage = function(inStorage, callback) {
-  let query = {inStorage: inStorage};
-  Article.find(query, callback);
-};
 
 module.exports = mongoose.model('Article', ArticleSchema);
+
+// Get articles by storages
+// module.exports.getArticlesByStorage = function(inStorage, callback) {
+//   Article.find(inStorage, callback);
+// };

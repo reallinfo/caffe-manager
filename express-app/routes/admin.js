@@ -10,6 +10,7 @@ const User = require('../models/user');
 const Article = require('../models/article');
 const Table = require('../models/table');
 const Order = require('../models/order');
+const AddedArticle = require('../models/addedArticle');
 
 // Multer storage config
 const multerStorage = multer.diskStorage({
@@ -172,13 +173,22 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
             count: articles.length,
             articles: articles
           };
-          res.render('admin/single_table', {
-            articlesResponse,
-            ordersResponse,
-            table: table,
-            active: {
-              tables: 'activeLink'
-            }
+          AddedArticle.find()
+          .select('_id name quantity')
+          .exec()
+          .then(addedArticles => {
+            const reservedArticlesResponse = {
+              addedArticles: addedArticles
+            };
+            res.render('admin/single_table', {
+              table: table,
+              ordersResponse,
+              reservedArticlesResponse,
+              articlesResponse,
+              active: {
+                tables: 'activeLink'
+              }
+            });
           });
         });
       });
@@ -189,25 +199,23 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
 // Get Storage by id
 router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   let query = req.params.id;
+  let inStorage = {inStorage: req.params.id};
   Storage.findById(query, function(err, storage) {
     if(err){
       console.log(err)
     }else{
-      Article.find()
-      .select('name _id image date quantity price inStorage')
-      .exec()
-      .then(articles => {
-        const articlesResponse = {
-          count: articles.length,
-          articles: articles
-        };
-        res.render('admin/storage', {
-          articlesResponse,
-          storage: storage,
-          active: {
-            warehouse: 'activeLink'
-          }
-        });
+      Article.find(inStorage, function(err, articles) {
+        if(err) {
+          return console.log(err);
+        } else {
+          res.render('admin/storage', {
+            articles: articles,
+            storage: storage,
+            active: {
+              warehouse: 'activeLink'
+            }
+          });
+        }
       });
     }
   });
@@ -216,12 +224,16 @@ router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req,
 // Get User by id
 router.get('/manage_users/user/:id', /*auth.ensureAuthenticated,*/ function(req, res) {
   User.findById(req.params.id, function(err, user) {
-    res.render('admin/user', {
-      user: user,
-      active: {
-        manageUsers: 'activeLink'
-      }
-    });
+    if(err) {
+      console.log(err);
+    } else {
+      res.render('admin/user', {
+        user: user,
+        active: {
+          manageUsers: 'activeLink'
+        }
+      });
+    }
   });
 });
 
@@ -242,43 +254,26 @@ router.get('/warehouse/storage/:id/edit', /*auth.ensureAuthenticated,*/ function
   });
 });
 
-
-// Add Article in Table Order
-// router.get('/table/addArticle', function(req, res) {
-//   let articleId = req.params.id;
-//   console.log(articleId);
-//   Article.findById(articleId, function(err, article) {
-//     if(err) {
-//       console.log(err);
-//     } else {
-//
-//     }
-//   });
-// });
-
-
 // Get Storage by id
 router.get('/warehouse/storage/:id', /*auth.ensureAuthenticated,*/ function(req, res, next) {
   let query = req.params.id;
+  let inStorage = req.params.id;
   Storage.findById(query, function(err, storage) {
     if(err){
       console.log(err)
-    }else{
-      Article.find()
-      .select('name _id image date quantity price inStorage')
-      .exec()
-      .then(articles => {
-        const articlesResponse = {
-          count: articles.length,
-          articles: articles
-        };
-        res.render('admin/storage', {
-          articlesResponse,
-          storage: storage,
-          active: {
-            warehouse: 'activeLink'
-          }
-        });
+    } else {
+      Article.getArticlesByStorage(inStorage, function(err, article){
+        if(err) {
+          console.log(err);
+        } else {
+          res.render('admin/storage', {
+            articles: articles,
+            storage: storage,
+            active: {
+              warehouse: 'activeLink'
+            }
+          });
+        }
       });
     }
   });
@@ -475,7 +470,7 @@ router.post('/table/:id/createNewOrder', function(req, res) {
   let order = new Order();
   let orderedTableId = req.params.id;
   order.name = req.body.newOrderName;
-  order.location = orderedTableId;
+  order.inWhichTable = orderedTableId;
   order.updated_date = dateHandler.getCurrentTime();
   // Check if the name is typed and CREATE order in the db
   if(order.name != ''){
@@ -490,6 +485,31 @@ router.post('/table/:id/createNewOrder', function(req, res) {
     });
   }else{
     console.log('Error: Order must have a NAME or a NUMBER!');
+    return;
+  }
+});
+
+// Save Ordered article
+router.post('/order/addArticleToOrder', function(req, res) {
+  let addedArticle = new AddedArticle();
+  let orderId = req.params.id;
+  addedArticle.name = req.body.addedArticleName;
+  addedArticle.quantity = req.body.addedArticleQuantity;
+  // addedArticle.inWhichOrder = orderId;
+  addedArticle.updated_date = dateHandler.getCurrentTime();
+  // Check if the name is typed and SAVE reserved article in the db
+  if(addedArticle.name != '' && addedArticle.quantity != '0' && addedArticle.quantity != ''){
+    addedArticle.save(function(err){
+      if(err){
+        console.log("Failed to reserve article! Error: "+err);
+        return;
+      }else{
+        res.redirect('back');
+        console.log('Article has been successfuly saved to the rest of the reserved articles!');
+      }
+    });
+  }else{
+    console.log('Error: Article must have a NAME and QUANTITY to be reserved!');
     return;
   }
 });
