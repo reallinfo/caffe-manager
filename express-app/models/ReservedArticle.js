@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const addedArticleSchema = new Schema({
+const reservedArticleSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -25,4 +25,4 @@ const addedArticleSchema = new Schema({
 
 }, { autoIndex: false });
 
-module.exports = mongoose.model('addedArticle', addedArticleSchema);
+module.exports = mongoose.model('reservedArticle', reservedArticleSchema);

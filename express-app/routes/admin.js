@@ -10,7 +10,7 @@ const User = require('../models/user');
 const Article = require('../models/article');
 const Table = require('../models/table');
 const Order = require('../models/order');
-const AddedArticle = require('../models/addedArticle');
+const ReservedArticle = require('../models/reservedArticle');
 
 // Multer storage config
 const multerStorage = multer.diskStorage({
@@ -173,12 +173,12 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
             count: articles.length,
             articles: articles
           };
-          AddedArticle.find()
+          ReservedArticle.find()
           .select('_id name quantity')
           .exec()
-          .then(addedArticles => {
+          .then(reservedArticles => {
             const reservedArticlesResponse = {
-              addedArticles: addedArticles
+              reservedArticles: reservedArticles
             };
             res.render('admin/single_table', {
               table: table,
@@ -484,22 +484,21 @@ router.post('/table/:id/createNewOrder', function(req, res) {
       }
     });
   }else{
-    console.log('Error: Order must have a NAME or a NUMBER!');
+    console.log('Error: Order must have a name or a number!');
     return;
   }
 });
 
-// Save Ordered article
-router.post('/order/addArticleToOrder', function(req, res) {
-  let addedArticle = new AddedArticle();
-  let orderId = req.params.id;
-  addedArticle.name = req.body.addedArticleName;
-  addedArticle.quantity = req.body.addedArticleQuantity;
-  // addedArticle.inWhichOrder = orderId;
-  addedArticle.updated_date = dateHandler.getCurrentTime();
+// Reserve Article
+router.post('/order/reserve-article', function(req, res) {
+  let reservedArticle = new ReservedArticle();
+  // reservedArticle.inWhichOrder = req.body.inWhichOrder;
+  reservedArticle.name = req.body.reservedArticleName;
+  reservedArticle.quantity = req.body.reservedArticleQuantity;
+  reservedArticle.updated_date = dateHandler.getCurrentTime();
   // Check if the name is typed and SAVE reserved article in the db
-  if(addedArticle.name != '' && addedArticle.quantity != '0' && addedArticle.quantity != ''){
-    addedArticle.save(function(err){
+  if(reservedArticle.name != '' && reservedArticle.quantity != '0' && reservedArticle.quantity != ''){
+    reservedArticle.save(function(err){
       if(err){
         console.log("Failed to reserve article! Error: "+err);
         return;
@@ -509,8 +508,7 @@ router.post('/order/addArticleToOrder', function(req, res) {
       }
     });
   }else{
-    console.log('Error: Article must have a NAME and QUANTITY to be reserved!');
-    return;
+    return console.log('Error: Article must have a NAME and QUANTITY to be reserved!');
   }
 });
 
@@ -525,6 +523,7 @@ router.delete('/storage/delete/:id', function(req, res){
     if(err){
       console.log(err);
     }
+    console.log('Storage deleted successfuly!');
     res.send('Success');
   });
 });
@@ -537,6 +536,7 @@ router.delete('/user/delete/:id', function(req, res) {
     if(err){
       console.log(err);
     }
+    console.log('User deleted successfuly!');
     res.send('Success');
   });
 });
@@ -550,7 +550,7 @@ router.delete('/article/delete/:id', function(req, res){
       console.log(err);
       return;
     }else{
-      console.log('Article Deleted successfuly!');
+      console.log('Article deleted successfuly!');
       res.send('Success');
     }
   });
@@ -565,13 +565,13 @@ router.delete('/table/delete/:id', function(req, res){
       console.log(err);
       return;
     }else{
-      console.log('Table Deleted successfuly!');
+      console.log('Table deleted successfuly!');
       res.send('Success');
     }
   });
 });
 
-// Delete Table
+// Delete Order
 router.delete('/order/delete/:id', function(req, res){
   let query = {_id: req.params.id};
 
@@ -580,7 +580,22 @@ router.delete('/order/delete/:id', function(req, res){
       console.log(err);
       return;
     }else{
-      console.log('Order Deleted successfuly!');
+      console.log('Order deleted successfuly!');
+      res.send('Success');
+    }
+  });
+});
+
+// Delete Reserved article
+router.delete('/reserved-article/delete:id', function(req, res){
+  let query = {_id: req.params.id};
+
+  ReservedArticle.remove(query, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }else{
+      console.log('Reserved article deleted successfuly!');
       res.send('Success');
     }
   });

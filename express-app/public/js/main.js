@@ -14,6 +14,7 @@ $(document).ready(function(){
         success: function(){
           alert('Storage has been successfuly deleted!');
           window.location.href="/admin/warehouse";
+          return;
         },
         error: function(err){
           console.log(err);
@@ -111,7 +112,26 @@ $(document).ready(function(){
     }
   });
 
-
+  // Delete Reserved article
+  $('.deleteReservedArticle').on('click', function(e){
+    $target = $(e.target);
+    let dataId = $target.attr('data-id');
+    let confirmation = confirm('Reserved article will be deleted. Are you sure?');
+    if(confirmation){
+      $.ajax({
+        type: 'DELETE',
+        url: '/admin/reserved-article/delete'+dataId,
+        success: function(){
+          alert('Reserved article has been successfuly deleted!');
+          location.reload();
+          return;
+        },
+        error: function(err){
+          console.log(err);
+        }
+      });
+   }
+  });
 
 
 

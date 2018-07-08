@@ -16,24 +16,38 @@
 </div>
 <br>
 <br>
-<!-- Orders from db-->
 <button type="button" class="addInputField"  onclick="addArticleInput()">+</button>
+<!-- List of orders -->
 <div class="listOfOrders">
     {{#each ordersResponse.orders as |order|}}
+
+    <div class="singleOrder">
+      <form id="currentOrderForm" class="collection" action="">
+        <input id="inWhichOrderId" class="inWhichOrder" name="inWhichOrder" value="{{_id}}">
+
+        <h4 class="orderHeading">Order: {{name}}</h4>
+        <a href="#" class="deleteOrderBtn" data-name="{{name}}" data-id="{{_id}}">Delete order</a>
+        <!-- Forms for reserving articles are here -->
+      </form>
+
+      <!-- List of reserved articles -->
       <ul class="collection reservedArticlesUl">
-        {{#each ../reservedArticlesResponse.addedArticles as |addedArticle|}}
-        <li class="collection-item reservedArticlesLi">
-          Reserved: {{name}} <br>
-          Quantity: {{quantity}}
+        <h5>Reserved</h5>
+        {{#each ../reservedArticlesResponse.reservedArticles as |reservedArticle|}}
+        <li class="collection-item reservedArticleLi">
+          <img src="{{img}}" class="reservedArticleImg">
+          <p class="reservedArticleInfo">
+            Reserved: {{name}} <br>
+            Quantity: {{quantity}}
+          </p>
+          <div>
+            <a href="#" class="deleteReservedArticle waves-effects btn red lighten-1" data-id="{{_id}}">X</a>
+          </div>
         </li>
         {{/each}}
       </ul>
-
-    <form id="currentOrderForm" class="currentOrder collection" action="">
-      <h5 class="orderHeading">Order: {{name}}</h5>
-      <a href="#" class="deleteOrderBtn" data-name="{{name}}" data-id="{{_id}}">Delete order</a>
-      <!-- Forms for adding articles are here -->
-    </form>
+    </div>
+    
     {{/each}}
 </div>
 
@@ -80,31 +94,42 @@
     });
   });
 
-  // Add article in order list
+  // Cancel reserving article
+  function cancelArticleInput() {
+    let parent = document.getElementById('currentOrderForm');
+    let child = document.getElementById('reservedArticleDiv');
+    parent.removeChild(child);
+  };
+
+  function reserveArticle() {
+
+  };
+
+  // Create reserve article input in order list
   function addArticleInput() {
     const selectedForm = document.getElementById('currentOrderForm');
 
     // Form element
     const form = document.createElement("form");
-    form.setAttribute('action', '/admin/order/addArticleToOrder');
+    form.setAttribute('action', '/admin/order/reserve-article');
     form.setAttribute('method', 'post');
     form.className = 'articleInputForm';
 
     // Input element
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
-    input.setAttribute('name', 'addedArticleName');
-    input.setAttribute('value', '');
-    input.className = 'addedArticleInput'
-    input.id = 'addedArticleId';
+    input.setAttribute('name', 'reservedArticleName');
+    input.setAttribute('placeholder', 'Choose article');
+    input.className = 'reservedArticleInput'
+    input.id = 'reservedArticleId';
 
     // Create div
     const div = document.createElement('div');
-    div.className = 'addedArticleDiv collection-item';
-    div.id = 'addedArticleDiv';
+    div.className = 'reservedArticleDiv collection-item';
+    div.id = 'reservedArticleDiv';
     // Create article image
     const img = document.createElement('img');
-    img.className = 'addedArticleImg';
+    img.className = 'reserveArticleImg';
     // Create X
     const p = document.createElement('p');
     p.className = 'timesSign';
@@ -115,12 +140,11 @@
     let qtyInput = document.createElement('input');
     qtyInput.setAttribute('type', 'number');
     qtyInput.setAttribute('value', '0');
-    qtyInput.setAttribute('name', 'addedArticleQuantity');
+    qtyInput.setAttribute('name', 'reservedArticleQuantity');
     qtyInput.className = 'qtyInput';
     // qtyInput.setAttribute("maxLength", 2);
 
     // Cancel Button
-    // <button type="button" id="cancelArticleBtn" class="cancelArticleBtn" onclick="cancelArticleInput()">X</button>
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'cancelArticleBtn';
     cancelBtn.id = 'cancelArticleBtn';
@@ -138,7 +162,9 @@
     let submitBtnTxtNode = document.createTextNode(submitBtnTxt);
     submitBtn.appendChild(submitBtnTxtNode);
     submitBtn.setAttribute('type', 'submit');
-    // submitBtn.setAttribute('onclick', 'submitArticleInput()');
+    // Get order id and set event listener
+    // let inWhichOrderId = document.getElementById('inWhichOrderId').value;
+    // submitBtn.addEventListener('click', reserveArticle);
 
     form.appendChild(input);
     form.appendChild(p);
@@ -151,18 +177,4 @@
 
   };
 
-  function cancelArticleInput() {
-    let parent = document.getElementById('currentOrderForm');
-    let child = document.getElementById('addedArticleDiv');
-    parent.removeChild(child);
-  };
-
-  function submitArticleInput() {
-
-  };
-
-
-  // $(document).ready(function() {
-  //
-  // });
 </script>
