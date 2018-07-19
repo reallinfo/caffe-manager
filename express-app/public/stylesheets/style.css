@@ -370,6 +370,12 @@ body {
   margin-top: 0;
 }
 
+.deleteOrderBtn {
+  position: relative;
+  bottom: 45px;
+  right: 135px;
+}
+
 .zips {
   width: 100px;
   height: 100px;
@@ -383,6 +389,10 @@ body {
   padding: 10px;
   text-align: center;
   margin: 0 0 10px 0;
+}
+
+#currentOrderForm {
+  min-height: 300px;
 }
 
 .singleTableArticleList {
@@ -425,7 +435,7 @@ body {
   height: 35px;
     transition: width 1s, height 1s, margin 1s;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;w
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -456,32 +466,23 @@ body {
 }
 
 .articleInputForm {
-  background-color: transparent;
-  max-width: 250px;
-  height: 45px;
-  margin: 0;
-  padding: 0;
   position: relative;
-  bottom: 30px;
-  left: 47px;
+  bottom: 5px;
+  max-height: 80px;
 }
 
 .reserveArticleImg {
-  background-color: white;
-  height: 45px;
-  width: 45px;
-  margin: 0 10px 0 0;
   position: relative;
-  top: 18px;
-  left: -7px;
+  float: left;
+  margin-top: 12px;
+  background-color: #f4f4f4;
+  height: 55px;
+  width: 60px;
 }
 
 .reservedArticleInput {
-  position: relative;
-  left: 0;
-  bottom: 5px;
-  margin-left: 0;
-  max-width: 180px;
+  max-width: 170px;
+  margin-left: 5px;
 }
 
 .reservedArticleDiv {
@@ -491,7 +492,7 @@ body {
 
 .timesSign {
   position: relative;
-  left: 190px;
+  left: 225px;
   bottom: 54px;
   margin: 0;
   width: 10px;
@@ -500,7 +501,7 @@ body {
 .qtyInput {
   max-width: 27px;
   position: relative;
-  left: 220px;
+  left: 250px;
   bottom: 90px;
   margin: 0;
 }
@@ -513,9 +514,9 @@ body {
 
 .cancelArticleBtn {
   position: relative;
-  left: 305px;
-  bottom: 120px;
-  padding: 0px 6px 0px 6px;
+  left: 346px;
+  bottom: 115px;
+  padding: 0px 5px 3px 6px;
 }
 
 .cancelArticleBtn:hover {
@@ -524,15 +525,16 @@ body {
 
 .submitArticleBtn {
   position: relative;
-  left: 215px;
+  left: 240px;
   bottom: 90px;
-  width: 50px;
+  min-width: 70px;
   height: 45px;
   border-radius: 10px;
 }
 
 .submitArticleBtn:hover {
   background-color: #b5f28c;
+  border-color: grey;
 }
 
 .reservedArticlesUl {
@@ -541,7 +543,7 @@ body {
   left: 0;
   width: 100%;
   padding: 0;
-  margin: 20px 0 0 0;
+  margin: 40px 0 0 0;
 }
 
 .reservedArticlesLi {
@@ -567,7 +569,7 @@ body {
 
 .deleteReservedArticle {
   position: relative;
-  left: 175px;
+  left: 170px;
   bottom: 125px;
 }
 

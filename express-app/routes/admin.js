@@ -494,6 +494,7 @@ router.post('/order/reserve-article', function(req, res) {
   let reservedArticle = new ReservedArticle();
   // reservedArticle.inWhichOrder = req.body.inWhichOrder;
   reservedArticle.name = req.body.reservedArticleName;
+  // console.log(reservedArticle.name);
   reservedArticle.quantity = req.body.reservedArticleQuantity;
   reservedArticle.updated_date = dateHandler.getCurrentTime();
   // Check if the name is typed and SAVE reserved article in the db

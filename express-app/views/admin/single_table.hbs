@@ -22,13 +22,31 @@
     {{#each ordersResponse.orders as |order|}}
 
     <div class="singleOrder">
-      <form id="currentOrderForm" class="collection" action="">
+      <div id="currentOrderForm" class="collection">
         <input id="inWhichOrderId" class="inWhichOrder" name="inWhichOrder" value="{{_id}}">
 
         <h4 class="orderHeading">Order: {{name}}</h4>
         <a href="#" class="deleteOrderBtn" data-name="{{name}}" data-id="{{_id}}">Delete order</a>
-        <!-- Forms for reserving articles are here -->
-      </form>
+        <!-- Forms for reserving articles -->
+        <div class="reservedArticleDiv collection-item" id="reservedArticleDiv">
+          <form class="articleInputForm" action="/admin/order/reserve-article" method="post">
+            <img id="previewReservingImage" class="reserveArticleImg">
+            <!-- Dropdown for articles -->
+            <div class="input-field col reservedArticleInput">
+              <select id="dropdwn">
+                <option value="" disabled selected>Select</option>
+                {{#each ../articlesResponse.articles as |article|}}
+                  <option class="optionn" value="{{name}}" data-img="/../../{{image}}">{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <p class="timesSign">X</p>
+            <input type="number" value="0" name="reservedArticleQuantity" class="qtyInput">
+            <button type="button" class="cancelArticleBtn" id="cancelArticleBtn" onclick="cancelArticleInput()">x</button>
+            <button type="submit" class="submitArticleBtn" id="submitArticleBtn">Reserve</button>
+          </form>
+        </div>
+      </div>
 
       <!-- List of reserved articles -->
       <ul class="collection reservedArticlesUl">
@@ -47,7 +65,7 @@
         {{/each}}
       </ul>
     </div>
-    
+
     {{/each}}
 </div>
 
@@ -69,8 +87,29 @@
     {{/each}}
   </ul>
 </div>
-
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <script>
+  // Get value from dropdown and assign article value
+  let getDropdown = document.getElementById('dropdwn');
+  getDropdown.addEventListener('change', function(){
+    let getVal = document.getElementById('dropdwn').value;
+    console.log(getVal);
+    getDropdown.setAttribute('name', 'reservedArticleName');
+    getDropdown.value = getVal;
+
+    // Get preview image
+    let nImg = document.getElementById('dropdwn');
+    let getAttrib = $(this).find(':selected').data('img');
+    let previewImage = document.getElementById('previewReservingImage');
+    const imgUrl = `/../../../${getAttrib}`;
+    previewImage.src = imgUrl;
+    console.log(imgUrl);
+  });
+
+
   // Search Articles in single table
   let articleListSingleTable = document.querySelector('#singleTableArticleList');
   let searchSingleTable = document.getElementById('searchArticleSingleTableInput');
@@ -101,80 +140,21 @@
     parent.removeChild(child);
   };
 
-  function reserveArticle() {
+  // Initialize materialize dropdown
+  document.addEventListener('DOMContentLoaded', function() {
+    let options;
+    let elems = document.querySelectorAll('select');
+    let instances = M.FormSelect.init(elems, options);
+  });
 
-  };
-
-  // Create reserve article input in order list
-  function addArticleInput() {
-    const selectedForm = document.getElementById('currentOrderForm');
-
-    // Form element
-    const form = document.createElement("form");
-    form.setAttribute('action', '/admin/order/reserve-article');
-    form.setAttribute('method', 'post');
-    form.className = 'articleInputForm';
-
-    // Input element
-    const input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.setAttribute('name', 'reservedArticleName');
-    input.setAttribute('placeholder', 'Choose article');
-    input.className = 'reservedArticleInput'
-    input.id = 'reservedArticleId';
-
-    // Create div
-    const div = document.createElement('div');
-    div.className = 'reservedArticleDiv collection-item';
-    div.id = 'reservedArticleDiv';
-    // Create article image
-    const img = document.createElement('img');
-    img.className = 'reserveArticleImg';
-    // Create X
-    const p = document.createElement('p');
-    p.className = 'timesSign';
-    const txt = 'X';
-    const xSign = document.createTextNode(txt);
-    p.appendChild(xSign);
-    // Create quantity field
-    let qtyInput = document.createElement('input');
-    qtyInput.setAttribute('type', 'number');
-    qtyInput.setAttribute('value', '0');
-    qtyInput.setAttribute('name', 'reservedArticleQuantity');
-    qtyInput.className = 'qtyInput';
-    // qtyInput.setAttribute("maxLength", 2);
-
-    // Cancel Button
-    const cancelBtn = document.createElement('button');
-    cancelBtn.className = 'cancelArticleBtn';
-    cancelBtn.id = 'cancelArticleBtn';
-    const cancelBtnTxt = 'x';
-    const cancelBtnTxtNode = document.createTextNode(cancelBtnTxt);
-    cancelBtn.appendChild(cancelBtnTxtNode);
-    cancelBtn.setAttribute('type', 'button');
-    cancelBtn.setAttribute('onclick', 'cancelArticleInput()');
-
-    // Submit Button
-    let submitBtn = document.createElement('button');
-    submitBtn.className = 'submitArticleBtn';
-    submitBtn.id = 'submitArticleBtn';
-    let submitBtnTxt = 'Ok';
-    let submitBtnTxtNode = document.createTextNode(submitBtnTxt);
-    submitBtn.appendChild(submitBtnTxtNode);
-    submitBtn.setAttribute('type', 'submit');
-    // Get order id and set event listener
-    // let inWhichOrderId = document.getElementById('inWhichOrderId').value;
-    // submitBtn.addEventListener('click', reserveArticle);
-
-    form.appendChild(input);
-    form.appendChild(p);
-    form.appendChild(qtyInput);
-    form.appendChild(cancelBtn);
-    form.appendChild(submitBtn);
-    div.appendChild(img);
-    div.appendChild(form);
-    selectedForm.appendChild(div);
-
-  };
-
+  // Preview Image for currently reserving article
+  // let getDrop = document.getElementById('dropdwn');
+  // getDrop.addEventListener('click', function(e){
+  //
+  //   let newImgPath  = e.target.getAttribute('data-img');
+  //
+  //   let previewImage = document.getElementById('previewReservingImage');
+  //   previewImage.src = newImgPath;
+  //   console.log(newImgPath);
+  // });
 </script>
