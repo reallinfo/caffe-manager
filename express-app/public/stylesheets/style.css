@@ -172,6 +172,16 @@ body {
   margin-left: 10px;
 }
 
+#inputPreviewImage {
+  display: none;
+  opacity: 0;
+}
+
+#reservedArticleId {
+  display: none;
+  opacity: 0;
+}
+
 .userEditButton {
   position: absolute;
   right: 121px;
@@ -481,7 +491,7 @@ body {
 }
 
 .reservedArticleInput {
-  max-width: 170px;
+  max-width: 165px;
   margin-left: 5px;
 }
 
@@ -559,7 +569,7 @@ body {
 }
 
 .reservedArticleImg {
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   height: 50px;
   width: 50px;
   position: relative;

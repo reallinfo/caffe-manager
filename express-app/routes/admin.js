@@ -166,7 +166,7 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
           orders: orders
         };
         Article.find()
-        .select('_id name image date quantity price inStorage')
+        .select('_id name image quantity price inStorage date updated_date')
         .exec()
         .then(articles => {
           const articlesResponse = {
@@ -174,7 +174,7 @@ router.get('/tables/table/:id', /*auth.ensureAuthenticated,*/ function(req, res,
             articles: articles
           };
           ReservedArticle.find()
-          .select('_id name quantity')
+          .select('_id name quantity image date updated_date')
           .exec()
           .then(reservedArticles => {
             const reservedArticlesResponse = {
@@ -433,7 +433,7 @@ router.post('/warehouse/article/:id/edit', upload.single('newArticleImage'), fun
       if(err){
         console.log(err);
         return;
-      }else{
+      } else {
         res.redirect('/admin/warehouse');
         console.log('Article has been successfuly updated!');
       }
@@ -454,7 +454,7 @@ router.post('/table', function(req, res) {
       if(err){
         console.log(err);
         return;
-      }else{
+      } else {
         res.redirect('/admin/tables');
         console.log('Table has been successfuly added!');
       }
@@ -494,16 +494,31 @@ router.post('/order/reserve-article', function(req, res) {
   let reservedArticle = new ReservedArticle();
   // reservedArticle.inWhichOrder = req.body.inWhichOrder;
   reservedArticle.name = req.body.reservedArticleName;
-  // console.log(reservedArticle.name);
   reservedArticle.quantity = req.body.reservedArticleQuantity;
+  reservedArticle.image = req.body.previewArticleImage;
   reservedArticle.updated_date = dateHandler.getCurrentTime();
   // Check if the name is typed and SAVE reserved article in the db
   if(reservedArticle.name != '' && reservedArticle.quantity != '0' && reservedArticle.quantity != ''){
     reservedArticle.save(function(err){
       if(err){
-        console.log("Failed to reserve article! Error: "+err);
-        return;
-      }else{
+        return console.log("Failed to reserve article! Error: "+err);
+      } else {
+        // Subtract reserved article from the database
+        const articleId = req.body.articleId;
+        console.log(`Reserved article id is: ${articleId}`);
+        const reservedQuantity = reservedArticle.quantity;
+        const artName = reservedArticle.name;
+        const updatedDate = dateHandler.getCurrentTime();
+        console.log(`New quantity of ${artName} in storage is less for: ${reservedQuantity}`);
+        // Find and update article, return new updated article with new:true
+        Article.findOneAndUpdate({ _id: articleId }, { $inc: { quantity: -reservedQuantity}, updated_date: updatedDate }, {new: true}, function(err, article){
+          if(err){
+              console.log(`Something went wrong with updating the ${artName}\s quantity!`);
+          } else {
+            console.log(`${artName} has been updated on ${article.updated_date} with the quantity of: ${article.quantity}`);
+          }
+        });
+
         res.redirect('back');
         console.log('Article has been successfuly saved to the rest of the reserved articles!');
       }
@@ -522,10 +537,16 @@ router.delete('/storage/delete/:id', function(req, res){
 
   Storage.remove(query, function(err){
     if(err){
-      console.log(err);
+      return console.log(err);
     }
-    console.log('Storage deleted successfuly!');
-    res.send('Success');
+    Article.remove({ inStorage: req.params.id }, function(err){
+      if(err){
+
+      } else {
+        console.log('Storage deleted successfuly!');
+        res.send('Success');
+      }
+    });
   });
 });
 

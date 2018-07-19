@@ -30,18 +30,26 @@
         <!-- Forms for reserving articles -->
         <div class="reservedArticleDiv collection-item" id="reservedArticleDiv">
           <form class="articleInputForm" action="/admin/order/reserve-article" method="post">
+            <!-- Preview article image -->
             <img id="previewReservingImage" class="reserveArticleImg">
+            <input type="text" id="inputPreviewImage" name="previewArticleImage">
+            <input id="reservedArticleId" type="text" name="articleId">
             <!-- Dropdown for articles -->
             <div class="input-field col reservedArticleInput">
               <select id="dropdwn">
                 <option value="" disabled selected>Select</option>
                 {{#each ../articlesResponse.articles as |article|}}
-                  <option class="optionn" value="{{name}}" data-img="/../../{{image}}">{{name}}</option>
+                  <option class="optionn" value="{{name}}" data-id="{{_id}}" data-img="/../../{{image}}">{{name}}</option>
                 {{/each}}
               </select>
             </div>
             <p class="timesSign">X</p>
-            <input type="number" value="0" name="reservedArticleQuantity" class="qtyInput">
+            <!-- Quantity input -->
+            <input required type="number" value="0" name="reservedArticleQuantity"
+              class="qtyInput"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+              type = "number"
+              maxlength = "2">
             <button type="button" class="cancelArticleBtn" id="cancelArticleBtn" onclick="cancelArticleInput()">x</button>
             <button type="submit" class="submitArticleBtn" id="submitArticleBtn">Reserve</button>
           </form>
@@ -53,7 +61,7 @@
         <h5>Reserved</h5>
         {{#each ../reservedArticlesResponse.reservedArticles as |reservedArticle|}}
         <li class="collection-item reservedArticleLi">
-          <img src="{{img}}" class="reservedArticleImg">
+          <img src="{{image}}" class="reservedArticleImg">
           <p class="reservedArticleInfo">
             Reserved: {{name}} <br>
             Quantity: {{quantity}}
@@ -87,13 +95,10 @@
     {{/each}}
   </ul>
 </div>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+
 <script>
   // Get value from dropdown and assign article value
-  let getDropdown = document.getElementById('dropdwn');
+  const getDropdown = document.getElementById('dropdwn');
   getDropdown.addEventListener('change', function(){
     let getVal = document.getElementById('dropdwn').value;
     console.log(getVal);
@@ -101,14 +106,22 @@
     getDropdown.value = getVal;
 
     // Get preview image
-    let nImg = document.getElementById('dropdwn');
+    const nImg = document.getElementById('dropdwn');
     let getAttrib = $(this).find(':selected').data('img');
     let previewImage = document.getElementById('previewReservingImage');
-    const imgUrl = `/../../../${getAttrib}`;
+    const imgUrl = `/../../..${getAttrib}`;
     previewImage.src = imgUrl;
     console.log(imgUrl);
-  });
 
+    // Assign image path to the input value so it can be used on server
+    let inputPreviewImage = document.getElementById('inputPreviewImage');
+    inputPreviewImage.value = imgUrl;
+
+    // Get id of the reserved article
+    let articleId = $(this).find(':selected').data('id');
+    let reservedArticleId = document.getElementById('reservedArticleId');
+    reservedArticleId.value = articleId;
+  });
 
   // Search Articles in single table
   let articleListSingleTable = document.querySelector('#singleTableArticleList');
@@ -147,14 +160,4 @@
     let instances = M.FormSelect.init(elems, options);
   });
 
-  // Preview Image for currently reserving article
-  // let getDrop = document.getElementById('dropdwn');
-  // getDrop.addEventListener('click', function(e){
-  //
-  //   let newImgPath  = e.target.getAttribute('data-img');
-  //
-  //   let previewImage = document.getElementById('previewReservingImage');
-  //   previewImage.src = newImgPath;
-  //   console.log(newImgPath);
-  // });
 </script>

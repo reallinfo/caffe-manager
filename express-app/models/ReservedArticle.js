@@ -7,12 +7,15 @@ const reservedArticleSchema = new Schema({
     required: true
   },
   quantity: {
-    type: String,
+    type: Number,
     required: true
   },
   inWhichOrder: {
     type: String
     // required: true
+  },
+  image: {
+    type: String
   },
   updated_date: {
     type: String,
