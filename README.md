@@ -1,3 +1,5 @@
+<p align="left"><img src="logo/horizontal.png" alt="caffe-manager" height="130px"></p>
+
 # caffè-manager
 
 Application which will help managing the coffe shop or a store.
